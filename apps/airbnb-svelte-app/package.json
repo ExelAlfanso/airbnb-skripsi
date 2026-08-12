@@ -6,8 +6,12 @@
   "scripts": {
     "dev": "vite dev --host 0.0.0.0 --port 5173",
     "build": "vite build",
-    "preview": "vite preview",
-    "check": "svelte-check --tsconfig ./tsconfig.json"
+    "preview": "vite preview --host 0.0.0.0 --port 5173",
+    "start": "vite preview --host 0.0.0.0 --port 5173",
+    "check": "svelte-check --tsconfig ./tsconfig.json",
+    "test": "vitest run",
+    "test:unit": "vitest run src/catalog.test.ts",
+    "test:integration": "vitest run src/components/property-explorer.test.ts"
   },
   "dependencies": {
     "@airbnb-skripsi/api": "workspace:*",
@@ -16,7 +20,12 @@
     "vite": "latest"
   },
   "devDependencies": {
+    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/svelte": "^5.4.2",
+    "@testing-library/user-event": "^14.6.4",
+    "jsdom": "^30.0.1",
     "svelte-check": "latest",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "vitest": "^4.1.10"
   }
 }
