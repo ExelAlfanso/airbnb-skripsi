@@ -10,12 +10,13 @@
     "check": "svelte-check --tsconfig ./tsconfig.json"
   },
   "dependencies": {
+    "@airbnb-skripsi/api": "workspace:*",
     "@sveltejs/vite-plugin-svelte": "latest",
     "svelte": "latest",
     "vite": "latest"
   },
   "devDependencies": {
     "svelte-check": "latest",
-    "typescript": "latest"
+    "typescript": "^5.9.3"
   }
 }

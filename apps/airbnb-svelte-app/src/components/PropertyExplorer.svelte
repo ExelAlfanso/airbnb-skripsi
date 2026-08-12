@@ -1,0 +1,476 @@
+<script lang="ts">
+  import type {
+    PaginatedResponse,
+    PropertyDetail,
+    PropertyListItem,
+  } from "@airbnb-skripsi/api/catalog";
+  import { onMount } from "svelte";
+  import {
+    type CatalogFilters,
+    type CatalogOptions,
+    createDefaultFilters,
+    fetchCatalogOptions,
+    fetchPropertyDetail,
+    fetchPropertyPage,
+  } from "../catalog";
+  import PropertyDetailView from "./PropertyDetail.svelte";
+  import PropertyGrid from "./PropertyGrid.svelte";
+  import SearchFilters from "./SearchFilters.svelte";
+
+  type PaginationMeta = PaginatedResponse<PropertyListItem>["meta"];
+
+  const SKELETON_ITEMS = [0, 1, 2, 3];
+  let options: CatalogOptions = $state.raw({
+    amenities: [],
+    locations: [],
+    propertyTypes: [],
+  });
+  let filters: CatalogFilters = $state.raw(createDefaultFilters());
+  let properties: PropertyListItem[] = $state.raw([]);
+  let pagination = $state.raw<PaginationMeta | null>(null);
+  let detail = $state.raw<PropertyDetail | null>(null);
+  let selectedId: string | null = $state(null);
+  let wishlistStates: Record<string, boolean> = $state.raw({});
+  let loadingOptions = $state(false);
+  let loadingList = $state(false);
+  let loadingDetail = $state(false);
+  let optionsError: string | null = $state(null);
+  let listError: string | null = $state(null);
+  let detailError: string | null = $state(null);
+  let listRequestId = 0;
+  let detailRequestId = 0;
+
+  let errorMessage = $derived(listError ?? optionsError);
+  let resultLabel = $derived(`${pagination?.total ?? 0} properti ditemukan`);
+
+  onMount(() => {
+    void initialize();
+  });
+
+  async function initialize(): Promise<void> {
+    await Promise.all([loadOptions(), loadProperties(true)]);
+  }
+
+  async function loadOptions(): Promise<void> {
+    loadingOptions = true;
+    optionsError = null;
+
+    try {
+      options = await fetchCatalogOptions();
+    } catch (error) {
+      optionsError = messageFrom(error);
+    } finally {
+      loadingOptions = false;
+    }
+  }
+
+  async function loadProperties(reset: boolean): Promise<void> {
+    const requestId = ++listRequestId;
+    const nextPage = reset ? 1 : (pagination?.page ?? 0) + 1;
+    loadingList = true;
+    listError = null;
+
+    try {
+      const response = await fetchPropertyPage(filters, nextPage);
+
+      if (requestId !== listRequestId) {
+        return;
+      }
+
+      properties = reset ? response.data : [...properties, ...response.data];
+      pagination = response.meta;
+      mergeWishlist(response.data);
+    } catch (error) {
+      if (requestId === listRequestId) {
+        listError = messageFrom(error);
+      }
+    } finally {
+      if (requestId === listRequestId) {
+        loadingList = false;
+      }
+    }
+  }
+
+  function handleSearch(nextFilters: CatalogFilters): void {
+    filters = nextFilters;
+    selectedId = null;
+    detail = null;
+    void loadProperties(true);
+  }
+
+  function handleReset(): void {
+    handleSearch(createDefaultFilters());
+  }
+
+  async function openProperty(id: string): Promise<void> {
+    const requestId = ++detailRequestId;
+    selectedId = id;
+    detail = null;
+    detailError = null;
+    loadingDetail = true;
+    window.scrollTo({ behavior: "smooth", top: 0 });
+
+    try {
+      const response = await fetchPropertyDetail(id);
+
+      if (requestId !== detailRequestId) {
+        return;
+      }
+
+      detail = response;
+      mergeWishlist([response]);
+    } catch (error) {
+      if (requestId === detailRequestId) {
+        detailError = messageFrom(error);
+      }
+    } finally {
+      if (requestId === detailRequestId) {
+        loadingDetail = false;
+      }
+    }
+  }
+
+  function closeDetail(): void {
+    detailRequestId += 1;
+    selectedId = null;
+    detail = null;
+    detailError = null;
+    loadingDetail = false;
+    window.scrollTo({ behavior: "smooth", top: 0 });
+  }
+
+  function toggleWishlist(id: string): void {
+    wishlistStates = {
+      ...wishlistStates,
+      [id]: !(wishlistStates[id] ?? false),
+    };
+  }
+
+  function mergeWishlist(
+    items: Array<PropertyListItem | PropertyDetail>
+  ): void {
+    const next = { ...wishlistStates };
+
+    for (const item of items) {
+      if (!(item.id in next)) {
+        next[item.id] = item.isWishlisted;
+      }
+    }
+
+    wishlistStates = next;
+  }
+
+  function messageFrom(error: unknown): string {
+    return error instanceof Error
+      ? error.message
+      : "Terjadi kesalahan. Coba lagi.";
+  }
+</script>
+
+<div class="app">
+  <header class="site-header">
+    <a class="brand" href="/" aria-label="StayCompare beranda">
+      <span class="brand__mark" aria-hidden="true">?</span>
+      <span>StayCompare</span>
+    </a>
+    <p>Satu dataset ? Satu API ? Dua framework</p>
+  </header>
+
+  <main class="container">
+    {#if selectedId}
+      {#if loadingDetail}
+        <div class="status-panel" aria-live="polite" role="status">
+          Memuat detail properti...
+        </div>
+      {:else if detailError}
+        <div class="status-panel status-panel--error">
+          <p>{detailError}</p>
+          <button type="button" onclick={closeDetail}>Kembali ke hasil</button>
+        </div>
+      {:else if detail}
+        <PropertyDetailView
+          back={closeDetail}
+          property={detail}
+          {toggleWishlist}
+          wishlisted={wishlistStates[detail.id] ?? false}
+        />
+      {/if}
+    {:else}
+      <section class="hero">
+        <p class="hero__eyebrow">Eksperimen frontend skripsi</p>
+        <h1>Temukan tempat singgah yang terasa tepat.</h1>
+        <p class="hero__copy">
+          Jelajahi dataset properti yang sama pada implementasi Vue dan Svelte,
+          lengkap dengan pencarian, filter, dan detail.
+        </p>
+
+        <SearchFilters
+          disabled={loadingList || loadingOptions}
+          {options}
+          reset={handleReset}
+          search={handleSearch}
+        />
+      </section>
+
+      <section class="results" aria-labelledby="results-title">
+        <div class="results__heading">
+          <div>
+            <p class="results__eyebrow">Pilihan untuk Anda</p>
+            <h2 id="results-title">{resultLabel}</h2>
+          </div>
+          {#if pagination}
+            <p>
+              Halaman {pagination.page} dari
+              {Math.max(pagination.totalPages, 1)}
+            </p>
+          {/if}
+        </div>
+
+        {#if errorMessage}
+          <div class="status-panel status-panel--error">
+            <p>{errorMessage}</p>
+            <button type="button" onclick={() => loadProperties(true)}>
+              Coba lagi
+            </button>
+          </div>
+        {:else if loadingList && properties.length === 0}
+          <div class="skeleton-grid" aria-live="polite" role="status">
+            <span class="sr-only">Memuat properti...</span>
+            {#each SKELETON_ITEMS as item (item)}
+              <div class="skeleton-card"></div>
+            {/each}
+          </div>
+        {:else if properties.length === 0}
+          <div class="status-panel" aria-live="polite">
+            <p>Tidak ada properti yang cocok dengan filter ini.</p>
+            <button type="button" onclick={handleReset}>Reset filter</button>
+          </div>
+        {:else}
+          <PropertyGrid
+            {openProperty}
+            {properties}
+            {toggleWishlist}
+            {wishlistStates}
+          />
+
+          <div class="load-more">
+            {#if pagination?.hasMore}
+              <button
+                disabled={loadingList}
+                type="button"
+                onclick={() => loadProperties(false)}
+              >
+                {loadingList ? "Memuat..." : "Muat lebih banyak"}
+              </button>
+            {:else}
+              <p>Semua properti sudah ditampilkan.</p>
+            {/if}
+          </div>
+        {/if}
+      </section>
+    {/if}
+  </main>
+
+  <footer class="site-footer">
+    <p>Prototype penelitian ? Data dummy deterministik ? Tanpa transaksi</p>
+  </footer>
+</div>
+
+<style>
+  .app {
+    min-height: 100vh;
+  }
+
+  .container,
+  .site-header,
+  .site-footer {
+    width: min(100% - 2rem, 76rem);
+    margin-inline: auto;
+  }
+
+  .site-header {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 4.75rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .site-header p {
+    margin: 0;
+    font-size: 0.82rem;
+    color: var(--muted);
+  }
+
+  .brand {
+    display: inline-flex;
+    gap: 0.6rem;
+    align-items: center;
+    font-weight: 820;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  .brand__mark {
+    display: grid;
+    place-items: center;
+    width: 2rem;
+    height: 2rem;
+    color: white;
+    background: var(--brand);
+    border-radius: 0.65rem;
+  }
+
+  .hero {
+    padding: clamp(3.5rem, 8vw, 7rem) 0 2.5rem;
+  }
+
+  .hero__eyebrow,
+  .results__eyebrow {
+    margin: 0 0 0.65rem;
+    font-size: 0.76rem;
+    font-weight: 800;
+    color: var(--brand-dark);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  .hero h1 {
+    max-width: 55rem;
+    margin: 0;
+    font-size: clamp(2.8rem, 8vw, 6.6rem);
+    line-height: 0.94;
+    letter-spacing: -0.065em;
+  }
+
+  .hero__copy {
+    max-width: 42rem;
+    margin: 1.25rem 0 2rem;
+    font-size: clamp(1rem, 2vw, 1.18rem);
+    line-height: 1.65;
+    color: var(--muted);
+  }
+
+  .results {
+    padding: 2.5rem 0 4rem;
+  }
+
+  .results__heading {
+    display: flex;
+    gap: 1rem;
+    align-items: end;
+    justify-content: space-between;
+    margin-bottom: 1.25rem;
+  }
+
+  .results__heading h2,
+  .results__heading p {
+    margin: 0;
+  }
+
+  .results__heading h2 {
+    font-size: clamp(1.65rem, 4vw, 2.5rem);
+    letter-spacing: -0.035em;
+  }
+
+  .results__heading > p {
+    font-size: 0.88rem;
+    color: var(--muted);
+  }
+
+  .status-panel {
+    display: grid;
+    place-items: center;
+    min-height: 13rem;
+    padding: 2rem;
+    text-align: center;
+    background: var(--surface);
+    border: 1px dashed var(--border-strong);
+    border-radius: 1.25rem;
+  }
+
+  .status-panel p {
+    margin: 0;
+  }
+
+  .status-panel button,
+  .load-more button {
+    padding: 0.7rem 1rem;
+    font-weight: 750;
+    color: white;
+    background: var(--ink);
+    border-radius: 999px;
+  }
+
+  .status-panel--error {
+    color: #8b1e2d;
+    background: #fff7f8;
+  }
+
+  .skeleton-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+  }
+
+  .skeleton-card {
+    min-height: 24rem;
+    background:
+      linear-gradient(
+        100deg,
+        transparent 20%,
+        rgb(255 255 255 / 55%) 45%,
+        transparent 70%
+      ),
+      var(--surface-soft);
+    background-size: 200% 100%;
+    border-radius: 1.35rem;
+    animation: shimmer 1.3s infinite linear;
+  }
+
+  .load-more {
+    display: grid;
+    place-items: center;
+    min-height: 7rem;
+  }
+
+  .load-more p {
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .site-footer {
+    padding: 1.5rem 0 2.5rem;
+    font-size: 0.82rem;
+    color: var(--muted);
+    text-align: center;
+    border-top: 1px solid var(--border);
+  }
+
+  @keyframes shimmer {
+    to {
+      background-position-x: -200%;
+    }
+  }
+
+  @media (max-width: 700px) {
+    .site-header {
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      padding-block: 1rem;
+    }
+
+    .skeleton-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton-card {
+      animation: none;
+    }
+  }
+</style>

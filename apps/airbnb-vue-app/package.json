@@ -10,14 +10,13 @@
     "check": "vue-tsc --noEmit"
   },
   "dependencies": {
+    "@airbnb-skripsi/api": "workspace:*",
     "@vitejs/plugin-vue": "latest",
-    "pinia": "^4.0.2",
     "vite": "latest",
-    "vue": "latest",
-    "vue-router": "^5.2.0"
+    "vue": "latest"
   },
   "devDependencies": {
-    "typescript": "latest",
+    "typescript": "^5.9.3",
     "vue-tsc": "latest"
   }
 }

@@ -8,6 +8,14 @@
     ".": {
       "types": "./src/app.ts",
       "import": "./src/app.ts"
+    },
+    "./catalog": {
+      "types": "./src/modules/property-catalog/model.ts",
+      "import": "./src/modules/property-catalog/model.ts"
+    },
+    "./client": {
+      "types": "./src/client.ts",
+      "import": "./src/client.ts"
     }
   },
   "scripts": {
