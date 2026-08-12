@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@vitejs/plugin-vue": "latest",
+    "pinia": "^4.0.2",
     "vite": "latest",
-    "vue": "latest"
+    "vue": "latest",
+    "vue-router": "^5.2.0"
   },
   "devDependencies": {
     "typescript": "latest",
