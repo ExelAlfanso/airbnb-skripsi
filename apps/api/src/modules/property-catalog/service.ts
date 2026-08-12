@@ -11,13 +11,9 @@ import type {
   PropertyType,
   SortOption,
 } from "./model";
-import {
-  findPropertyById,
-  getPropertyCatalogSnapshot,
-  listAmenities as listAmenityEntities,
-  listLocations as listLocationEntities,
-  listPropertyTypes as listPropertyTypeEntities,
-  type PropertyCatalogSnapshot,
+import type {
+  PropertyCatalogRepository,
+  PropertyCatalogSnapshot,
 } from "./repository";
 
 type QueryValue = string | string[] | undefined;
@@ -52,16 +48,17 @@ const sortOptions = [
   "rating_desc",
 ] as const;
 
-export function listProperties(
+export async function listProperties(
+  repository: PropertyCatalogRepository,
   rawQuery: RawPropertyQuery
-): ListPropertiesResult {
+): Promise<ListPropertiesResult> {
   const parsedQuery = parsePropertyQuery(rawQuery);
 
   if (!parsedQuery.ok) {
     return parsedQuery;
   }
 
-  const snapshot = getPropertyCatalogSnapshot();
+  const snapshot = await repository.getSnapshot();
   const filtered = filterProperties(snapshot, parsedQuery.value);
   const sorted = sortProperties(filtered, parsedQuery.value.sort);
   const { page, limit } = parsedQuery.value;
@@ -85,9 +82,12 @@ export function listProperties(
   };
 }
 
-export function getPropertyDetail(id: string): PropertyDetailResult {
-  const snapshot = getPropertyCatalogSnapshot();
-  const property = findPropertyById(id);
+export async function getPropertyDetail(
+  repository: PropertyCatalogRepository,
+  id: string
+): Promise<PropertyDetailResult> {
+  const snapshot = await repository.getSnapshot();
+  const property = snapshot.properties.find((item) => item.id === id);
 
   if (!property) {
     return {
@@ -108,16 +108,22 @@ export function getPropertyDetail(id: string): PropertyDetailResult {
   };
 }
 
-export function listLocations(): Location[] {
-  return listLocationEntities();
+export async function listLocations(
+  repository: PropertyCatalogRepository
+): Promise<Location[]> {
+  return (await repository.getSnapshot()).locations;
 }
 
-export function listPropertyTypes(): PropertyType[] {
-  return listPropertyTypeEntities();
+export async function listPropertyTypes(
+  repository: PropertyCatalogRepository
+): Promise<PropertyType[]> {
+  return (await repository.getSnapshot()).propertyTypes;
 }
 
-export function listAmenities(): Amenity[] {
-  return listAmenityEntities();
+export async function listAmenities(
+  repository: PropertyCatalogRepository
+): Promise<Amenity[]> {
+  return (await repository.getSnapshot()).amenities;
 }
 
 function parsePropertyQuery(

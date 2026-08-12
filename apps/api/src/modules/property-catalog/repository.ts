@@ -7,7 +7,9 @@ import {
   propertyImages,
   propertyTypes,
   wishlistStates,
-} from "./data";
+} from "@airbnb-skripsi/db";
+import type { BunSQLiteDatabase } from "drizzle-orm/bun-sqlite";
+import type { DrizzleD1Database } from "drizzle-orm/d1";
 import type {
   Amenity,
   Host,
@@ -30,31 +32,60 @@ export interface PropertyCatalogSnapshot {
   wishlistStates: WishlistState[];
 }
 
-export function getPropertyCatalogSnapshot(): PropertyCatalogSnapshot {
+export interface PropertyCatalogRepository {
+  getSnapshot(): Promise<PropertyCatalogSnapshot>;
+}
+
+export const catalogSchema = {
+  amenities,
+  hosts,
+  locations,
+  properties,
+  propertyAmenities,
+  propertyImages,
+  propertyTypes,
+  wishlistStates,
+};
+
+type CatalogDatabase =
+  | BunSQLiteDatabase<typeof catalogSchema>
+  | DrizzleD1Database<typeof catalogSchema>;
+
+export function createPropertyCatalogRepository(
+  database: CatalogDatabase
+): PropertyCatalogRepository {
   return {
-    properties,
-    locations,
-    propertyTypes,
-    hosts,
-    amenities,
-    propertyAmenities,
-    propertyImages,
-    wishlistStates,
+    async getSnapshot() {
+      const [
+        amenityRows,
+        hostRows,
+        locationRows,
+        propertyRows,
+        propertyAmenityRows,
+        propertyImageRows,
+        propertyTypeRows,
+        wishlistStateRows,
+      ] = await Promise.all([
+        database.select().from(amenities),
+        database.select().from(hosts),
+        database.select().from(locations),
+        database.select().from(properties),
+        database.select().from(propertyAmenities),
+        database.select().from(propertyImages),
+        database.select().from(propertyTypes),
+        database.select().from(wishlistStates),
+      ]);
+
+      return {
+        amenities: amenityRows,
+        hosts: hostRows,
+        locations: locationRows,
+        properties: propertyRows,
+        propertyAmenities: propertyAmenityRows,
+        propertyImages: propertyImageRows,
+        propertyTypes: propertyTypeRows,
+        wishlistStates: wishlistStateRows,
+      };
+    },
   };
-}
-
-export function listLocations(): Location[] {
-  return [...locations];
-}
-
-export function listPropertyTypes(): PropertyType[] {
-  return [...propertyTypes];
-}
-
-export function listAmenities(): Amenity[] {
-  return [...amenities];
-}
-
-export function findPropertyById(id: string): Property | undefined {
-  return properties.find((property) => property.id === id);
 }

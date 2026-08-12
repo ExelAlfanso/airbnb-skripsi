@@ -13,9 +13,16 @@ describe("system routes", () => {
   });
 
   test("GET /health returns health status", async () => {
-    const response = await app.handle(new Request("http://localhost/health"));
+    const response = await app.handle(
+      new Request("http://localhost/health", {
+        headers: { Origin: "http://localhost:5173" },
+      })
+    );
 
     expect(response.status).toBe(200);
+    expect(response.headers.get("access-control-allow-origin")).toBe(
+      "http://localhost:5173"
+    );
     expect(await response.json()).toEqual({
       status: "ok",
     });

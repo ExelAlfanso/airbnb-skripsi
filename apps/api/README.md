@@ -1,6 +1,6 @@
 # API deployment with Alchemy and Cloudflare
 
-`apps/api` runs locally on Bun through `src/index.ts` and deploys to Cloudflare Workers through `src/worker.ts`. Both entrypoints reuse the same exported Elysia application.
+`apps/api` runs locally on Bun through `src/index.ts` and deploys to Cloudflare Workers through `src/worker.ts`. Both entrypoints reuse the same Elysia routes and the Drizzle schema in `packages/db`.
 
 ## 1. Install dependencies
 
@@ -44,7 +44,9 @@ After reviewing the plan:
 bun run infra:deploy --stage dev_yourname
 ```
 
-Alchemy prints `apiUrl` after deployment. Verify it with:
+Alchemy provisions a D1 database for the stage, applies SQL files from
+`packages/db/migrations`, binds it to the Worker as `DB`, and prints `apiUrl`.
+Verify it with:
 
 ```bash
 curl https://your-worker-url/health
@@ -64,4 +66,7 @@ This deletes resources managed by that stack stage:
 bun run infra:destroy --stage dev_yourname
 ```
 
-No custom domain, database binding, or R2 bucket is provisioned yet. Add each only when the API consumes it.
+Local Bun development uses an in-memory SQLite database populated from the same
+migrations. R2 and a custom domain are not provisioned because the current
+catalog references external image URLs; add R2 only when image files are owned
+by this project.

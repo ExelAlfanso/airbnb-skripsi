@@ -1,9 +1,6 @@
-import { Elysia } from "elysia";
-import { propertyCatalogModule } from "./modules/property-catalog";
-import { systemModule } from "./modules/system";
+import { createApp } from "./create-app";
+import { createLocalPropertyCatalogRepository } from "./local-repository";
 
-export const app = new Elysia({ name: "App" })
-  .use(systemModule)
-  .use(propertyCatalogModule);
+export const app = createApp(await createLocalPropertyCatalogRepository());
 
 export type App = typeof app;
