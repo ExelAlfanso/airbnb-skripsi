@@ -123,3 +123,12 @@ export const propertyAmenities = sqliteTable(
     index("property_amenities_amenity_idx").on(table.amenityId),
   ]
 );
+
+export const wishlistStates = sqliteTable("wishlist_states", {
+  propertyId: text("property_id")
+    .primaryKey()
+    .references(() => properties.id, { onDelete: "cascade" }),
+  isWishlisted: integer("is_wishlisted", { mode: "boolean" })
+    .notNull()
+    .default(false),
+});

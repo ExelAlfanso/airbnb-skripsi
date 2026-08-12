@@ -10,8 +10,8 @@ It targets SQLite-compatible Cloudflare D1 through Drizzle ORM.
 - The initial migration includes the deterministic dummy dataset used by both
   frontends.
 
-Wishlist state is intentionally absent from D1. It is local browser state and
-is reset independently for each frontend experiment.
+The migration provides identical initial wishlist values to both frontends.
+Wishlist toggles remain local browser state and are never written back to D1.
 
 ## Change the schema
 
