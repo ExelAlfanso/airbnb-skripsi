@@ -11,6 +11,17 @@ Panduan kerja multi-agent untuk backend `apps/api`.
 - Runtime entrypoint: `src/index.ts` only starts the Bun server.
 - Validation command: `bun run check`.
 
+## Required Skill Order
+
+Before planning, reviewing, or changing code under `apps/api`:
+
+1. Read `.agents/skills/elysiajs/SKILL.md` completely.
+2. Read the ElysiaJS references routed by that skill for the current task. For Cloudflare work, this includes `integrations/cloudflare-worker.md`; for deployment changes, also read `references/deployment.md` and `references/testing.md`.
+3. Use `$ponytail` to keep the implementation minimal, reuse existing code, and avoid speculative infrastructure or dependencies.
+4. Use `$caveman` for concise agent updates and handoffs. Keep source code, comments, documentation, commit messages, and pull request text in normal professional prose.
+
+Do not start ElysiaJS implementation work until the required skill and task-specific references have been read. When local guidance and current official documentation differ, verify the latest official ElysiaJS documentation before changing code.
+
 ## Shared Rules
 
 - Keep changes scoped to this API package unless the task explicitly says otherwise.
