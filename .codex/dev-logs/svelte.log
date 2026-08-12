@@ -1,5 +1,5 @@
 
-> @behance-skripsi/svelte-app@0.1.0 dev C:\Users\thecl\OneDrive\Documents\Projects\behance-skripsi\apps\behance-svelte-app
+> @airbnb-skripsi/svelte-app@0.1.0 dev C:\Users\thecl\OneDrive\Documents\Projects\airbnb-skripsi\apps\airbnb-svelte-app
 > vite dev --host 0.0.0.0 --port 5173
 
 [2m4:15:35 PM[22m [36m[1m[vite][22m[39m [90m[2m(client)[22m[39m Forced re-optimization of dependencies

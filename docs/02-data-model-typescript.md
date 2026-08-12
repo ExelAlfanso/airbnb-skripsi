@@ -4,6 +4,8 @@
 
 Data model TypeScript digunakan sebagai rancangan tipe data awal untuk backend ElysiaJS dan API client Eden Treaty. Tipe ini membantu menjaga konsistensi struktur data antara backend, frontend VueJS, dan frontend Svelte.
 
+Sumber data aktual berasal dari PostgreSQL yang didefinisikan melalui Drizzle ORM pada package `packages/db`. TypeScript data model pada dokumen ini adalah bentuk entity dan response yang diekspos oleh API, bukan pengganti schema database. Jika ada perbedaan antara field database dan response API, service layer bertanggung jawab melakukan mapping.
+
 ## Core Entity Types
 
 ```ts
@@ -137,6 +139,27 @@ export type ApiErrorResponse = {
 }
 ```
 
+## Frontend State untuk Load More
+
+Tipe berikut adalah rancangan state lokal frontend, bukan response API baru:
+
+~~~ts
+export type LoadMoreListState<T> = {
+  items: T[]
+  page: number
+  hasMore: boolean
+  isLoading: boolean
+}
+~~~
+
+Aturan penggunaannya:
+
+- `items` berisi gabungan data dari seluruh halaman yang sudah berhasil diambil.
+- `page` menyimpan halaman terakhir yang berhasil dimuat.
+- `hasMore` diambil dari `response.meta.hasMore`.
+- `isLoading` mencegah request `load more` ganda ketika request sebelumnya belum selesai.
+- Search, filter, atau sorting baru harus mengosongkan `items`, mengatur `page` kembali ke `1`, lalu mengambil data awal.
+
 ## Query Types
 
 ```ts
@@ -162,6 +185,12 @@ export type PropertyQueryParams = {
   limit?: number
 }
 ```
+
+## Wishlist Dummy pada Response
+
+Field `isWishlisted` pada `PropertyListItem` dan `PropertyDetail` menyediakan status awal untuk UI wishlist. Pada tahap prototipe, frontend boleh mengubah nilai tersebut di state lokal saat pengguna menekan tombol wishlist.
+
+Tidak ada `userId`, session wishlist, atau endpoint `POST`, `PUT`, maupun `DELETE` khusus wishlist dalam kontrak API. Karena itu, perubahan status tidak dianggap sebagai perubahan data permanen dan dapat kembali ke nilai awal setelah refresh atau state aplikasi dihapus.
 
 ## Perbedaan PropertyListItem dan PropertyDetail
 

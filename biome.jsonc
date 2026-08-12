@@ -4,5 +4,8 @@
     "ultracite/biome/core",
     "ultracite/biome/svelte",
     "ultracite/biome/vue"
-  ]
+  ],
+  "files": {
+    "includes": ["!.agents", "!**/.agents"]
+  }
 }

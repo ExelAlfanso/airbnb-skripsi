@@ -111,6 +111,16 @@ PaginatedResponse<PropertyListItem>
 }
 ```
 
+### Perilaku Load More pada Frontend
+
+Endpoint ini juga menjadi sumber data untuk pola `load more`. Tidak ada endpoint khusus untuk mengambil data tambahan.
+
+- Request awal menggunakan `GET /properties?page=1&limit=12` beserta parameter search, filter, dan sorting yang aktif.
+- Request berikutnya menaikkan nilai `page`, misalnya `page=2`, dengan parameter lainnya tetap sama.
+- Frontend menambahkan isi `data` dari response baru ke daftar yang sudah ada.
+- `meta.hasMore` harus digunakan untuk menghentikan request dan menyembunyikan atau menonaktifkan tombol `Load more` ketika bernilai `false`.
+- Ketika parameter query berubah, frontend harus membuang data lama dan memulai request baru dari `page=1`.
+
 ## GET /properties/:id
 
 ### Tujuan
@@ -212,6 +222,19 @@ ApiErrorResponse
   }
 }
 ```
+
+## Wishlist Dummy
+
+Wishlist dummy tidak memiliki endpoint khusus. Status awal dikirim sebagai field `isWishlisted` pada response `GET /properties` dan `GET /properties/:id`.
+
+Frontend bertanggung jawab untuk:
+
+- Menampilkan status wishlist pada card listing dan halaman detail.
+- Melakukan toggle status secara lokal ketika tombol wishlist ditekan.
+- Menggunakan state lokal yang sama agar perubahan dari listing dapat terlihat pada detail, dan sebaliknya, selama aplikasi aktif.
+- Tidak menganggap toggle sebagai penyimpanan permanen.
+
+Backend tidak menerima atau menyimpan `userId` untuk wishlist pada tahap ini. Tidak ada kontrak `POST`, `PUT`, atau `DELETE` untuk wishlist. Status dapat kembali ke nilai awal setelah refresh, penghapusan state aplikasi, atau perpindahan ke frontend penelitian lainnya.
 
 ## GET /locations
 

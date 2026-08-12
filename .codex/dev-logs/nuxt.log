@@ -1,5 +1,5 @@
 
-> @behance-skripsi/nuxt-app@0.1.0 dev C:\Users\thecl\OneDrive\Documents\Projects\behance-skripsi\apps\behance-nuxt-app
+> @airbnb-skripsi/nuxt-app@0.1.0 dev C:\Users\thecl\OneDrive\Documents\Projects\airbnb-skripsi\apps\airbnb-nuxt-app
 > nuxt dev --port 3000
 
 │
@@ -15,10 +15,10 @@
 [90m[[90mnitro[90m][39m [32m✔[39m Nuxt Nitro server built in 2726ms
 [36mℹ[39m Vite server warmed up in 4ms
 [36mℹ[39m Vite client warmed up in 9ms
-[36mℹ[39m changed tsconfig file detected: C:/Users/thecl/OneDrive/Documents/Projects/behance-skripsi/apps/behance-nuxt-app/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.
-[36mℹ[39m changed tsconfig file detected: C:/Users/thecl/OneDrive/Documents/Projects/behance-skripsi/apps/behance-nuxt-app/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.[2m (x2)[22m
-[36mℹ[39m changed tsconfig file detected: C:/Users/thecl/OneDrive/Documents/Projects/behance-skripsi/apps/behance-nuxt-app/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.[2m (x3)[22m
+[36mℹ[39m changed tsconfig file detected: C:/Users/thecl/OneDrive/Documents/Projects/airbnb-skripsi/apps/airbnb-nuxt-app/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.
+[36mℹ[39m changed tsconfig file detected: C:/Users/thecl/OneDrive/Documents/Projects/airbnb-skripsi/apps/airbnb-nuxt-app/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.[2m (x2)[22m
+[36mℹ[39m changed tsconfig file detected: C:/Users/thecl/OneDrive/Documents/Projects/airbnb-skripsi/apps/airbnb-nuxt-app/tsconfig.json - Clearing cache and forcing full-reload to ensure TypeScript is compiled with updated config values.[2m (x3)[22m
 [36mℹ[39m [32mpage reload [39m[2mapp.vue[22m
-C:\Users\thecl\OneDrive\Documents\Projects\behance-skripsi\apps\behance-nuxt-app:
- ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @behance-skripsi/nuxt-app@0.1.0 dev: `nuxt dev --port 3000`
+C:\Users\thecl\OneDrive\Documents\Projects\airbnb-skripsi\apps\airbnb-nuxt-app:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @airbnb-skripsi/nuxt-app@0.1.0 dev: `nuxt dev --port 3000`
 Exit status 1073807364

@@ -39,38 +39,46 @@ Prinsip yang perlu dijaga:
 - Struktur package harus stabil agar import antar workspace tidak mudah rusak.
 - Perubahan endpoint harus dianggap sebagai perubahan kontrak yang berdampak pada dua frontend.
 
+Data yang dikembalikan endpoint berasal dari PostgreSQL melalui Drizzle ORM. Backend Elysia tidak menyimpan dataset lokal sebagai sumber utama. Akses database dilakukan lewat repository layer agar route tetap tipis dan service layer tidak bergantung langsung pada detail query.
+
 ## Rekomendasi Struktur Folder Backend
 
 ```txt
 apps/api/
-├─ src/
-│  ├─ index.ts
-│  ├─ app.ts
-│  ├─ routes/
-│  │  ├─ health.route.ts
-│  │  ├─ property.route.ts
-│  │  ├─ location.route.ts
-│  │  ├─ property-type.route.ts
-│  │  └─ amenity.route.ts
-│  ├─ services/
-│  │  ├─ property.service.ts
-│  │  ├─ location.service.ts
-│  │  ├─ property-type.service.ts
-│  │  └─ amenity.service.ts
-│  ├─ schemas/
-│  │  ├─ property.schema.ts
-│  │  ├─ query.schema.ts
-│  │  └─ error.schema.ts
-│  ├─ data/
-│  │  ├─ properties.ts
-│  │  ├─ locations.ts
-│  │  ├─ property-types.ts
-│  │  └─ amenities.ts
-│  └─ types/
-│     ├─ property.type.ts
-│     └─ api-response.type.ts
-├─ package.json
-└─ tsconfig.json
+|-- src/
+|   |-- index.ts
+|   |-- app.ts
+|   |-- db/
+|   |   `-- client.ts
+|   |-- routes/
+|   |   |-- health.route.ts
+|   |   |-- property.route.ts
+|   |   |-- location.route.ts
+|   |   |-- property-type.route.ts
+|   |   `-- amenity.route.ts
+|   |-- services/
+|   |   |-- property.service.ts
+|   |   |-- location.service.ts
+|   |   |-- property-type.service.ts
+|   |   `-- amenity.service.ts
+|   |-- repositories/
+|   |   |-- property.repository.ts
+|   |   |-- location.repository.ts
+|   |   |-- property-type.repository.ts
+|   |   |-- amenity.repository.ts
+|   |   `-- wishlist.repository.ts
+|   |-- schemas/
+|   |   |-- property.schema.ts
+|   |   |-- query.schema.ts
+|   |   `-- error.schema.ts
+|   |-- mappers/
+|   |   |-- property.mapper.ts
+|   |   `-- pagination.mapper.ts
+|   `-- types/
+|       |-- property.type.ts
+|       `-- api-response.type.ts
+|-- package.json
+`-- tsconfig.json
 ```
 
 ## Fungsi Tiap Folder
@@ -83,26 +91,53 @@ Entry point runtime Bun. File ini bertanggung jawab menjalankan server, menentuk
 
 Tempat komposisi utama Elysia app. File ini menggabungkan route module dan mengekspor `app` serta type `App` untuk Eden Treaty.
 
+### src/db
+
+Berisi konfigurasi client database untuk `apps/api`. File `client.ts` membuat koneksi PostgreSQL dan instance Drizzle dengan schema dari `packages/db`. Folder ini hanya mengurus wiring database, bukan business logic.
+
 ### src/routes
 
 Berisi definisi endpoint HTTP. Route sebaiknya hanya menangani request, validasi input, response status, dan pemanggilan service.
 
 ### src/services
 
-Berisi business logic ringan untuk data dummy, seperti search, filter, sorting, pagination, dan mapping entity menjadi response model.
+Berisi business logic ringan seperti validasi alur, normalisasi query, pemilihan repository method, pagination policy, dan mapping entity menjadi response model. Service tidak boleh menulis query SQL/Drizzle secara langsung.
+
+### src/repositories
+
+Berisi akses data ke PostgreSQL melalui Drizzle ORM. Repository bertanggung jawab membuat query, join, where clause, sorting, limit, offset, dan operasi count. Folder ini menjadi batas utama antara business logic API dan detail database.
+
+`wishlist.repository.ts` bersifat opsional untuk menyediakan nilai awal `WishlistState` jika seed database digunakan. Pada prototipe, toggle wishlist dilakukan di state lokal frontend sehingga tidak ada repository atau endpoint mutasi wishlist yang wajib diimplementasikan.
 
 ### src/schemas
 
 Berisi schema validasi request, query parameter, response, dan error. Schema ini penting untuk menjaga kontrak API tetap eksplisit dan konsisten.
 
-### src/data
+### src/mappers
 
-Berisi dataset dummy lokal. Pada tahap awal, data dapat berbentuk array TypeScript atau JSON yang diimpor oleh service.
+Berisi fungsi mapping dari hasil query Drizzle ke response API seperti `PropertyListItem`, `PropertyDetail`, dan `PaginatedResponse`. Mapper membantu menjaga repository fokus pada query dan service fokus pada alur bisnis.
 
 ### src/types
 
 Berisi type TypeScript yang digunakan lintas route, service, dan frontend melalui Eden Treaty.
 
+## Hubungan dengan packages/db
+
+Package `packages/db` menjadi tempat schema Drizzle dan konfigurasi migration. Schema yang sudah ada mencakup:
+
+- `amenities`
+- `hosts`
+- `locations`
+- `properties`
+- `propertyAmenities`
+- `propertyImages`
+- `propertyTypes`
+- `wishlistStates`
+
+`wishlistStates` hanya digunakan sebagai data awal atau response state bila diperlukan. Tabel tersebut bukan berarti wishlist sudah menjadi fitur akun permanen; persistence, authentication, dan operasi mutasi wishlist berada di luar scope prototipe.
+
+Backend `apps/api` sebaiknya mengimpor schema dari `packages/db`, bukan mendefinisikan ulang table di dalam API package. Jika ada perubahan struktur tabel, perubahan dilakukan di `packages/db`, lalu repository di `apps/api` menyesuaikan query.
+
 ## Catatan Implementasi Tahap Berikutnya
 
-Implementasi backend sebaiknya dimulai dari health route, kemudian data referensi seperti locations, property-types, dan amenities. Setelah itu, implementasikan listing properties dengan query behavior yang sudah didefinisikan, lalu detail property berdasarkan ID.
+Implementasi backend sebaiknya dimulai dari koneksi database dan health route. Setelah itu, buat repository untuk data referensi seperti locations, property-types, dan amenities. Lanjutkan dengan service dan route untuk data referensi, kemudian implementasikan listing properties dengan query behavior yang sudah didefinisikan, lalu detail property berdasarkan ID.

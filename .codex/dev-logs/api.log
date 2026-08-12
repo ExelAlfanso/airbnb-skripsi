@@ -1,8 +1,8 @@
 
-> @behance-skripsi/api@0.1.0 dev C:\Users\thecl\OneDrive\Documents\Projects\behance-skripsi\apps\api
+> @airbnb-skripsi/api@0.1.0 dev C:\Users\thecl\OneDrive\Documents\Projects\airbnb-skripsi\apps\api
 > bun run --hot src/index.ts
 
 Elysia API is running at localhost:3001
-C:\Users\thecl\OneDrive\Documents\Projects\behance-skripsi\apps\api:
- ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @behance-skripsi/api@0.1.0 dev: `bun run --hot src/index.ts`
+C:\Users\thecl\OneDrive\Documents\Projects\airbnb-skripsi\apps\api:
+ ERR_PNPM_RECURSIVE_RUN_FIRST_FAIL  @airbnb-skripsi/api@0.1.0 dev: `bun run --hot src/index.ts`
 Exit status 4294967295

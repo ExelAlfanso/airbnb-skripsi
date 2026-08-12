@@ -4,7 +4,7 @@
     "lefthook": "^2.1.9",
     "ultracite": "7.8.3"
   },
-  "name": "behance-skripsi",
+  "name": "airbnb-skripsi",
   "scripts": {
     "dev": "pnpm -r --parallel dev",
     "dev:api": "pnpm --filter @airbnb-skripsi/api dev",
@@ -21,5 +21,15 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.33.2"
+  "packageManager": "pnpm@10.33.2",
+  "dependencies": {
+    "@effect/platform-bun": "4.0.0-beta.107",
+    "@effect/platform-node": "4.0.0-beta.107",
+    "alchemy": "2.0.0-beta.70",
+    "effect": "4.0.0-beta.107"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ]
 }

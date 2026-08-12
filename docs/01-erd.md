@@ -2,7 +2,9 @@
 
 ## Tujuan ERD
 
-Entity Relationship Diagram dirancang untuk memodelkan domain listing properti Airbnb-like. Model ini mendukung kebutuhan listing page, detail page, search, filter, sorting, pagination, dan interaksi wishlist dummy pada frontend.
+Entity Relationship Diagram dirancang untuk memodelkan domain listing properti Airbnb-like. Model ini mendukung kebutuhan listing page, detail page, search, filter, sorting, pagination, dan interaksi wishlist simulasi pada frontend.
+
+ERD ini menjadi dasar schema PostgreSQL yang didefinisikan dengan Drizzle ORM pada package `packages/db`. Nama entity pada dokumen ini merepresentasikan tabel utama yang akan di-query oleh backend Elysia melalui repository layer.
 
 ## Entity
 
@@ -106,14 +108,34 @@ Field minimal:
 
 ### WishlistState
 
-WishlistState digunakan untuk mendukung kebutuhan interaksi UI. Karena backend tidak memiliki authentication pada tahap awal, wishlist hanya bersifat dummy atau client simulation.
+WishlistState digunakan untuk mendukung kebutuhan interaksi UI pada card listing dan halaman detail. Karena backend tidak memiliki authentication pada tahap awal, wishlist hanya bersifat simulasi dan tidak merepresentasikan fitur user account permanen.
 
 Field minimal:
 
 - propertyId
 - isWishlisted
 
-WishlistState tidak wajib disimpan permanen di backend. Nilai ini dapat berasal dari dataset dummy atau state simulasi pada client.
+Untuk prototipe, state yang diubah pengguna dikelola secara lokal pada frontend. Data `WishlistState` atau tabel `wishlistStates` dapat digunakan untuk menyediakan nilai awal yang konsisten, tetapi tidak menjadi sumber penyimpanan permanen dan tidak memerlukan endpoint mutasi wishlist.
+
+Aturan wishlist dummy:
+
+- `isWishlisted` dikembalikan pada `PropertyListItem` dan `PropertyDetail`.
+- Tombol wishlist melakukan toggle dari `false` ke `true`, atau dari `true` ke `false`.
+- Listing dan detail pada frontend yang sama harus membaca state lokal yang sama selama sesi aplikasi aktif.
+- State tidak dijamin bertahan setelah refresh, logout, penghapusan storage, atau perpindahan ke frontend penelitian lainnya.
+- Authentication, `userId`, daftar wishlist pengguna, dan sinkronisasi lintas perangkat tidak dimodelkan pada tahap prototipe.
+
+## Perilaku Load More pada Listing
+
+`Load more` bukan entity database dan tidak memerlukan tabel tambahan. Fitur ini merupakan pola tampilan frontend yang menggunakan metadata pagination dari endpoint `GET /properties`.
+
+Alurnya adalah sebagai berikut:
+
+- Frontend mengambil halaman pertama dengan `page = 1`.
+- Ketika pengguna meminta data tambahan, frontend mengambil `page` berikutnya dengan `limit`, search, filter, dan sorting yang sama.
+- Item baru ditambahkan setelah item yang sudah tampil.
+- `meta.hasMore = true` berarti masih ada halaman yang dapat diminta; `meta.hasMore = false` berarti proses dihentikan.
+- Perubahan query aktif menghapus hasil lama dan memulai kembali dari halaman pertama.
 
 ## Relasi Entity
 
@@ -129,7 +151,7 @@ Relasi antar entity adalah sebagai berikut:
 - Satu Property dapat memiliki banyak Amenity.
 - Satu Amenity dapat dimiliki banyak Property.
 - Relasi Property dan Amenity menggunakan PropertyAmenity.
-- WishlistState bersifat dummy dan berhubungan dengan Property.
+- WishlistState bersifat simulasi dan berhubungan dengan Property.
 
 ## Mermaid ERD
 
@@ -217,4 +239,4 @@ Desain ERD memisahkan data inti properti dari data referensi seperti lokasi, tip
 
 Relasi many-to-many antara Property dan Amenity menggunakan PropertyAmenity agar satu properti dapat memiliki banyak fasilitas dan satu fasilitas dapat digunakan oleh banyak properti. PropertyImage dipisahkan agar detail properti dapat memiliki banyak gambar, sementara listing hanya perlu menggunakan cover image untuk payload yang lebih ringan.
 
-WishlistState tidak diposisikan sebagai fitur transaksi permanen karena tidak ada authentication. Entity ini hanya digunakan untuk mensimulasikan interaksi UI pada kedua frontend.
+WishlistState tidak diposisikan sebagai fitur transaksi permanen karena tidak ada authentication. Entity ini hanya digunakan untuk mensimulasikan interaksi UI pada kedua frontend, meskipun struktur tabelnya dapat tetap didefinisikan di Drizzle agar kontrak response stabil.

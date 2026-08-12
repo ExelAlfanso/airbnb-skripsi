@@ -75,6 +75,30 @@ Sorting recommended harus deterministik. Jika beberapa properti memiliki skor ya
 
 Pagination diterapkan setelah search, filter, dan sorting selesai dilakukan.
 
+### Load More pada Frontend
+
+Load more menggunakan endpoint dan pagination yang sama, bukan mekanisme query baru.
+
+- Request pertama mengambil `page=1`.
+- Request berikutnya mengambil `page + 1` dengan seluruh parameter search, filter, dan sorting yang sama.
+- Frontend menggabungkan `data` dari response berikutnya ke hasil yang sudah ditampilkan.
+- Frontend hanya boleh meminta halaman berikutnya jika `meta.hasMore` bernilai `true`.
+- Request tambahan tidak boleh mengganti hasil lama atau mengulang halaman yang sudah berhasil dimuat.
+- Jika query berubah, frontend harus mengosongkan hasil lama dan mengulang dari `page=1`.
+- Saat tidak ada hasil tambahan, response tetap menggunakan array `data` dan `meta.hasMore = false`.
+
+Karena sorting harus deterministik, tie-breaker pada sorting juga penting untuk mencegah item berpindah antar halaman saat frontend melakukan beberapa request `load more`.
+
+## Wishlist Dummy
+
+Wishlist dummy merupakan state UI dan bukan bagian dari query filtering atau sorting.
+
+- Nilai awal wishlist diberikan melalui field `isWishlisted` pada response properti.
+- Toggle dilakukan secara lokal di frontend.
+- Toggle wishlist tidak mengubah hasil pencarian, filter, sorting, atau pagination.
+- Tidak ada validasi `userId` dan tidak ada error contract khusus untuk toggle wishlist.
+- State tidak wajib bertahan setelah refresh dan tidak disinkronkan antar sesi, browser, atau frontend penelitian.
+
 ## Validation Rules
 
 Aturan validasi query adalah sebagai berikut:

@@ -1,6 +1,6 @@
 ﻿<main>
   <section>
-    <p>Behance Skripsi</p>
+    <p>airbnb Skripsi</p>
     <h1>Svelte app is ready.</h1>
   </section>
 </main>
