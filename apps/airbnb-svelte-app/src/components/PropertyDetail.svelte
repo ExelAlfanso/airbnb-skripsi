@@ -14,20 +14,20 @@
 
 <article class="detail">
   <button class="back-button" type="button" onclick={back}>
-    ? Kembali ke hasil
+    &larr; Kembali ke hasil
   </button>
 
   <header class="detail__header">
     <div>
       <p class="detail__eyebrow">
         {property.propertyType.name}
-        ? {property.location.displayName}
+        &middot; {property.location.displayName}
       </p>
       <h1>{property.title}</h1>
       <p class="detail__rating">
-        ? {property.rating.toFixed(1)} ? {property.reviewCount} ulasan
+        &#9733; {property.rating.toFixed(1)} &middot; {property.reviewCount} ulasan
         {#if property.isGuestFavorite}
-          <span>? Favorit tamu</span>
+          <span>&middot; Favorit tamu</span>
         {/if}
       </p>
     </div>
@@ -38,7 +38,7 @@
       aria-pressed={wishlisted}
       onclick={() => toggleWishlist(property.id)}
     >
-      <span aria-hidden="true">?</span>
+      <span aria-hidden="true">&#9829;</span>
       {wishlisted ? "Tersimpan" : "Simpan"}
     </button>
   </header>
@@ -51,6 +51,7 @@
           alt={image.altText}
           height="700"
           loading={index === 0 ? "eager" : "lazy"}
+          fetchpriority={index === 0 ? "high" : "auto"}
           src={optimizeImage(image.imageUrl, index === 0 ? 1400 : 800)}
           width="1200"
         >
@@ -89,7 +90,7 @@
         <ul class="amenity-list">
           {#each property.amenities as amenity (amenity.id)}
             <li>
-              <span aria-hidden="true">?</span>
+              <span aria-hidden="true">&#10003;</span>
               {amenity.name}
             </li>
           {/each}
@@ -109,7 +110,7 @@
           <p>
             Bergabung sejak {property.host.joinedYear}
             {#if property.host.isSuperhost}
-              <span>? Superhost</span>
+              <span>&middot; Superhost</span>
             {/if}
           </p>
         </div>

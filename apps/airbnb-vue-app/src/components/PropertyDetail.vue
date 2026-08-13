@@ -19,19 +19,19 @@
 <template>
   <article class="detail">
     <button class="back-button" type="button" @click="emit('back')">
-      ? Kembali ke hasil
+      &larr; Kembali ke hasil
     </button>
 
     <header class="detail__header">
       <div>
         <p class="detail__eyebrow">
           {{ property.propertyType.name }}
-          ? {{ property.location.displayName }}
+          &middot; {{ property.location.displayName }}
         </p>
         <h1>{{ property.title }}</h1>
         <p class="detail__rating">
-          ? {{ property.rating.toFixed(1) }} ? {{ property.reviewCount }} ulasan
-          <span v-if="property.isGuestFavorite">? Favorit tamu</span>
+          &#9733; {{ property.rating.toFixed(1) }} &middot; {{ property.reviewCount }} ulasan
+          <span v-if="property.isGuestFavorite">&middot; Favorit tamu</span>
         </p>
       </div>
 
@@ -42,7 +42,7 @@
         :aria-pressed="wishlisted"
         @click="emit('toggleWishlist', property.id)"
       >
-        <span aria-hidden="true">?</span>
+        <span aria-hidden="true">&#9829;</span>
         {{ wishlisted ? "Tersimpan" : "Simpan" }}
       </button>
     </header>
@@ -55,6 +55,7 @@
         :alt="image.altText"
         height="700"
         :loading="index === 0 ? 'eager' : 'lazy'"
+        :fetchpriority="index === 0 ? 'high' : 'auto'"
         :src="optimizeImage(image.imageUrl, index === 0 ? 1400 : 800)"
         width="1200"
       >
@@ -90,7 +91,7 @@
           <h2>Yang tersedia</h2>
           <ul class="amenity-list">
             <li v-for="amenity in property.amenities" :key="amenity.id">
-              <span aria-hidden="true">?</span>
+              <span aria-hidden="true">&#10003;</span>
               {{ amenity.name }}
             </li>
           </ul>
@@ -108,7 +109,7 @@
             <h2>{{ property.host.name }}</h2>
             <p>
               Bergabung sejak {{ property.host.joinedYear }}
-              <span v-if="property.host.isSuperhost">? Superhost</span>
+              <span v-if="property.host.isSuperhost">&middot; Superhost</span>
             </p>
           </div>
         </section>

@@ -8,24 +8,26 @@
 
 <style>
   :root {
-    --ink: #202326;
-    --muted: #666d73;
+    --ink: #222222;
+    --muted: #6a6a6a;
     --surface: #ffffff;
-    --surface-soft: #efeee9;
-    --border: #deddd7;
-    --border-strong: #b9b8b2;
-    --brand: #e14d5a;
-    --brand-dark: #a92f3c;
-    --brand-soft: #ffe1e4;
-    --shadow-sm: 0 0.45rem 1.4rem rgb(39 34 28 / 7%);
-    --shadow-md: 0 0.8rem 2rem rgb(39 34 28 / 12%);
-    --shadow-lg: 0 1.2rem 3rem rgb(39 34 28 / 14%);
+    --surface-soft: #f7f7f7;
+    --border: #e5e5e5;
+    --border-strong: #b0b0b0;
+    --brand: #ff385c;
+    --brand-dark: #c13515;
+    --brand-soft: #fff0f3;
+    --focus: #1769aa;
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 8%);
+    --shadow-md: 0 0.5rem 1.5rem rgb(0 0 0 / 12%);
+    --shadow-lg: 0 0.75rem 2rem rgb(0 0 0 / 12%);
     font-family:
-      Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
       "Segoe UI", sans-serif;
     font-synthesis: none;
-    color: #202326;
-    background: #f7f6f2;
+    color: var(--ink);
+    color-scheme: light;
+    background: var(--surface);
     text-rendering: optimizeLegibility;
   }
 
@@ -42,13 +44,21 @@
     min-width: 320px;
     min-height: 100vh;
     margin: 0;
-    background:
-      radial-gradient(circle at 85% 5%, rgb(225 77 90 / 10%), transparent 24rem),
-      #f7f6f2;
+    overflow-x: hidden;
+    background: var(--surface);
   }
 
   button,
   input,
+  button,
+  a,
+  input,
+  select,
+  summary {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgb(255 56 92 / 16%);
+  }
+
   select {
     font: inherit;
   }
@@ -70,8 +80,8 @@
   input:focus-visible,
   select:focus-visible,
   summary:focus-visible {
-    outline: 3px solid color-mix(in srgb, var(--brand) 32%, transparent);
-    outline-offset: 3px;
+    outline: 3px solid color-mix(in srgb, var(--focus) 45%, transparent);
+    outline-offset: 2px;
   }
 
   .sr-only {
@@ -83,6 +93,16 @@
     white-space: nowrap;
     border: 0;
     clip: rect(0, 0, 0, 0);
+  }
+
+  ::selection {
+    color: var(--ink);
+    background: var(--brand-soft);
+  }
+
+  h1[id],
+  h2[id] {
+    scroll-margin-top: 2rem;
   }
 
   @media (prefers-reduced-motion: reduce) {

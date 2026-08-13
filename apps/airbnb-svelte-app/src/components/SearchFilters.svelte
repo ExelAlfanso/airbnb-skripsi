@@ -40,9 +40,10 @@
       <span class="field__label">Cari</span>
       <input
         bind:value={draft.search}
+        autocomplete="off"
         {disabled}
         name="search"
-        placeholder="Villa, kota, atau tipe properti"
+        placeholder="Contoh: vila di Bali&#8230;"
         type="search"
       >
     </label>
@@ -68,7 +69,7 @@
     </label>
 
     <button class="search-button" {disabled} type="submit">
-      {disabled ? "Mencari..." : "Cari properti"}
+      {disabled ? "Mencari\u2026" : "Cari properti"}
     </button>
   </div>
 
@@ -90,10 +91,12 @@
             <span class="field__label">Harga minimum</span>
             <input
               bind:value={draft.minPrice}
+              autocomplete="off"
               {disabled}
+              inputmode="numeric"
               min="0"
               name="minPrice"
-              placeholder="Rp0"
+              placeholder="Mulai dari&#8230;"
               type="number"
             >
           </label>
@@ -101,10 +104,12 @@
             <span class="field__label">Harga maksimum</span>
             <input
               bind:value={draft.maxPrice}
+              autocomplete="off"
               {disabled}
+              inputmode="numeric"
               min="0"
               name="maxPrice"
-              placeholder="Tanpa batas"
+              placeholder="Hingga&#8230;"
               type="number"
             >
           </label>
@@ -112,10 +117,12 @@
             <span class="field__label">Tamu minimum</span>
             <input
               bind:value={draft.guests}
+              autocomplete="off"
               {disabled}
+              inputmode="numeric"
               min="1"
               name="guests"
-              placeholder="Bebas"
+              placeholder="Jumlah tamu&#8230;"
               type="number"
             >
           </label>
@@ -123,10 +130,12 @@
             <span class="field__label">Kamar tidur</span>
             <input
               bind:value={draft.bedrooms}
+              autocomplete="off"
               {disabled}
+              inputmode="numeric"
               min="1"
               name="bedrooms"
-              placeholder="Bebas"
+              placeholder="Jumlah kamar&#8230;"
               type="number"
             >
           </label>
@@ -134,10 +143,12 @@
             <span class="field__label">Tempat tidur</span>
             <input
               bind:value={draft.beds}
+              autocomplete="off"
               {disabled}
+              inputmode="numeric"
               min="1"
               name="beds"
-              placeholder="Bebas"
+              placeholder="Jumlah tempat tidur&#8230;"
               type="number"
             >
           </label>
@@ -145,10 +156,12 @@
             <span class="field__label">Kamar mandi</span>
             <input
               bind:value={draft.bathrooms}
+              autocomplete="off"
               {disabled}
+              inputmode="numeric"
               min="1"
               name="bathrooms"
-              placeholder="Bebas"
+              placeholder="Jumlah kamar mandi&#8230;"
               type="number"
             >
           </label>
@@ -185,12 +198,11 @@
 
 <style>
   .search-panel {
-    padding: 1rem;
-    background: color-mix(in srgb, var(--surface) 94%, transparent);
+    padding: 1.1rem;
+    background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 1.5rem;
+    border-radius: 1.25rem;
     box-shadow: var(--shadow-lg);
-    backdrop-filter: blur(16px);
   }
 
   .search-panel__primary {
@@ -228,7 +240,7 @@
   .field input,
   .field select {
     width: 100%;
-    min-height: 2.8rem;
+    min-height: 3rem;
     padding: 0.7rem 0.85rem;
     color: var(--ink);
     background: var(--surface);
@@ -236,15 +248,15 @@
     border-radius: 0.85rem;
   }
 
-  .field input:focus,
-  .field select:focus {
-    outline: 3px solid color-mix(in srgb, var(--brand) 18%, transparent);
+  .field input:focus-visible,
+  .field select:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--focus) 22%, transparent);
     border-color: var(--brand);
   }
 
   .search-button,
   .reset-button {
-    min-height: 2.8rem;
+    min-height: 3rem;
     padding: 0.7rem 1rem;
     font-weight: 750;
     border-radius: 0.85rem;
@@ -273,7 +285,7 @@
   .advanced-filters summary {
     display: flex;
     align-items: center;
-    min-height: 2.8rem;
+    min-height: 3rem;
     padding: 0.7rem 0.9rem;
     font-weight: 700;
     cursor: pointer;

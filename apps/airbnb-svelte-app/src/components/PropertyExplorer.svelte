@@ -168,22 +168,23 @@
 </script>
 
 <div class="app">
+  <a class="skip-link" href="#main-content">Langsung ke konten utama</a>
   <header class="site-header">
     <a class="brand" href="/" aria-label="Airbnb beranda">
-      <span class="brand__mark" aria-hidden="true">?</span>
-      <span>Airbnb</span>
+      <span class="brand__mark" aria-hidden="true">A</span>
+      <span translate="no">Airbnb</span>
     </a>
-    <p>Satu dataset ? Satu API ? Dua framework</p>
+    <p>Prototipe listing <span aria-hidden="true">/</span> Studi kasus Airbnb</p>
   </header>
 
-  <main class="container">
+  <main id="main-content" class="container">
     {#if selectedId}
       {#if loadingDetail}
         <div class="status-panel" aria-live="polite" role="status">
-          Memuat detail properti...
+          Memuat detail properti&hellip;
         </div>
       {:else if detailError}
-        <div class="status-panel status-panel--error">
+        <div class="status-panel status-panel--error" role="alert">
           <p>{detailError}</p>
           <button type="button" onclick={closeDetail}>Kembali ke hasil</button>
         </div>
@@ -196,13 +197,26 @@
         />
       {/if}
     {:else}
-      <section class="hero">
-        <p class="hero__eyebrow">Eksperimen frontend skripsi</p>
-        <h1>Temukan tempat singgah yang terasa tepat.</h1>
-        <p class="hero__copy">
-          Jelajahi dataset properti yang sama pada implementasi Vue dan Svelte,
-          lengkap dengan pencarian, filter, dan detail.
-        </p>
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__intro">
+          <div class="hero__copy-block">
+            <p class="hero__eyebrow">Eksperimen frontend skripsi</p>
+            <h1 id="hero-title">
+              Temukan tempat singgah.
+              <span>Bandingkan tanpa bias.</span>
+            </h1>
+            <p class="hero__copy">
+              Jelajahi prototipe listing akomodasi dengan pencarian, filter,
+              dan detail yang setara pada implementasi Vue dan Svelte.
+            </p>
+          </div>
+
+          <aside class="research-rail" aria-label="Konteks penelitian">
+            <div><span>Dataset</span><strong>Dummy deterministik</strong></div>
+            <div><span>API</span><strong>Respons yang sama</strong></div>
+            <div><span>Frontend</span><strong>Vue + Svelte</strong></div>
+          </aside>
+        </div>
 
         <SearchFilters
           disabled={loadingList || loadingOptions}
@@ -215,8 +229,8 @@
       <section class="results" aria-labelledby="results-title">
         <div class="results__heading">
           <div>
-            <p class="results__eyebrow">Pilihan untuk Anda</p>
-            <h2 id="results-title">{resultLabel}</h2>
+            <p class="results__eyebrow">Katalog akomodasi</p>
+            <h2 id="results-title" aria-live="polite">{resultLabel}</h2>
           </div>
           {#if pagination}
             <p>
@@ -227,7 +241,7 @@
         </div>
 
         {#if errorMessage}
-          <div class="status-panel status-panel--error">
+          <div class="status-panel status-panel--error" role="alert">
             <p>{errorMessage}</p>
             <button type="button" onclick={() => loadProperties(true)}>
               Coba lagi
@@ -235,7 +249,7 @@
           </div>
         {:else if loadingList && properties.length === 0}
           <div class="skeleton-grid" aria-live="polite" role="status">
-            <span class="sr-only">Memuat properti...</span>
+            <span class="sr-only">Memuat properti&hellip;</span>
             {#each SKELETON_ITEMS as item (item)}
               <div class="skeleton-card"></div>
             {/each}
@@ -260,7 +274,7 @@
                 type="button"
                 onclick={() => loadProperties(false)}
               >
-                {loadingList ? "Memuat..." : "Muat lebih banyak"}
+                {loadingList ? "Memuat\u2026" : "Muat lebih banyak"}
               </button>
             {:else}
               <p>Semua properti sudah ditampilkan.</p>
@@ -272,7 +286,11 @@
   </main>
 
   <footer class="site-footer">
-    <p>Prototype penelitian ? Data dummy deterministik ? Tanpa transaksi</p>
+    <p><strong>Prototipe akademik</strong></p>
+    <p>
+      Data dummy deterministik <span aria-hidden="true">&middot;</span>
+      Tanpa pemesanan atau transaksi
+    </p>
   </footer>
 </div>
 
@@ -284,8 +302,26 @@
   .container,
   .site-header,
   .site-footer {
-    width: min(100% - 2rem, 76rem);
+    width: min(100% - 2rem, 80rem);
     margin-inline: auto;
+  }
+
+  .skip-link {
+    position: fixed;
+    top: 0.75rem;
+    left: 0.75rem;
+    z-index: 10;
+    padding: 0.7rem 1rem;
+    font-weight: 750;
+    color: white;
+    text-decoration: none;
+    background: var(--ink);
+    border-radius: 0.75rem;
+    translate: 0 -200%;
+  }
+
+  .skip-link:focus-visible {
+    translate: 0;
   }
 
   .site-header {
@@ -293,14 +329,16 @@
     gap: 1rem;
     align-items: center;
     justify-content: space-between;
-    min-height: 4.75rem;
+    min-height: 5.25rem;
     border-bottom: 1px solid var(--border);
   }
 
-  .site-header p {
+  .site-header > p {
     margin: 0;
     font-size: 0.82rem;
     color: var(--muted);
+    font-family: ui-monospace, "Cascadia Code", "SFMono-Regular", monospace;
+    text-align: right;
   }
 
   .brand {
@@ -313,18 +351,34 @@
     text-decoration: none;
   }
 
+  .site-header > p span {
+    margin-inline: 0.35rem;
+  }
+
   .brand__mark {
     display: grid;
     place-items: center;
-    width: 2rem;
-    height: 2rem;
+    width: 2.25rem;
+    height: 2.25rem;
     color: white;
     background: var(--brand);
-    border-radius: 0.65rem;
+    border-radius: 50% 50% 50% 0.7rem;
   }
 
   .hero {
-    padding: clamp(3.5rem, 8vw, 7rem) 0 2.5rem;
+    padding: clamp(3rem, 7vw, 6.5rem) 0 2.5rem;
+  }
+
+  .hero__intro {
+    display: grid;
+    grid-template-columns: minmax(0, 1.65fr) minmax(16rem, 0.65fr);
+    gap: clamp(2rem, 6vw, 6rem);
+    align-items: end;
+    margin-bottom: 2.25rem;
+  }
+
+  .hero__copy-block {
+    min-width: 0;
   }
 
   .hero__eyebrow,
@@ -338,24 +392,58 @@
   }
 
   .hero h1 {
-    max-width: 55rem;
+    max-width: 58rem;
     margin: 0;
-    font-size: clamp(2.8rem, 8vw, 6.6rem);
-    line-height: 0.94;
-    letter-spacing: -0.065em;
+    font-family: ui-rounded, "Arial Rounded MT Bold", ui-sans-serif, sans-serif;
+    font-size: clamp(3rem, 7.5vw, 6.75rem);
+    line-height: 0.92;
+    letter-spacing: -0.07em;
+    text-wrap: balance;
+  }
+
+  .hero h1 span {
+    display: block;
+    color: var(--brand);
   }
 
   .hero__copy {
     max-width: 42rem;
-    margin: 1.25rem 0 2rem;
+    margin: 1.5rem 0 0;
     font-size: clamp(1rem, 2vw, 1.18rem);
     line-height: 1.65;
     color: var(--muted);
   }
 
   .results {
-    padding: 2.5rem 0 4rem;
+    padding: 3.5rem 0 5rem;
   }
+  .research-rail {
+    border-block: 1px solid var(--ink);
+  }
+
+  .research-rail div {
+    display: grid;
+    gap: 0.2rem;
+    padding: 0.85rem 0;
+  }
+
+  .research-rail div + div {
+    border-top: 1px solid var(--border);
+  }
+
+  .research-rail span {
+    font-family: ui-monospace, "Cascadia Code", "SFMono-Regular", monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+  }
+
+  .research-rail strong {
+    font-size: 0.95rem;
+  }
+
 
   .results__heading {
     display: flex;
@@ -409,9 +497,19 @@
     background: #fff7f8;
   }
 
+  .status-panel button:hover:not(:disabled),
+  .load-more button:hover:not(:disabled) {
+    background: var(--brand-dark);
+  }
+
+  .status-panel button:active:not(:disabled),
+  .load-more button:active:not(:disabled) {
+    scale: 0.98;
+  }
+
   .skeleton-grid {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 1.25rem;
   }
 
@@ -445,13 +543,28 @@
     padding: 1.5rem 0 2.5rem;
     font-size: 0.82rem;
     color: var(--muted);
-    text-align: center;
     border-top: 1px solid var(--border);
+  }
+
+  .site-footer p {
+    margin: 0.2rem 0;
+    text-align: center;
   }
 
   @keyframes shimmer {
     to {
       background-position-x: -200%;
+    }
+  }
+
+  @media (max-width: 900px) {
+    .hero__intro {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    .skeleton-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 
@@ -472,5 +585,13 @@
     .skeleton-card {
       animation: none;
     }
+    .site-header > p {
+      text-align: left;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.75rem, 14vw, 4.5rem);
+    }
+
   }
 </style>

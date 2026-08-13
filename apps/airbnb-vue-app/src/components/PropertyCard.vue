@@ -49,13 +49,16 @@
       :aria-pressed="wishlisted"
       @click="emit('toggleWishlist', property.id)"
     >
-      ?
+      <span aria-hidden="true">&#9829;</span>
     </button>
 
     <div class="property-card__body">
       <div class="property-card__eyebrow">
         <span>{{ property.propertyType.name }}</span>
-        <span aria-label="rating">? {{ property.rating.toFixed(1) }}</span>
+        <span>
+          <span aria-hidden="true">&#9733;</span>
+          <span class="sr-only">Rating </span>{{ property.rating.toFixed(1) }}
+        </span>
       </div>
 
       <button
@@ -68,8 +71,8 @@
 
       <p class="property-card__location">{{ property.location.displayName }}</p>
       <p class="property-card__facts">
-        {{ property.maxGuests }}
-        tamu ? {{ property.bedrooms }} kamar ?
+        {{ property.maxGuests }} tamu &middot;
+        {{ property.bedrooms }} kamar &middot;
         {{ property.beds }}
         tempat tidur
       </p>
@@ -90,19 +93,19 @@
 <style scoped>
   .property-card {
     position: relative;
-    overflow: hidden;
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 1.35rem;
-    box-shadow: var(--shadow-sm);
+    min-width: 0;
+    background: transparent;
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
     transition:
       translate 180ms ease,
       box-shadow 180ms ease;
   }
 
   .property-card:hover {
-    box-shadow: var(--shadow-md);
-    translate: 0 -0.2rem;
+    box-shadow: none;
+    translate: 0;
   }
 
   .property-card__image-button {
@@ -111,14 +114,14 @@
     padding: 0;
     overflow: hidden;
     background: var(--surface-soft);
-    border-radius: 0;
+    border-radius: 1rem;
   }
 
   .property-card__image,
   .property-card__placeholder {
     display: block;
     width: 100%;
-    aspect-ratio: 3 / 2;
+    aspect-ratio: 4 / 3;
   }
 
   .property-card__image {
@@ -126,7 +129,7 @@
     transition: scale 300ms ease;
   }
 
-  .property-card:hover .property-card__image {
+  .property-card:is(:hover, :focus-within) .property-card__image {
     scale: 1.025;
   }
 
@@ -160,7 +163,7 @@
   }
 
   .property-card__body {
-    padding: 1rem;
+    padding: 0.8rem 0.125rem 0;
   }
 
   .property-card__eyebrow,
@@ -185,6 +188,7 @@
     font-size: 1.08rem;
     font-weight: 780;
     line-height: 1.3;
+    overflow-wrap: anywhere;
     color: var(--ink);
     text-align: left;
     background: transparent;
