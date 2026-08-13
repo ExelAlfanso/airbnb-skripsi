@@ -2,7 +2,7 @@
 
 ## Product
 
-- **Name:** StayCompare / airbnb-skripsi.
+- **Name:** Airbnb / airbnb-skripsi.
 - **Purpose:** Prototype penelitian skripsi untuk membandingkan implementasi frontend Vue dan Svelte pada pengalaman katalog properti yang identik.
 - **Type:** Monorepo aplikasi web eksperimen dengan shared REST API.
 - **Critical user journeys:**
