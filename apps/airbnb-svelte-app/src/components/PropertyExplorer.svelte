@@ -169,9 +169,9 @@
 
 <div class="app">
   <header class="site-header">
-    <a class="brand" href="/" aria-label="StayCompare beranda">
+    <a class="brand" href="/" aria-label="Airbnb beranda">
       <span class="brand__mark" aria-hidden="true">?</span>
-      <span>StayCompare</span>
+      <span>Airbnb</span>
     </a>
     <p>Satu dataset ? Satu API ? Dua framework</p>
   </header>
