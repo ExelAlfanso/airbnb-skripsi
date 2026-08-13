@@ -101,7 +101,13 @@
       </label>
 
       <details class="advanced-filters">
-        <summary>Filter lanjutan</summary>
+        <summary>
+          <span class="advanced-filters__summary-copy">
+            <strong>Filter lanjutan</strong>
+            <span>Harga, kapasitas, dan amenitas</span>
+          </span>
+          <span class="advanced-filters__indicator" aria-hidden="true">+</span>
+        </summary>
         <div class="advanced-filters__body">
           <div class="advanced-filters__grid">
             <label class="field">
@@ -235,7 +241,7 @@
   .search-panel__secondary {
     display: grid;
     grid-template-columns: minmax(11rem, 14rem) 1fr auto;
-    gap: 1rem;
+    gap: 0.9rem 1rem;
     align-items: end;
     padding-top: 0.9rem;
     margin-top: 0.9rem;
@@ -292,27 +298,76 @@
   }
 
   .reset-button {
+    grid-column: -2 / -1;
     color: var(--ink);
     background: var(--surface-soft);
   }
 
   .advanced-filters {
-    align-self: stretch;
-    background: var(--surface-soft);
-    border-radius: 0.85rem;
+    grid-row: 2;
+    grid-column: 1 / -1;
+    overflow: hidden;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 1rem;
   }
 
   .advanced-filters summary {
     display: flex;
+    gap: 1rem;
     align-items: center;
-    min-height: 3rem;
-    padding: 0.7rem 0.9rem;
-    font-weight: 700;
+    justify-content: space-between;
+    min-height: 3.75rem;
+    padding: 0.75rem 1rem;
     cursor: pointer;
+    list-style: none;
+  }
+
+  .advanced-filters summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .advanced-filters summary:hover {
+    background: var(--surface-soft);
+  }
+
+  .advanced-filters__summary-copy {
+    display: grid;
+    gap: 0.15rem;
+    min-width: 0;
+  }
+
+  .advanced-filters__summary-copy strong {
+    font-size: 0.95rem;
+  }
+
+  .advanced-filters__summary-copy span {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .advanced-filters__indicator {
+    display: grid;
+    flex: 0 0 2rem;
+    width: 2rem;
+    height: 2rem;
+    place-items: center;
+    font-size: 1.25rem;
+    line-height: 1;
+    color: var(--brand-dark);
+    background: var(--brand-soft);
+    border-radius: 999px;
+    transform-origin: center;
+  }
+
+  .advanced-filters[open] .advanced-filters__indicator {
+    transform: rotate(45deg);
   }
 
   .advanced-filters__body {
-    padding: 0.25rem 0.9rem 0.9rem;
+    padding: 1rem;
+    background: var(--surface-soft);
+    border-top: 1px solid var(--border);
   }
 
   .advanced-filters__grid {
