@@ -11,6 +11,7 @@ export default Stack(
   gen(function* () {
     const database = yield* D1.Database("CatalogDatabase", {
       migrationsDir: "../../packages/db/migrations",
+      importFiles: ["../../packages/db/seeds/catalog.sql"],
       primaryLocationHint: "apac",
     });
 

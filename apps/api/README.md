@@ -44,8 +44,9 @@ After reviewing the plan:
 bun run infra:deploy --stage dev_yourname
 ```
 
-Alchemy provisions a D1 database for the stage, applies SQL files from
-`packages/db/migrations`, binds it to the Worker as `DB`, and prints `apiUrl`.
+Alchemy provisions a D1 database for the stage, applies schema migrations from
+`packages/db/migrations`, imports `packages/db/seeds/catalog.sql`, binds the
+database to the Worker as `DB`, and prints `apiUrl`.
 Verify it with:
 
 ```bash
@@ -67,6 +68,6 @@ bun run infra:destroy --stage dev_yourname
 ```
 
 Local Bun development uses an in-memory SQLite database populated from the same
-migrations. R2 and a custom domain are not provisioned because the current
-catalog references external image URLs; add R2 only when image files are owned
+migrations and seed. R2 and a custom domain are not provisioned because the
+current catalog references external image URLs; add R2 only when image files are
 by this project.

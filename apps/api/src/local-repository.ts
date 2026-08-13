@@ -24,6 +24,14 @@ export async function createLocalPropertyCatalogRepository() {
       await readFile(join(migrationsDirectory, migrationFile), "utf8")
     );
   }
+  sqlite.exec(
+    await readFile(
+      fileURLToPath(
+        new URL("../../../packages/db/seeds/catalog.sql", import.meta.url)
+      ),
+      "utf8"
+    )
+  );
 
   return createPropertyCatalogRepository(
     drizzle(sqlite, { schema: catalogSchema })
