@@ -1,27 +1,24 @@
 {
   "name": "@airbnb-skripsi/db",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Cloudflare D1 schema and deterministic thesis dataset",
+  "type": "module",
+  "private": true,
+  "exports": {
+    ".": "./schemas/index.ts"
+  },
   "scripts": {
     "generate": "drizzle-kit generate",
-    "migrate": "drizzle-kit migrate",
-    "push": "drizzle-kit push",
-    "seed": "tsx seed.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "check": "drizzle-kit check"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.33.2",
   "dependencies": {
-    "dotenv": "^17.4.2",
-    "drizzle-orm": "^0.45.2",
-    "pg": "^8.22.0"
+    "drizzle-orm": "^0.45.2"
   },
   "devDependencies": {
-    "@types/pg": "^8.20.0",
-    "drizzle-kit": "^0.31.10",
-    "tsx": "^4.22.4"
+    "drizzle-kit": "^0.31.10"
   }
 }

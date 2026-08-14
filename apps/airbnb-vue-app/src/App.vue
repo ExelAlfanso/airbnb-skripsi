@@ -1,37 +1,119 @@
 ﻿<template>
-  <main class="app-shell">
-    <section class="intro">
-      <p>airbnb Skripsi</p>
-      <h1>Vue app is ready.</h1>
-    </section>
-  </main>
+  <PropertyExplorer />
 </template>
 
-<style scoped>
-  .app-shell {
-    display: grid;
-    place-items: center;
-    min-height: 100vh;
+<script setup lang="ts">
+  import PropertyExplorer from "./components/PropertyExplorer.vue";
+</script>
+
+<style>
+  :root {
+    --ink: #222222;
+    --muted: #6a6a6a;
+    --surface: #ffffff;
+    --surface-soft: #f7f7f7;
+    --border: #e5e5e5;
+    --border-strong: #b0b0b0;
+    --brand: #ff385c;
+    --brand-dark: #c13515;
+    --brand-soft: #fff0f3;
+    --focus: #1769aa;
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 8%);
+    --shadow-md: 0 0.5rem 1.5rem rgb(0 0 0 / 12%);
+    --shadow-lg: 0 0.75rem 2rem rgb(0 0 0 / 12%);
     font-family:
-      Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+      ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
       "Segoe UI", sans-serif;
-    color: #1f2933;
-    background: #f7f7f2;
+    font-synthesis: none;
+    color: var(--ink);
+    color-scheme: light;
+    background: var(--surface);
+    text-rendering: optimizeLegibility;
   }
 
-  .intro {
-    width: min(100% - 32px, 720px);
+  * {
+    box-sizing: border-box;
   }
 
-  p {
-    margin: 0 0 12px;
-    font-size: 0.95rem;
-    color: #58606a;
+  html {
+    min-width: 320px;
+    scroll-behavior: smooth;
   }
 
-  h1 {
+  body {
+    min-width: 320px;
+    min-height: 100vh;
     margin: 0;
-    font-size: clamp(2.25rem, 6vw, 4.5rem);
-    line-height: 1;
+    overflow-x: hidden;
+    background: var(--surface);
+  }
+
+  button,
+  input,
+  button,
+  a,
+  input,
+  select,
+  summary {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgb(255 56 92 / 16%);
+  }
+
+  select {
+    font: inherit;
+  }
+
+  button {
+    cursor: pointer;
+    border: 0;
+  }
+
+  button:disabled,
+  input:disabled,
+  select:disabled {
+    cursor: not-allowed;
+    opacity: 0.62;
+  }
+
+  button:focus-visible,
+  a:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  summary:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--focus) 45%, transparent);
+    outline-offset: 2px;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    white-space: nowrap;
+    border: 0;
+    clip: rect(0, 0, 0, 0);
+  }
+
+  ::selection {
+    color: var(--ink);
+    background: var(--brand-soft);
+  }
+
+  h1[id],
+  h2[id] {
+    scroll-margin-top: 2rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+      transition-duration: 0.01ms !important;
+    }
   }
 </style>

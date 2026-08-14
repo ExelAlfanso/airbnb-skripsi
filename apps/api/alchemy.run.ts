@@ -1,5 +1,5 @@
 import { Stack } from "alchemy";
-import { providers, state, Worker } from "alchemy/Cloudflare";
+import { D1, providers, state, Worker } from "alchemy/Cloudflare";
 import { gen } from "effect/Effect";
 
 export default Stack(
@@ -9,15 +9,26 @@ export default Stack(
     state: state(),
   },
   gen(function* () {
+    const database = yield* D1.Database("CatalogDatabase", {
+      migrationsDir: "../../packages/db/migrations",
+      importFiles: ["../../packages/db/seeds/catalog.sql"],
+      primaryLocationHint: "apac",
+    });
+
     const api = yield* Worker("Api", {
       main: "./src/worker.ts",
       compatibility: {
         date: "2026-08-12",
       },
+      env: {
+        DB: database,
+      },
     });
 
     return {
       apiUrl: api.url,
+      databaseId: database.databaseId,
+      databaseName: database.databaseName,
     };
   })
 );

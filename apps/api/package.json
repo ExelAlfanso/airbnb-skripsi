@@ -8,6 +8,14 @@
     ".": {
       "types": "./src/app.ts",
       "import": "./src/app.ts"
+    },
+    "./catalog": {
+      "types": "./src/modules/property-catalog/model.ts",
+      "import": "./src/modules/property-catalog/model.ts"
+    },
+    "./client": {
+      "types": "./src/client.ts",
+      "import": "./src/client.ts"
     }
   },
   "scripts": {
@@ -22,16 +30,20 @@
     "build": "tsc --noEmit"
   },
   "dependencies": {
+    "@airbnb-skripsi/db": "workspace:*",
     "@effect/platform-bun": "4.0.0-beta.107",
     "@effect/platform-node": "4.0.0-beta.107",
     "@elysia/eden": "^1.4.10",
+    "@elysiajs/cors": "^1.4.2",
     "@sinclair/typebox": "^0.34.49",
     "alchemy": "2.0.0-beta.72",
+    "drizzle-orm": "^0.45.2",
     "effect": "4.0.0-beta.107",
     "elysia": "latest",
     "openapi-types": "^12.1.3"
   },
   "devDependencies": {
+    "@cloudflare/workers-types": "^5.20260812.1",
     "@types/bun": "latest",
     "typescript": "latest"
   }

@@ -1,5 +1,8 @@
-import { Elysia } from "elysia";
-import { CloudflareAdapter } from "elysia/adapter/cloudflare-worker";
-import { app } from "./app";
+import { env } from "cloudflare:workers";
+import { createCloudflareApp } from "./cloudflare-app";
 
-export default new Elysia({ adapter: CloudflareAdapter }).use(app).compile();
+export interface CloudflareEnv {
+  DB: D1Database;
+}
+
+export default createCloudflareApp((env as CloudflareEnv).DB);
