@@ -1,4 +1,4 @@
-﻿# LAPORAN PRAPROPOSAL SKRIPSI
+# LAPORAN PRAPROPOSAL SKRIPSI
 
 <div align="center">
 
@@ -118,7 +118,7 @@ Evaluasi pengalaman pengguna dilakukan melalui skenario tugas yang sama pada ked
 2. Bagaimana perbandingan efisiensi sumber daya berdasarkan ukuran JavaScript *bundle*, total sumber daya, dan jumlah *request* browser?
 3. Bagaimana perbandingan respons interaksi pada fitur pencarian dan penyaringan properti?
 4. Bagaimana perbandingan kompleksitas implementasi berdasarkan jumlah baris kode, file, komponen, dan *dependency* tambahan?
-5. Bagaimana perbandingan *user experience* dan *usability* kedua prototipe berdasarkan UEQ, SUS, keberhasilan tugas, waktu penyelesaian, dan kesalahan pengguna?
+5. Bagaimana perbandingan *usability* dan *user experience* antara prototipe yang diimplementasikan menggunakan Vue.js dan prototipe yang diimplementasikan menggunakan Svelte berdasarkan skor SUS sebagai outcome utama *perceived usability*, keberhasilan dan waktu penyelesaian tugas sebagai metrik objektif utama, serta UEQ sebagai pengukuran UX pelengkap?
 6. Bagaimana hubungan hasil pengukuran komputasional dan evaluasi pengguna dapat menjadi pertimbangan pemilihan framework frontend untuk website listing yang kaya konten visual dan interaktif?
 
 ## 1.7 Tujuan
@@ -127,7 +127,7 @@ Evaluasi pengalaman pengguna dilakukan melalui skenario tugas yang sama pada ked
 2. Mengukur dan membandingkan efisiensi sumber daya kedua frontend.
 3. Mengukur dan membandingkan respons interaksi pada fitur pencarian dan penyaringan.
 4. Membandingkan kompleksitas implementasi Vue.js dan Svelte.
-5. Mengukur dan membandingkan *user experience* dan *usability* kedua prototipe berdasarkan UEQ, SUS, keberhasilan tugas, waktu penyelesaian, dan kesalahan pengguna.
+5. Mengukur dan membandingkan *usability* dan *user experience* antara prototipe yang diimplementasikan menggunakan Vue.js dan prototipe yang diimplementasikan menggunakan Svelte menggunakan skor SUS sebagai outcome utama *perceived usability*, keberhasilan dan waktu penyelesaian tugas sebagai metrik objektif utama, serta UEQ sebagai pengukuran UX pelengkap.
 6. Menganalisis keterkaitan hasil pengukuran komputasional dan evaluasi pengguna sebagai dasar pertimbangan pemilihan framework frontend.
 
 ## 1.8 Batasan Masalah
@@ -143,7 +143,7 @@ Evaluasi pengalaman pengguna dilakukan melalui skenario tugas yang sama pada ked
 9. INP diukur melalui instrumentasi browser pada sesi terkontrol dan tidak diklaim sebagai data lapangan populasi.
 10. Efisiensi sumber daya dibatasi pada ukuran JavaScript *bundle*, total *transferred size*, jumlah *request*, serta aktivitas *scripting* dan *rendering*.
 11. Kompleksitas implementasi dibatasi pada jumlah baris kode, file, komponen, dan *dependency* tambahan.
-12. Evaluasi pengguna dibatasi pada tugas pencarian, filter, pengurutan, detail, dan wishlist dengan instrumen UEQ dan SUS.
+12. Evaluasi pengguna dibatasi pada tugas pencarian, filter, pengurutan, detail, dan wishlist. Skor SUS menjadi outcome utama *perceived usability*; keberhasilan dan waktu penyelesaian tugas menjadi metrik objektif utama; UEQ menjadi pengukuran UX pelengkap; sedangkan kesalahan, bantuan, jumlah interaksi, dan penyimpangan jalur digunakan sebagai data diagnostik.
 13. Partisipan pernah menggunakan website atau aplikasi pencarian akomodasi/properti.
 14. Hasil berlaku pada prototipe, konfigurasi, partisipan, dan skenario penelitian serta tidak menentukan framework terbaik secara umum.
 
@@ -275,7 +275,7 @@ Efisiensi sumber daya dianalisis melalui hasil *production build* dan Browser De
 
 Evaluasi dilakukan pada *production build* aktual agar partisipan mengalami respons masing-masing framework, bukan prototipe statis. Partisipan dipilih berdasarkan kriteria pernah menggunakan website atau aplikasi pencarian akomodasi/properti. Jumlah partisipan final ditentukan melalui *power analysis* berdasarkan desain berpasangan dan estimasi efek dari uji pilot.
 
-Penelitian menggunakan desain *within-subject counterbalanced*. Setiap partisipan menguji kedua aplikasi. Setengah partisipan memperoleh urutan Vue.js–Svelte dan setengah lainnya Svelte–Vue. Nama framework disamarkan menjadi Versi A dan Versi B. Perangkat, browser, jaringan, viewport, serta kondisi awal cache dibuat sama bagi setiap kondisi.
+Penelitian menggunakan desain *within-subject counterbalanced*. Setiap partisipan menguji kedua aplikasi. Framework, set tugas, dan periode diseimbangkan melalui empat urutan: Vue–Set A lalu Svelte–Set B, Svelte–Set A lalu Vue–Set B, Vue–Set B lalu Svelte–Set A, serta Svelte–Set B lalu Vue–Set A. Nama framework disamarkan menjadi Versi A dan Versi B. Perangkat, browser, jaringan, viewport, serta kondisi awal cache dibuat sama bagi setiap kondisi.
 
 Skenario tugas mencakup:
 
@@ -285,7 +285,9 @@ Skenario tugas mencakup:
 4. membuka halaman detail dan menemukan informasi tertentu; dan
 5. menambahkan atau menghapus properti dari wishlist.
 
-Setiap tugas memiliki kondisi sukses, batas waktu, dan definisi kesalahan yang ditentukan sebelum pengumpulan data. Data objektif yang dicatat meliputi keberhasilan tugas, waktu penyelesaian, jumlah kesalahan, jumlah interaksi, dan penyimpangan dari jalur ideal. Setelah menyelesaikan seluruh tugas pada setiap versi, partisipan mengisi UEQ dan SUS mengikuti aturan skoring resmi.
+Setiap tugas memiliki kondisi awal yang ditetapkan peneliti dan tidak bergantung pada keberhasilan tugas sebelumnya. Jika suatu alur sengaja diuji secara *end-to-end*, seluruh alur diperlakukan sebagai satu skenario dan tidak dipecah menjadi beberapa pengukuran waktu yang saling bergantung. Kondisi sukses, batas waktu, dan definisi kesalahan ditentukan sebelum pengumpulan data.
+
+Kesetaraan Set A dan Set B diperiksa pada pilot menggunakan median waktu penyelesaian, tingkat keberhasilan, jumlah kesalahan, dan penilaian kesulitan subjektif. Tugas direvisi jika perbedaannya melewati batas penerimaan yang ditetapkan sebelum pilot. Skor SUS menjadi outcome utama *perceived usability*. Keberhasilan dan waktu penyelesaian tugas menjadi metrik objektif utama; UEQ menjadi pengukuran UX pelengkap; sedangkan kesalahan, bantuan, jumlah interaksi, dan penyimpangan dari urutan interaksi valid digunakan sebagai data diagnostik. Setelah menyelesaikan seluruh tugas pada setiap versi, partisipan mengisi SUS dan UEQ mengikuti aturan skoring resmi.
 
 Maze dapat digunakan sebagai media penyajian instruksi, pengumpulan kuesioner, dan rekaman layar. Namun, interaksi aplikasi satu halaman seperti perubahan filter atau wishlist tidak selalu menghasilkan perpindahan URL. Oleh karena itu, *event log* aplikasi dan rekaman sesi digunakan sebagai sumber utama untuk memverifikasi waktu, jalur, dan keberhasilan tugas. Sebelum berpartisipasi, responden menerima penjelasan penelitian dan memberikan persetujuan. Data identitas dibatasi dan dianonimkan.
 
@@ -293,24 +295,27 @@ Maze dapat digunakan sebagai media penyajian instruksi, pengumpulan kuesioner, d
 
 Data performa komputasional diringkas menggunakan median, rentang antarkuartil, dan perbedaan relatif antarkondisi. Hasil pengulangan individual disimpan agar variasi pengujian dapat diperiksa.
 
-Data evaluasi pengguna dianalisis sebagai data berpasangan. Perbedaan waktu penyelesaian, skor UEQ, dan skor SUS dianalisis menggunakan *paired t-test* apabila asumsi parametrik terpenuhi atau Wilcoxon signed-rank apabila tidak terpenuhi. Perbedaan keberhasilan tugas dapat dianalisis menggunakan uji McNemar. Hasil dilaporkan bersama ukuran efek dan interval kepercayaan, bukan hanya nilai signifikansi.
+Data evaluasi pengguna dianalisis sebagai data berpasangan. Perbedaan waktu penyelesaian, skor UEQ, dan skor SUS dianalisis menggunakan *paired t-test* apabila distribusi selisih memenuhi asumsi parametrik atau Wilcoxon signed-rank apabila tidak terpenuhi. Perbedaan keberhasilan tugas dianalisis menggunakan uji McNemar. Hasil dilaporkan bersama ukuran efek dan interval kepercayaan, bukan hanya nilai signifikansi.
 
-Hasil teknis dan hasil pengguna dibandingkan untuk menilai apakah perbedaan performa browser sejalan dengan perbedaan efektivitas, efisiensi, atau persepsi pengguna. Korelasi tidak langsung diinterpretasikan sebagai hubungan sebab-akibat. Kesimpulan dibatasi pada konteks prototipe, kondisi pengujian, dan karakteristik partisipan penelitian.
+Pengaruh framework, set tugas, periode pengujian, dan urutan framework diperiksa sebagai analisis yang direncanakan, bukan hanya ketika terlihat perbedaan besar. Minimal, hasil deskriptif dan selisih berpasangan dilaporkan menurut Set A/Set B, periode pertama/kedua, dan kelompok urutan. Jika ukuran sampel memadai, analisis sensitivitas dapat menggunakan model efek campuran dengan partisipan sebagai efek acak. Temuan utama tetap ditafsirkan berdasarkan analisis berpasangan yang telah ditetapkan sebelumnya.
+
+Hasil teknis dan hasil pengguna dibandingkan untuk menilai apakah perbedaan performa browser sejalan dengan perbedaan efektivitas, efisiensi, atau persepsi pengguna. Korelasi tidak langsung diinterpretasikan sebagai hubungan sebab-akibat. Kesimpulan dirumuskan pada tingkat prototipe, misalnya "prototipe yang diimplementasikan menggunakan Svelte memperoleh skor SUS lebih tinggi pada kondisi penelitian", bukan sebagai klaim bahwa framework tersebut secara umum lebih usable. Kesimpulan dibatasi pada konteks prototipe, kondisi pengujian, dan karakteristik partisipan penelitian.
 
 ### Tabel 3.1 Aspek dan Metrik Penelitian
 
-| Aspek | Metrik |
-|---|---|
-| Core Web Vitals | LCP, INP sesi terkontrol, CLS |
-| Metrik laboratorium pendukung | TBT, FCP, Speed Index, skor performa Lighthouse |
-| Efisiensi sumber daya | JavaScript *bundle size*, total *transferred size*, jumlah *request*, aktivitas *main thread* |
-| Respons interaksi | Waktu respons pencarian/filter dan latensi pembaruan tampilan |
-| Kompleksitas implementasi | LOC, jumlah file, jumlah komponen, jumlah *dependency* tambahan |
-| Efektivitas penggunaan | Tingkat keberhasilan tugas dan jumlah kesalahan |
-| Efisiensi penggunaan | Waktu penyelesaian, jumlah interaksi, dan penyimpangan jalur |
-| User experience | Enam skala User Experience Questionnaire (UEQ) |
-| Usability | Skor System Usability Scale (SUS) |
-| Variabel kontrol | Backend, dataset, aset, layout, fitur, browser, perangkat, jaringan, cache, viewport, dan skenario uji |
+| Aspek | Metrik | Kedudukan dalam analisis |
+|---|---|---|
+| Core Web Vitals | LCP, INP sesi terkontrol, CLS | Metrik utama komputasional |
+| Metrik laboratorium pendukung | TBT, FCP, Speed Index, skor performa Lighthouse | Metrik pendukung komputasional |
+| Efisiensi sumber daya | JavaScript *bundle size*, total *transferred size*, jumlah *request*, aktivitas *main thread* | Metrik utama efisiensi sumber daya |
+| Respons interaksi | Waktu respons pencarian/filter dan latensi pembaruan tampilan | Metrik utama respons interaksi |
+| Kompleksitas implementasi | LOC, jumlah file, jumlah komponen, jumlah *dependency* tambahan | Perbandingan deskriptif implementasi |
+| *Perceived usability* | Skor System Usability Scale (SUS) | Outcome utama evaluasi pengguna |
+| Efektivitas penggunaan | Tingkat keberhasilan tugas | Metrik objektif utama usability |
+| Efisiensi penggunaan | Waktu penyelesaian tugas | Metrik objektif utama usability |
+| User experience | Enam skala User Experience Questionnaire (UEQ) | Pengukuran UX pelengkap |
+| Diagnostik tugas | Kesalahan, bantuan, jumlah interaksi, dan penyimpangan dari urutan interaksi valid | Data diagnostik, bukan outcome utama |
+| Variabel kontrol | Backend, dataset, aset, layout, fitur, browser, perangkat, jaringan, cache, viewport, dan skenario uji | Kondisi yang disetarakan |
 
 ### Tabel 3.2 Instrumen dan Alat Pengukuran
 

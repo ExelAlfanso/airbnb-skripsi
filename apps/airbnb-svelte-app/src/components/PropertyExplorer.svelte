@@ -44,7 +44,7 @@
   let resultLabel = $derived(`${pagination?.total ?? 0} properti ditemukan`);
 
   onMount(() => {
-    void initialize();
+    initialize();
   });
 
   async function initialize(): Promise<void> {
@@ -95,7 +95,7 @@
     filters = nextFilters;
     selectedId = null;
     detail = null;
-    void loadProperties(true);
+    loadProperties(true);
   }
 
   function handleReset(): void {
@@ -174,7 +174,11 @@
       <span class="brand__mark" aria-hidden="true">A</span>
       <span translate="no">Airbnb</span>
     </a>
-    <p>Prototipe listing <span aria-hidden="true">/</span> Studi kasus Airbnb</p>
+    <p>
+      Prototipe listing
+      <span class="site-header__separator" aria-hidden="true">/</span>
+      Studi kasus Airbnb
+    </p>
   </header>
 
   <main id="main-content" class="container">
@@ -206,8 +210,8 @@
               <span>Bandingkan tanpa bias.</span>
             </h1>
             <p class="hero__copy">
-              Jelajahi prototipe listing akomodasi dengan pencarian, filter,
-              dan detail yang setara pada implementasi Vue dan Svelte.
+              Jelajahi prototipe listing akomodasi dengan pencarian, filter, dan
+              detail yang setara pada implementasi Vue dan Svelte.
             </p>
           </div>
 
@@ -335,9 +339,9 @@
 
   .site-header > p {
     margin: 0;
+    font-family: ui-monospace, "Cascadia Code", "SFMono-Regular", monospace;
     font-size: 0.82rem;
     color: var(--muted);
-    font-family: ui-monospace, "Cascadia Code", "SFMono-Regular", monospace;
     text-align: right;
   }
 
@@ -351,7 +355,7 @@
     text-decoration: none;
   }
 
-  .site-header > p span {
+  .site-header__separator {
     margin-inline: 0.35rem;
   }
 
@@ -414,6 +418,15 @@
     color: var(--muted);
   }
 
+  .research-rail > div > span {
+    font-family: ui-monospace, "Cascadia Code", "SFMono-Regular", monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+  }
+
   .results {
     padding: 3.5rem 0 5rem;
   }
@@ -431,19 +444,9 @@
     border-top: 1px solid var(--border);
   }
 
-  .research-rail span {
-    font-family: ui-monospace, "Cascadia Code", "SFMono-Regular", monospace;
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
-  }
-
   .research-rail strong {
     font-size: 0.95rem;
   }
-
 
   .results__heading {
     display: flex;
@@ -592,6 +595,5 @@
     .hero h1 {
       font-size: clamp(2.75rem, 14vw, 4.5rem);
     }
-
   }
 </style>

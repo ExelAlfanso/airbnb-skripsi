@@ -1,5 +1,5 @@
 import { Stack } from "alchemy";
-import { D1, providers, state, Worker } from "alchemy/Cloudflare";
+import { D1, providers, state, Website, Worker } from "alchemy/Cloudflare";
 import { gen } from "effect/Effect";
 
 export default Stack(
@@ -24,10 +24,32 @@ export default Stack(
         DB: database,
       },
     });
+    const prototypeA = yield* Website.Vite("PrototypeA", {
+      rootDir: "../airbnb-vue-app",
+      env: {
+        VITE_API_URL: api.url.as<string>(),
+      },
+      assets: {
+        htmlHandling: "auto-trailing-slash",
+        notFoundHandling: "single-page-application",
+      },
+    });
 
+    const prototypeB = yield* Website.Vite("PrototypeB", {
+      rootDir: "../airbnb-svelte-app",
+      env: {
+        VITE_API_URL: api.url.as<string>(),
+      },
+      assets: {
+        htmlHandling: "auto-trailing-slash",
+        notFoundHandling: "single-page-application",
+      },
+    });
     return {
       apiUrl: api.url,
       databaseId: database.databaseId,
+      prototypeA: prototypeA.url,
+      prototypeB: prototypeB.url,
       databaseName: database.databaseName,
     };
   })

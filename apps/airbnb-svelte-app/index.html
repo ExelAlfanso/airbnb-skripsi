@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="id">
   <head>
     <meta charset="UTF-8">
@@ -6,6 +6,47 @@
     <title>Airbnb Skripsi Svelte</title>
     <meta name="theme-color" content="#ffffff">
     <link rel="preconnect" href="https://images.unsplash.com">
+    <script>
+      "use strict";
+      ((m, a, z, e) => {
+        let s, t, u, v;
+        try {
+          t = m.sessionStorage.getItem("maze-us");
+        } catch {
+          // Maze can still load when sessionStorage is unavailable.
+        }
+
+        if (!t) {
+          t = Date.now();
+          try {
+            m.sessionStorage.setItem("maze-us", t);
+          } catch {
+            // Maze can still load when sessionStorage is unavailable.
+          }
+        }
+        u =
+          document.currentScript ||
+          (() => {
+            const w = document.getElementsByTagName("script");
+            return w.item(w.length - 1);
+          })();
+        v = u?.nonce;
+
+        s = a.createElement("script");
+        s.src = `${z}?apiKey=${e}`;
+        s.async = true;
+        if (v) {
+          s.setAttribute("nonce", v);
+        }
+        a.getElementsByTagName("head")[0].appendChild(s);
+        m.mazeUniversalSnippetApiKey = e;
+      })(
+        window,
+        document,
+        "https://snippet.maze.co/maze-universal-loader.js",
+        "d0000a3-f0c7-4e09-a555-4a538dd6a88e"
+      );
+    </script>
   </head>
   <body>
     <div id="app"></div>

@@ -349,9 +349,9 @@
   .advanced-filters__indicator {
     display: grid;
     flex: 0 0 2rem;
+    place-items: center;
     width: 2rem;
     height: 2rem;
-    place-items: center;
     font-size: 1.25rem;
     line-height: 1;
     color: var(--brand-dark);

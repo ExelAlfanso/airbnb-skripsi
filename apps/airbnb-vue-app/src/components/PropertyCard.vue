@@ -71,8 +71,10 @@
 
       <p class="property-card__location">{{ property.location.displayName }}</p>
       <p class="property-card__facts">
-        {{ property.maxGuests }} tamu &middot;
-        {{ property.bedrooms }} kamar &middot;
+        {{ property.maxGuests }}
+        tamu &middot;
+        {{ property.bedrooms }}
+        kamar &middot;
         {{ property.beds }}
         tempat tidur
       </p>
@@ -188,9 +190,9 @@
     font-size: 1.08rem;
     font-weight: 780;
     line-height: 1.3;
-    overflow-wrap: anywhere;
     color: var(--ink);
     text-align: left;
+    overflow-wrap: anywhere;
     background: transparent;
   }
 

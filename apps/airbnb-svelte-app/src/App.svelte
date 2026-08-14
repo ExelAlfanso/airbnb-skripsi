@@ -20,8 +20,8 @@
     --shadow-md: 0 0.5rem 1.5rem rgb(0 0 0 / 12%);
     --shadow-lg: 0 0.75rem 2rem rgb(0 0 0 / 12%);
     font-family:
-      ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-      "Segoe UI", sans-serif;
+      ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+      sans-serif;
     font-synthesis: none;
     color: var(--ink);
     color-scheme: light;
@@ -59,7 +59,6 @@
     touch-action: manipulation;
     -webkit-tap-highlight-color: rgb(255 56 92 / 16%);
   }
-
 
   :global(button) {
     cursor: pointer;

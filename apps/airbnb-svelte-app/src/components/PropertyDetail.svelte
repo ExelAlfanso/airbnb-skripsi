@@ -25,7 +25,9 @@
       </p>
       <h1>{property.title}</h1>
       <p class="detail__rating">
-        &#9733; {property.rating.toFixed(1)} &middot; {property.reviewCount} ulasan
+        &#9733; {property.rating.toFixed(1)} &middot;
+        {property.reviewCount}
+        ulasan
         {#if property.isGuestFavorite}
           <span>&middot; Favorit tamu</span>
         {/if}

@@ -30,7 +30,9 @@
         </p>
         <h1>{{ property.title }}</h1>
         <p class="detail__rating">
-          &#9733; {{ property.rating.toFixed(1) }} &middot; {{ property.reviewCount }} ulasan
+          &#9733; {{ property.rating.toFixed(1) }} &middot;
+          {{ property.reviewCount }}
+          ulasan
           <span v-if="property.isGuestFavorite">&middot; Favorit tamu</span>
         </p>
       </div>

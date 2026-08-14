@@ -89,6 +89,13 @@ For property queries, preserve:
 
 Run the smallest relevant checks from the repository root. Do not claim a command passed unless it was run successfully.
 
+After implementing any feature or fix:
+
+1. Run `pnpm check`.
+2. Run `pnpm fix`.
+3. Run `pnpm check` again.
+4. Resolve every reported error and repeat the sequence until the final `pnpm check` passes. Do not ignore or hand off unresolved errors; if an error is demonstrably pre-existing and outside the requested scope, document it explicitly.
+
 ```text
 pnpm check
 pnpm build

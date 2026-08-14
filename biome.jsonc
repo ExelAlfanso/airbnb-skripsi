@@ -10,6 +10,29 @@
   },
   "overrides": [
     {
+      "includes": ["apps/airbnb-svelte-app/**/*.svelte"],
+      "linter": {
+        "rules": {
+          "style": {
+            "useFilenamingConvention": "off"
+          }
+        }
+      }
+    },
+    {
+      "includes": ["apps/airbnb-vue-app/**/*.vue"],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noUndeclaredVariables": "off"
+          },
+          "style": {
+            "useFilenamingConvention": "off"
+          }
+        }
+      }
+    },
+    {
       "includes": ["tests/performance/k6/**/*.js"],
       "javascript": {
         "globals": ["__ENV"]

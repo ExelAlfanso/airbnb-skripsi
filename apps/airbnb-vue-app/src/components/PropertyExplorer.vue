@@ -46,7 +46,7 @@
   });
 
   onMounted(() => {
-    void initialize();
+    initialize();
   });
 
   async function initialize(): Promise<void> {
@@ -99,7 +99,7 @@
     filters.value = nextFilters;
     selectedId.value = null;
     detail.value = null;
-    void loadProperties(true);
+    loadProperties(true);
   }
 
   function handleReset(): void {
@@ -178,7 +178,11 @@
         <span class="brand__mark" aria-hidden="true">A</span>
         <span translate="no">Airbnb</span>
       </a>
-      <p>Prototipe listing <span aria-hidden="true">/</span> Studi kasus Airbnb</p>
+      <p>
+        Prototipe listing
+        <span class="site-header__separator" aria-hidden="true">/</span>
+        Studi kasus Airbnb
+      </p>
     </header>
 
     <main id="main-content" class="container">
@@ -191,7 +195,11 @@
         >
           Memuat detail properti&hellip;
         </div>
-        <div v-else-if="detailError" class="status-panel status-panel--error" role="alert">
+        <div
+          v-else-if="detailError"
+          class="status-panel status-panel--error"
+          role="alert"
+        >
           <p>{{ detailError }}</p>
           <button type="button" @click="closeDetail">Kembali ke hasil</button>
         </div>
@@ -220,7 +228,9 @@
             </div>
 
             <aside class="research-rail" aria-label="Konteks penelitian">
-              <div><span>Dataset</span><strong>Dummy deterministik</strong></div>
+              <div>
+                <span>Dataset</span><strong>Dummy deterministik</strong>
+              </div>
               <div><span>API</span><strong>Respons yang sama</strong></div>
               <div><span>Frontend</span><strong>Vue + Svelte</strong></div>
             </aside>
@@ -246,7 +256,11 @@
             </p>
           </div>
 
-          <div v-if="errorMessage" class="status-panel status-panel--error" role="alert">
+          <div
+            v-if="errorMessage"
+            class="status-panel status-panel--error"
+            role="alert"
+          >
             <p>{{ errorMessage }}</p>
             <button type="button" @click="loadProperties(true)">
               Coba lagi
@@ -335,7 +349,6 @@
     translate: 0;
   }
 
-
   .site-header {
     display: flex;
     gap: 1rem;
@@ -347,9 +360,9 @@
 
   .site-header > p {
     margin: 0;
+    font-family: ui-monospace, "Cascadia Code", "SFMono-Regular", monospace;
     font-size: 0.82rem;
     color: var(--muted);
-    font-family: ui-monospace, "Cascadia Code", "SFMono-Regular", monospace;
     text-align: right;
   }
 
@@ -363,7 +376,7 @@
     text-decoration: none;
   }
 
-  .site-header > p span {
+  .site-header__separator {
     margin-inline: 0.35rem;
   }
 
@@ -426,6 +439,15 @@
     color: var(--muted);
   }
 
+  .research-rail > div > span {
+    font-family: ui-monospace, "Cascadia Code", "SFMono-Regular", monospace;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+  }
+
   .research-rail {
     border-block: 1px solid var(--ink);
   }
@@ -438,15 +460,6 @@
 
   .research-rail div + div {
     border-top: 1px solid var(--border);
-  }
-
-  .research-rail span {
-    font-family: ui-monospace, "Cascadia Code", "SFMono-Regular", monospace;
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.09em;
   }
 
   .research-rail strong {
@@ -517,7 +530,6 @@
   .load-more button:active:not(:disabled) {
     scale: 0.98;
   }
-
 
   .skeleton-grid {
     display: grid;
@@ -596,14 +608,13 @@
   @media (prefers-reduced-motion: reduce) {
     .skeleton-card {
       animation: none;
-    .site-header > p {
-      text-align: left;
-    }
+      .site-header > p {
+        text-align: left;
+      }
 
-    .hero h1 {
-      font-size: clamp(2.75rem, 14vw, 4.5rem);
-    }
-
+      .hero h1 {
+        font-size: clamp(2.75rem, 14vw, 4.5rem);
+      }
     }
   }
 </style>
