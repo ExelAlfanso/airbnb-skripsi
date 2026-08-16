@@ -97,6 +97,16 @@ Tugas menggunakan dataset deterministik pada `packages/db/seeds/catalog.sql`. Re
 
 ### 6.1 Set Tugas A
 
+Nama dan deskripsi berikut digunakan sebagai konten *task* pada Website Test di Maze.
+
+| ID | Nama tugas | Deskripsi singkat |
+| --- | --- | --- |
+| A1 | Cari akomodasi di Canggu | Gunakan fitur pencarian untuk menampilkan akomodasi yang berada di Canggu. |
+| A2 | Temukan Villa sesuai kebutuhan | Cari Villa di Canggu untuk minimal empat tamu yang memiliki Private Pool. |
+| A3 | Pilih properti dengan rating tertinggi | Urutkan seluruh properti berdasarkan rating tertinggi, lalu pilih hasil teratas. |
+| A4 | Temukan informasi properti | Pada halaman detail yang terbuka, temukan nama host dan jumlah kamar tidur. |
+| A5 | Simpan properti ke wishlist | Tambahkan properti ke wishlist, kembali ke daftar, lalu pastikan status wishlist masih aktif. |
+
 | ID | Kondisi awal | Instruksi kepada partisipan | Kondisi sukses |
 | --- | --- | --- | --- |
 | A1 | Daftar awal; search, filter, sorting, pagination, dan wishlist di-reset. | Cari akomodasi yang berada di Canggu. | Daftar hanya menampilkan hasil yang sesuai dengan Canggu. |
@@ -106,6 +116,16 @@ Tugas menggunakan dataset deterministik pada `packages/db/seeds/catalog.sql`. Re
 | A5 | Peneliti telah membuka detail `Kabin Kayu Tenang di Kaliurang` dengan status wishlist awal tidak aktif. | Tambahkan properti ke wishlist, kembali ke daftar, lalu pastikan status wishlist masih aktif. | Wishlist properti aktif pada detail dan daftar selama sesi. |
 
 ### 6.2 Set Tugas B
+
+Nama dan deskripsi berikut digunakan sebagai konten *task* pada Website Test di Maze.
+
+| ID | Nama tugas | Deskripsi singkat |
+| --- | --- | --- |
+| B1 | Cari akomodasi di Lembang | Gunakan fitur pencarian untuk menampilkan akomodasi yang berada di Lembang. |
+| B2 | Temukan House sesuai kebutuhan | Cari House di Lembang untuk minimal empat tamu yang memiliki Free Parking. |
+| B3 | Pilih properti dengan harga tertinggi | Urutkan seluruh properti berdasarkan harga tertinggi, lalu pilih hasil teratas. |
+| B4 | Temukan informasi properti | Pada halaman detail yang terbuka, temukan nama host dan jumlah kamar tidur. |
+| B5 | Simpan properti ke wishlist | Tambahkan properti ke wishlist, kembali ke daftar, lalu pastikan status wishlist masih aktif. |
 
 | ID | Kondisi awal | Instruksi kepada partisipan | Kondisi sukses |
 | --- | --- | --- | --- |
@@ -383,4 +403,3 @@ Setiap perubahan setelah pilot dicatat dalam log revisi protokol.
 - International Organization for Standardization. [ISO 9241-11:2018: Usability—Definitions and Concepts](https://www.iso.org/standard/63500.html).
 - Schrepp, M. (2023). [User Experience Questionnaire Handbook](https://ueq-online.org/Material/Handbook.pdf).
 - [UEQ questionnaire and official data-analysis tools](https://www.ueq-online.org/?page_id=110).
-
