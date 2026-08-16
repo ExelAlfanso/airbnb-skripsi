@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { untrack } from "svelte";
   import {
     type CatalogFilters,
     type CatalogOptions,
@@ -8,19 +9,26 @@
 
   interface Props {
     disabled: boolean;
+    initialFilters: CatalogFilters;
     options: CatalogOptions;
     reset: () => void;
     search: (filters: CatalogFilters) => void;
   }
 
-  let { disabled, options, reset, search }: Props = $props();
-  let draft: CatalogFilters = $state(createDefaultFilters());
+  let { disabled, initialFilters, options, reset, search }: Props = $props();
+  let draft: CatalogFilters = $state(
+    untrack(() => copyFilters(initialFilters))
+  );
+
+  function copyFilters(filters: CatalogFilters): CatalogFilters {
+    return {
+      ...filters,
+      amenities: [...filters.amenities],
+    };
+  }
 
   function copyDraft(): CatalogFilters {
-    return {
-      ...draft,
-      amenities: [...draft.amenities],
-    };
+    return copyFilters(draft);
   }
 
   function submit(event: SubmitEvent): void {

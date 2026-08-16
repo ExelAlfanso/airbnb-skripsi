@@ -27,6 +27,7 @@ vi.mock("../catalog", async (importOriginal) => {
 describe("PropertyExplorer integration", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    window.history.replaceState(null, "", "/");
     catalogMocks.fetchCatalogOptions.mockResolvedValue(catalogOptions);
     catalogMocks.fetchPropertyDetail.mockResolvedValue(propertyDetail);
     catalogMocks.fetchPropertyPage.mockResolvedValue(propertyPage);
@@ -55,6 +56,7 @@ describe("PropertyExplorer integration", () => {
         1
       );
     });
+    expect(window.location.search).toBe("?search=Bandung");
 
     const wishlistButton = screen.getByRole("button", {
       name: `Simpan ${property.title} ke wishlist`,
@@ -77,5 +79,30 @@ describe("PropertyExplorer integration", () => {
         .getByRole("button", { name: "Tersimpan" })
         .getAttribute("aria-pressed")
     ).toBe("true");
+  });
+
+  it("hydrates filters from the URL and restores them on popstate", async () => {
+    window.history.replaceState(null, "", "/?search=Bandung&sort=rating_desc");
+    render(PropertyExplorer);
+
+    await screen.findByText(property.title);
+    expect(catalogMocks.fetchPropertyPage).toHaveBeenCalledWith(
+      expect.objectContaining({ search: "Bandung", sort: "rating_desc" }),
+      1
+    );
+    expect(screen.getByRole("searchbox")).toHaveValue("Bandung");
+
+    window.history.pushState(null, "", "/?location=loc_bandung");
+    window.dispatchEvent(new PopStateEvent("popstate"));
+
+    await waitFor(() => {
+      expect(catalogMocks.fetchPropertyPage).toHaveBeenLastCalledWith(
+        expect.objectContaining({ location: "loc_bandung", search: "" }),
+        1
+      );
+    });
+    expect(screen.getByRole("combobox", { name: "Lokasi" })).toHaveValue(
+      "loc_bandung"
+    );
   });
 });

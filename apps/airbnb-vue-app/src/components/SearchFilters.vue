@@ -9,6 +9,7 @@
 
   interface Props {
     disabled: boolean;
+    initialFilters: CatalogFilters;
     options: CatalogOptions;
   }
 
@@ -17,15 +18,19 @@
     search: [filters: CatalogFilters];
   }
 
-  defineProps<Props>();
+  const props = defineProps<Props>();
   const emit = defineEmits<Emits>();
-  const draft = reactive<CatalogFilters>(createDefaultFilters());
+  const draft = reactive<CatalogFilters>(copyFilters(props.initialFilters));
+
+  function copyFilters(filters: CatalogFilters): CatalogFilters {
+    return {
+      ...filters,
+      amenities: [...filters.amenities],
+    };
+  }
 
   function copyDraft(): CatalogFilters {
-    return {
-      ...draft,
-      amenities: [...draft.amenities],
-    };
+    return copyFilters(draft);
   }
 
   function submit(): void {

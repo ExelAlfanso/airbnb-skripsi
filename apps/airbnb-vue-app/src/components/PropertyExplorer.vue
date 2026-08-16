@@ -4,14 +4,16 @@
     PropertyDetail as PropertyDetailType,
     PropertyListItem,
   } from "@airbnb-skripsi/api/catalog";
-  import { computed, onMounted, shallowRef } from "vue";
+  import { computed, onMounted, onUnmounted, shallowRef } from "vue";
   import {
     type CatalogFilters,
     type CatalogOptions,
+    createCatalogSearchParams,
     createDefaultFilters,
     fetchCatalogOptions,
     fetchPropertyDetail,
     fetchPropertyPage,
+    parseCatalogFilters,
   } from "../catalog";
   import PropertyDetail from "./PropertyDetail.vue";
   import PropertyGrid from "./PropertyGrid.vue";
@@ -25,6 +27,7 @@
     propertyTypes: [],
   });
   const filters = shallowRef<CatalogFilters>(createDefaultFilters());
+  const filterFormKey = shallowRef(0);
   const properties = shallowRef<PropertyListItem[]>([]);
   const pagination = shallowRef<PaginationMeta | null>(null);
   const detail = shallowRef<PropertyDetailType | null>(null);
@@ -46,7 +49,13 @@
   });
 
   onMounted(() => {
+    restoreFiltersFromUrl();
+    window.addEventListener("popstate", handlePopState);
     initialize();
+  });
+
+  onUnmounted(() => {
+    window.removeEventListener("popstate", handlePopState);
   });
 
   async function initialize(): Promise<void> {
@@ -97,6 +106,7 @@
 
   function handleSearch(nextFilters: CatalogFilters): void {
     filters.value = nextFilters;
+    updateCatalogUrl(nextFilters);
     selectedId.value = null;
     detail.value = null;
     loadProperties(true);
@@ -104,6 +114,37 @@
 
   function handleReset(): void {
     handleSearch(createDefaultFilters());
+  }
+
+  function handlePopState(): void {
+    restoreFiltersFromUrl();
+    detailRequestId += 1;
+    selectedId.value = null;
+    detail.value = null;
+    detailError.value = null;
+    loadingDetail.value = false;
+    loadProperties(true);
+  }
+
+  function restoreFiltersFromUrl(): void {
+    filters.value = parseCatalogFilters(
+      new URLSearchParams(window.location.search)
+    );
+    filterFormKey.value += 1;
+  }
+
+  function updateCatalogUrl(nextFilters: CatalogFilters): void {
+    const url = new URL(window.location.href);
+    url.search = createCatalogSearchParams(
+      nextFilters,
+      url.searchParams
+    ).toString();
+    const nextUrl = `${url.pathname}${url.search}${url.hash}`;
+    const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+
+    if (nextUrl !== currentUrl) {
+      window.history.pushState(null, "", nextUrl);
+    }
   }
 
   async function openProperty(id: string): Promise<void> {
@@ -237,7 +278,9 @@
           </div>
 
           <SearchFilters
+            :key="filterFormKey"
             :disabled="loadingList || loadingOptions"
+            :initial-filters="filters"
             :options="options"
             @reset="handleReset"
             @search="handleSearch"

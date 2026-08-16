@@ -8,10 +8,12 @@
   import {
     type CatalogFilters,
     type CatalogOptions,
+    createCatalogSearchParams,
     createDefaultFilters,
     fetchCatalogOptions,
     fetchPropertyDetail,
     fetchPropertyPage,
+    parseCatalogFilters,
   } from "../catalog";
   import PropertyDetailView from "./PropertyDetail.svelte";
   import PropertyGrid from "./PropertyGrid.svelte";
@@ -26,6 +28,7 @@
     propertyTypes: [],
   });
   let filters: CatalogFilters = $state.raw(createDefaultFilters());
+  let filterFormKey = $state(0);
   let properties: PropertyListItem[] = $state.raw([]);
   let pagination = $state.raw<PaginationMeta | null>(null);
   let detail = $state.raw<PropertyDetail | null>(null);
@@ -44,7 +47,13 @@
   let resultLabel = $derived(`${pagination?.total ?? 0} properti ditemukan`);
 
   onMount(() => {
+    restoreFiltersFromUrl();
+    window.addEventListener("popstate", handlePopState);
     initialize();
+
+    return () => {
+      window.removeEventListener("popstate", handlePopState);
+    };
   });
 
   async function initialize(): Promise<void> {
@@ -93,6 +102,7 @@
 
   function handleSearch(nextFilters: CatalogFilters): void {
     filters = nextFilters;
+    updateCatalogUrl(nextFilters);
     selectedId = null;
     detail = null;
     loadProperties(true);
@@ -100,6 +110,35 @@
 
   function handleReset(): void {
     handleSearch(createDefaultFilters());
+  }
+
+  function handlePopState(): void {
+    restoreFiltersFromUrl();
+    detailRequestId += 1;
+    selectedId = null;
+    detail = null;
+    detailError = null;
+    loadingDetail = false;
+    loadProperties(true);
+  }
+
+  function restoreFiltersFromUrl(): void {
+    filters = parseCatalogFilters(new URLSearchParams(window.location.search));
+    filterFormKey += 1;
+  }
+
+  function updateCatalogUrl(nextFilters: CatalogFilters): void {
+    const url = new URL(window.location.href);
+    url.search = createCatalogSearchParams(
+      nextFilters,
+      url.searchParams
+    ).toString();
+    const nextUrl = `${url.pathname}${url.search}${url.hash}`;
+    const currentUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+
+    if (nextUrl !== currentUrl) {
+      window.history.pushState(null, "", nextUrl);
+    }
   }
 
   async function openProperty(id: string): Promise<void> {
@@ -222,12 +261,15 @@
           </aside>
         </div>
 
-        <SearchFilters
-          disabled={loadingList || loadingOptions}
-          {options}
-          reset={handleReset}
-          search={handleSearch}
-        />
+        {#key filterFormKey}
+          <SearchFilters
+            disabled={loadingList || loadingOptions}
+            initialFilters={filters}
+            {options}
+            reset={handleReset}
+            search={handleSearch}
+          />
+        {/key}
       </section>
 
       <section class="results" aria-labelledby="results-title">

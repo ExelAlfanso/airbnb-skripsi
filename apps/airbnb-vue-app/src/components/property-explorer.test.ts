@@ -26,6 +26,7 @@ vi.mock("../catalog", async (importOriginal) => {
 describe("PropertyExplorer integration", () => {
   beforeEach(() => {
     vi.clearAllMocks();
+    window.history.replaceState(null, "", "/");
     catalogMocks.fetchCatalogOptions.mockResolvedValue(catalogOptions);
     catalogMocks.fetchPropertyDetail.mockResolvedValue(propertyDetail);
     catalogMocks.fetchPropertyPage.mockResolvedValue(propertyPage);
@@ -57,6 +58,7 @@ describe("PropertyExplorer integration", () => {
         expect.objectContaining({ search: "Bandung" }),
         1
       );
+      expect(window.location.search).toBe("?search=Bandung");
 
       const wishlistButton = wrapper.find(".wishlist-button");
       expect(wishlistButton.attributes("aria-pressed")).toBe("false");
@@ -74,6 +76,40 @@ describe("PropertyExplorer integration", () => {
       expect(wrapper.find(".detail-wishlist").attributes("aria-pressed")).toBe(
         "true"
       );
+    } finally {
+      wrapper.unmount();
+    }
+  });
+
+  it("hydrates filters from the URL and restores them on popstate", async () => {
+    window.history.replaceState(null, "", "/?search=Bandung&sort=rating_desc");
+    const wrapper = mount(PropertyExplorer, {
+      attachTo: document.body,
+    });
+
+    try {
+      await flushPromises();
+
+      expect(catalogMocks.fetchPropertyPage).toHaveBeenCalledWith(
+        expect.objectContaining({ search: "Bandung", sort: "rating_desc" }),
+        1
+      );
+      expect(
+        (wrapper.find('input[name="search"]').element as HTMLInputElement).value
+      ).toBe("Bandung");
+
+      window.history.pushState(null, "", "/?location=loc_bandung");
+      window.dispatchEvent(new PopStateEvent("popstate"));
+      await flushPromises();
+
+      expect(catalogMocks.fetchPropertyPage).toHaveBeenLastCalledWith(
+        expect.objectContaining({ location: "loc_bandung", search: "" }),
+        1
+      );
+      expect(
+        (wrapper.find('select[name="location"]').element as HTMLSelectElement)
+          .value
+      ).toBe("loc_bandung");
     } finally {
       wrapper.unmount();
     }

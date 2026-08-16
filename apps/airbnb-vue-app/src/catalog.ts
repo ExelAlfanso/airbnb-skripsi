@@ -42,6 +42,20 @@ export const SORT_OPTIONS: ReadonlyArray<{
   { label: "Rating tertinggi", value: "rating_desc" },
 ];
 
+const FILTER_QUERY_KEYS = [
+  "search",
+  "location",
+  "type",
+  "minPrice",
+  "maxPrice",
+  "guests",
+  "bedrooms",
+  "beds",
+  "bathrooms",
+  "amenities",
+  "sort",
+] as const;
+
 const rupiah = new Intl.NumberFormat("id-ID", {
   currency: "IDR",
   maximumFractionDigits: 0,
@@ -62,6 +76,68 @@ export function createDefaultFilters(): CatalogFilters {
     sort: "recommended",
     type: "",
   };
+}
+
+export function parseCatalogFilters(
+  searchParams: URLSearchParams
+): CatalogFilters {
+  const filters = createDefaultFilters();
+
+  filters.search = readParameter(searchParams, "search");
+  filters.location = readParameter(searchParams, "location");
+  filters.type = readParameter(searchParams, "type");
+  filters.minPrice = readParameter(searchParams, "minPrice");
+  filters.maxPrice = readParameter(searchParams, "maxPrice");
+  filters.guests = readParameter(searchParams, "guests");
+  filters.bedrooms = readParameter(searchParams, "bedrooms");
+  filters.beds = readParameter(searchParams, "beds");
+  filters.bathrooms = readParameter(searchParams, "bathrooms");
+  filters.amenities = [
+    ...new Set(
+      readParameter(searchParams, "amenities")
+        .split(",")
+        .map((amenity) => amenity.trim())
+        .filter(Boolean)
+    ),
+  ];
+
+  const sort = readParameter(searchParams, "sort");
+  if (SORT_OPTIONS.some((option) => option.value === sort)) {
+    filters.sort = sort as SortOption;
+  }
+
+  return filters;
+}
+
+export function createCatalogSearchParams(
+  filters: CatalogFilters,
+  current = new URLSearchParams()
+): URLSearchParams {
+  const searchParams = new URLSearchParams(current);
+
+  for (const key of FILTER_QUERY_KEYS) {
+    searchParams.delete(key);
+  }
+
+  addParameter(searchParams, "search", filters.search);
+  addParameter(searchParams, "location", filters.location);
+  addParameter(searchParams, "type", filters.type);
+  addParameter(searchParams, "minPrice", filters.minPrice);
+  addParameter(searchParams, "maxPrice", filters.maxPrice);
+  addParameter(searchParams, "guests", filters.guests);
+  addParameter(searchParams, "bedrooms", filters.bedrooms);
+  addParameter(searchParams, "beds", filters.beds);
+  addParameter(searchParams, "bathrooms", filters.bathrooms);
+
+  if (filters.amenities.length > 0) {
+    searchParams.set("amenities", filters.amenities.join(","));
+  }
+
+  if (filters.sort !== "recommended") {
+    searchParams.set("sort", filters.sort);
+  }
+
+  return searchParams;
 }
 
 export function formatPrice(value: number): string {
@@ -141,6 +217,21 @@ function addIfPresent(
   if (normalized) {
     target[key] = normalized;
   }
+}
+
+function addParameter(
+  searchParams: URLSearchParams,
+  key: string,
+  value: string
+): void {
+  const normalized = value.trim();
+  if (normalized) {
+    searchParams.set(key, normalized);
+  }
+}
+
+function readParameter(searchParams: URLSearchParams, key: string): string {
+  return searchParams.get(key)?.trim() ?? "";
 }
 
 function unwrap<T>(
