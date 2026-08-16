@@ -44,17 +44,19 @@
 - **API:** Bun test under `apps/api/test`.
 - **Data:** Drizzle migration validation against SQLite/D1-compatible SQL.
 
-### Performance
+### E2E browser suite
 
-- **Backend/system capacity:** Grafana k6 scripts under `tests/performance/k6`.
-- **Frontend lab performance:** Lighthouse CI configs under `tests/performance/lighthouse`.
-- **E2E browser suite:** None selected; current integration scope is component-level.
+- None selected; current integration scope is component-level.
+
+### Frontend performance
+
+- **Lab performance:** Lighthouse CI configurations under `tests/performance/lighthouse`.
 
 ## CI/CD
 
 - No GitHub Actions workflow is currently present.
-- Required local gates are type checks, unit/integration tests, production builds, k6 thresholds against an explicitly selected environment, and Lighthouse budgets for both production previews.
-- k6 and Lighthouse result artifacts are not yet retained by CI.
+- Required local gates are type checks, unit/integration tests, production builds, and Lighthouse budgets for both production previews.
+- Lighthouse result artifacts are not yet retained by CI.
 - Cloudflare deployment is manual through Alchemy scripts; infrastructure plans are reviewable before deploy.
 
 ## Environments
@@ -62,7 +64,6 @@
 - **Local API:** `http://localhost:3001`.
 - **Local Vue:** `http://localhost:3000`.
 - **Local Svelte:** `http://localhost:5173`.
-- **Staging/load-test:** No URL assigned. Load/stress/soak tests must target a dedicated stage when one exists.
 - **Production:** No URL assigned.
 - **Data parity:** All environments should apply the same deterministic Drizzle migrations. Frontends use the same API URL through `VITE_API_URL`.
 
@@ -70,7 +71,6 @@
 
 - Unit/integration suites for each frontend complete in under 3 minutes.
 - Zero accepted test failures and less than 2% flakiness.
-- k6 baseline thresholds: failed requests below 1%, p95 below 500 ms, and p99 below 1000 ms.
 - Lighthouse lab gates per frontend: LCP at most 2500 ms, CLS at most 0.1, TBT at most 200 ms, and performance score at least 0.90.
 - Lighthouse TBT is only a lab responsiveness proxy. Real INP requires CrUX or RUM after public deployment.
 - Initial coverage target: at least 60% for framework-independent catalog logic; component tests prioritize critical behavior over snapshots.
@@ -81,7 +81,6 @@
 | --- | --- | --- | --- |
 | Framework parity | Critical | Invalidates the Vue versus Svelte comparison | Journeys, dataset, styling, API, and production conditions must remain equivalent. |
 | Cloudflare/D1 binding | Critical | Frontends cannot load controlled data | Worker must receive the exact Alchemy-provisioned `DB` binding and migrations. |
-| Performance methodology | Critical | Produces misleading thesis conclusions | k6 measures shared backend/system capacity, not frontend framework performance. |
 | Async list/detail states | Important | Breaks primary participant journeys | Cover loading, error, empty, pagination, stale response, and retry behavior. |
 | External images | Important | Adds network variance to Lighthouse | Use identical URLs and repeated runs; document third-party variance. |
 | Local wishlist state | Monitor | Can create cross-view inconsistency | User changes must survive list/detail navigation but need not persist across sessions. |
@@ -90,7 +89,7 @@
 
 - Team headcount and dedicated QA staffing are not documented.
 - Current operating model is developer-owned automation with no separate manual regression team.
-- Thesis owner approves methodology, environment selection, and any production load-test coordination.
+- Thesis owner approves methodology and environment selection.
 
 ## Conventions
 
@@ -99,5 +98,4 @@
 - Prefer semantic roles, labels, and visible text for component queries; use stable test IDs only when no semantic selector exists.
 - Mock the shared catalog boundary in component integration tests; API behavior itself is covered by API tests.
 - Dummy catalog data comes only from versioned Drizzle migrations under `packages/db/migrations`.
-- Performance scripts take target URLs from environment variables and never silently target production.
 - Compare production builds with identical browser, network/CPU profile, API stage, dataset, cache policy, route, and run count.

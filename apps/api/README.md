@@ -46,7 +46,8 @@ bun run infra:deploy --stage dev_yourname
 
 Alchemy provisions a D1 database for the stage, applies schema migrations from
 `packages/db/migrations`, imports `packages/db/seeds/catalog.sql`, binds the
-database to the Worker as `DB`, and prints `apiUrl`.
+database to the Worker as `DB`, deploys Prototype A (Vue), Prototype B (Svelte),
+and Prototype C (React), and prints their URLs.
 Verify it with:
 
 ```bash

@@ -19,9 +19,12 @@ This is a 2026 undergraduate thesis prototype comparing Vue 3 and Svelte 5 imple
 
 The Vue and Svelte applications are experimental treatments. The shared API, database, dataset, assets, information architecture, feature behavior, browser/device/network settings, viewport, cache policy, and test journeys are control variables.
 
+The React application is a parity/reference implementation, not a third experimental treatment under the currently accepted thesis method. Do not include React measurements in Vue-versus-Svelte conclusions unless the research scope, hypotheses, counterbalancing, and analysis plan are explicitly revised first.
+
 Preserve these invariants:
 
 - Keep the two frontends functionally and visually equivalent. A study-facing change to one frontend normally requires the equivalent change to the other in the same task.
+- Keep the React reference app observably equivalent to the study frontends when it implements the same journey, but do not let React-only work alter the frozen Vue-versus-Svelte treatment conditions.
 - Use identical API contracts, dataset, image URLs, defaults, labels, workflows, loading/error/empty states, and accessibility outcomes unless the research design explicitly requires a difference.
 - Keep framework-native implementations; do not force identical internal code when equivalent observable behavior is sufficient.
 - Do not introduce an optimization to only one frontend and then present the result as a framework comparison. Record intentional asymmetry and its research consequence.
@@ -36,10 +39,10 @@ Preserve these invariants:
 | ------------------------------------- | --------------------------------------------------------------------------------------------------------------- |
 | `apps/airbnb-vue-app`                 | Vue 3 + TypeScript + Vite frontend, served locally on port 3000.                                                |
 | `apps/airbnb-svelte-app`              | Svelte 5 + TypeScript + Vite frontend, served locally on port 5173.                                             |
+| `apps/airbnb-react-app`               | React + TypeScript + Vite parity/reference frontend, served locally on port 3002.                               |
 | `apps/api`                            | ElysiaJS API; Bun locally on port 3001 and Cloudflare Worker when deployed.                                     |
 | `packages/db`                         | Drizzle schema, migrations, and deterministic catalog seed for SQLite-compatible Cloudflare D1.                 |
 | `packages/r2`                         | R2/S3-compatible client utilities; not currently part of the deployed catalog because images use external URLs. |
-| `tests/performance/k6`                | Shared API capacity profiles and equivalent frontend browser journey.                                           |
 | `tests/performance/lighthouse`        | Lighthouse CI configuration and common performance budgets.                                                     |
 | `docs/skripsi-docs`                   | Thesis proposal and research methodology; mandatory reading.                                                    |
 | `docs/00-*.md` through `docs/06-*.md` | Early backend domain, contract, and architecture blueprint.                                                     |
@@ -79,6 +82,7 @@ For property queries, preserve:
 - Preserve unrelated user changes and generated files. Never discard worktree changes or run destructive Git commands without explicit permission.
 - For Vue work, use the repository `vue-best-practices` skill and Composition API with `<script setup lang="ts">`. Use the Vue testing skill when tests change.
 - For Svelte work, follow `apps/airbnb-svelte-app/AGENTS.md` and the required Svelte skills/tools.
+- For React work, use the repository React best-practices skill and idiomatic function components with TypeScript. The React app uses plain CSS: do not add Tailwind, a component library, a routing library, or a state-management library unless the user explicitly changes that constraint.
 - For API work, follow `apps/api/AGENTS.md`, keep `src/app.ts` exporting `app` and `App`, keep runtime startup in `src/index.ts`, and keep Worker composition compatible with `src/worker.ts`.
 - Keep HTTP concerns in Elysia modules, domain behavior in services, and persistence behind the repository contract.
 - Schema changes require a reviewed migration and deterministic seed compatibility. Do not hand-edit Drizzle metadata or generated snapshots unless the migration workflow requires it.
@@ -104,13 +108,15 @@ pnpm --filter @airbnb-skripsi/vue-app check
 pnpm --filter @airbnb-skripsi/vue-app test
 pnpm --filter @airbnb-skripsi/svelte-app check
 pnpm --filter @airbnb-skripsi/svelte-app test
+pnpm --filter @airbnb-skripsi/react-app check
+pnpm --filter @airbnb-skripsi/react-app test
 pnpm --filter @airbnb-skripsi/api check
 pnpm --filter @airbnb-skripsi/api test
 pnpm --filter @airbnb-skripsi/db check
 pnpm --filter @airbnb-skripsi/r2 check
 ```
 
-Use the performance commands documented in `tests/performance/README.md` only when performance measurement is in scope. Run both frontend configurations under identical conditions for comparative results.
+Use the Lighthouse commands documented in `tests/performance/README.md` only when frontend performance measurement is in scope. Run both study frontend configurations under identical conditions for comparative results. Treat any React measurement as separate reference data unless the thesis method is formally expanded.
 
 Minimum handoff:
 

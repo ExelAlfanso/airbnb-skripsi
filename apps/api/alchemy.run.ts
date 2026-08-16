@@ -51,11 +51,25 @@ export default Stack(
         notFoundHandling: "single-page-application",
       },
     });
+    const prototypeC = yield* Website.Vite("PrototypeC", {
+      rootDir: "../airbnb-react-app",
+      domain: "airbnb-skripsi-c.alfanso.xyz",
+      workersDev: false,
+      env: {
+        VITE_API_URL: api.url.as<string>(),
+      },
+      assets: {
+        htmlHandling: "auto-trailing-slash",
+        notFoundHandling: "single-page-application",
+      },
+    });
+
     return {
       apiUrl: api.url,
       databaseId: database.databaseId,
       prototypeA: prototypeA.url,
       prototypeB: prototypeB.url,
+      prototypeC: prototypeC.url,
       databaseName: database.databaseName,
     };
   })

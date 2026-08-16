@@ -9,15 +9,13 @@
   "scripts": {
     "dev": "pnpm -r --parallel dev",
     "dev:api": "pnpm --filter @airbnb-skripsi/api dev",
+    "dev:react": "pnpm --filter @airbnb-skripsi/react-app dev",
     "dev:vue": "pnpm --filter @airbnb-skripsi/vue-app dev",
     "dev:svelte": "pnpm --filter @airbnb-skripsi/svelte-app dev",
     "build": "pnpm -r build",
     "check": "ultracite check",
     "fix": "ultracite fix",
-    "test:frontends": "pnpm --parallel --filter @airbnb-skripsi/vue-app --filter @airbnb-skripsi/svelte-app test",
-    "perf:k6:api": "k6 run tests/performance/k6/api-baseline.js",
-    "perf:k6:vue": "k6 run -e FRONTEND_URL=http://localhost:3000 -e FRAMEWORK=vue tests/performance/k6/frontend-journey.js",
-    "perf:k6:svelte": "k6 run -e FRONTEND_URL=http://localhost:5173 -e FRAMEWORK=svelte tests/performance/k6/frontend-journey.js",
+    "test:frontends": "pnpm --parallel --filter @airbnb-skripsi/vue-app --filter @airbnb-skripsi/svelte-app --filter @airbnb-skripsi/react-app test",
     "perf:lighthouse:vue": "pnpm --filter @airbnb-skripsi/vue-app build && node tests/performance/run-lighthouse.cjs tests/performance/lighthouse/vue.lighthouserc.cjs",
     "perf:lighthouse:svelte": "pnpm --filter @airbnb-skripsi/svelte-app build && node tests/performance/run-lighthouse.cjs tests/performance/lighthouse/svelte.lighthouserc.cjs",
     "prepare": "lefthook install"

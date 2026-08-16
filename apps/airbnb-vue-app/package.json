@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@airbnb-skripsi/api": "workspace:*",
+    "@airbnb-skripsi/styles": "workspace:*",
     "@vitejs/plugin-vue": "latest",
     "vite": "latest",
     "vue": "latest"

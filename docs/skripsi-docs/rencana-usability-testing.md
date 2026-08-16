@@ -2,29 +2,31 @@
 
 ## 1. Tujuan
 
-Usability testing ini bertujuan membandingkan prototipe frontend Vue.js dan Svelte pada konteks penggunaan yang sama. Outcome disusun secara hierarkis agar analisis tetap terarah:
+Usability testing ini mempertahankan perbandingan utama prototipe frontend Vue.js dan Svelte pada konteks penggunaan yang sama, serta menambahkan prototipe React sebagai kondisi pembanding eksploratif (Prototipe C). Outcome disusun secara hierarkis agar analisis tetap terarah:
 
 - outcome utama *perceived usability*: skor System Usability Scale (SUS);
 - metrik objektif utama usability: keberhasilan dan waktu penyelesaian tugas;
 - pengukuran user experience pelengkap: enam skala User Experience Questionnaire (UEQ); dan
 - data diagnostik: kesalahan, bantuan moderator, jumlah interaksi, dan penyimpangan dari urutan interaksi valid.
 
-Hasil hanya digunakan untuk membandingkan prototipe yang diimplementasikan menggunakan Vue.js dan prototipe yang diimplementasikan menggunakan Svelte pada konfigurasi, dataset, partisipan, dan skenario penelitian ini. Kesimpulan tidak boleh digeneralisasi menjadi klaim bahwa Vue.js atau Svelte secara inheren lebih usable pada semua aplikasi.
+Analisis konfirmatori tetap membandingkan Vue.js dan Svelte sesuai proposal serta pertanyaan penelitian yang telah ditetapkan. Hasil React dilaporkan sebagai analisis eksploratif pada konfigurasi, dataset, partisipan, dan skenario yang sama; React tidak dimasukkan ke klaim utama atau perhitungan power konfirmatori kecuali proposal, hipotesis, dan rencana analisis formal telah diamendemen sebelum pengumpulan data utama. Kesimpulan tidak boleh digeneralisasi menjadi klaim bahwa salah satu framework secara inheren lebih usable pada semua aplikasi.
 
 ## 2. Desain Penelitian
 
-Penelitian menggunakan desain *within-subject counterbalanced*. Setiap partisipan menguji kedua prototipe, tetapi urutan framework dan set tugas diseimbangkan untuk mengurangi efek belajar, kelelahan, dan perbedaan tingkat kesulitan tugas.
+Penelitian menggunakan desain *within-subject counterbalanced*. Setiap partisipan menguji ketiga prototipe. Urutan framework dan set tugas diseimbangkan untuk mengurangi efek belajar, kelelahan, perbedaan periode, dan perbedaan tingkat kesulitan tugas.
 
-| Kelompok | Sesi pertama | Sesi kedua |
-| --- | --- | --- |
-| 1 | Vue + Set Tugas A | Svelte + Set Tugas B |
-| 2 | Svelte + Set Tugas A | Vue + Set Tugas B |
-| 3 | Vue + Set Tugas B | Svelte + Set Tugas A |
-| 4 | Svelte + Set Tugas B | Vue + Set Tugas A |
+| Kelompok | Sesi pertama | Sesi kedua | Sesi ketiga |
+| --- | --- | --- | --- |
+| 1 | Vue + Set Tugas A | Svelte + Set Tugas B | React + Set Tugas C |
+| 2 | Vue + Set Tugas A | React + Set Tugas C | Svelte + Set Tugas B |
+| 3 | Svelte + Set Tugas C | Vue + Set Tugas B | React + Set Tugas A |
+| 4 | Svelte + Set Tugas C | React + Set Tugas A | Vue + Set Tugas B |
+| 5 | React + Set Tugas B | Vue + Set Tugas C | Svelte + Set Tugas A |
+| 6 | React + Set Tugas B | Svelte + Set Tugas A | Vue + Set Tugas C |
 
-Jumlah partisipan pada setiap kelompok dibuat seimbang. Jika jumlah partisipan tidak habis dibagi empat, selisih ukuran kelompok maksimal satu partisipan.
+Enam urutan tersebut memuat seluruh kemungkinan urutan framework. Pada satu blok enam partisipan, setiap framework muncul dua kali pada setiap periode dan menerima setiap set tugas dua kali; setiap set tugas juga muncul dua kali pada setiap periode. Partisipan dialokasikan secara acak dalam blok enam. Jika jumlah partisipan tidak habis dibagi enam, selisih ukuran kelompok maksimal satu partisipan dan ketidakseimbangan akhir dilaporkan.
 
-Identitas framework disamarkan. Kepada partisipan, aplikasi hanya disebut "Versi A" dan "Versi B" atau "Prototipe 1" dan "Prototipe 2". Pemetaan identitas disimpan pada lembar peneliti dan baru dijelaskan setelah seluruh sesi selesai.
+Identitas framework disamarkan. Kepada partisipan, aplikasi hanya disebut "Prototipe 1", "Prototipe 2", dan "Prototipe 3". Label deployment PrototypeA, PrototypeB, dan PrototypeC maupun nama framework tidak ditampilkan pada instruksi partisipan. Pemetaan identitas disimpan pada lembar peneliti dan baru dijelaskan setelah seluruh sesi selesai.
 
 ## 3. Variabel Penelitian
 
@@ -32,8 +34,8 @@ Identitas framework disamarkan. Kepada partisipan, aplikasi hanya disebut "Versi
 
 Framework frontend:
 
-- Vue.js; dan
-- Svelte.
+- Vue.js dan Svelte sebagai kondisi perbandingan utama; serta
+- React sebagai kondisi pembanding eksploratif.
 
 ### 3.2 Variabel terikat
 
@@ -59,30 +61,30 @@ Framework frontend:
 
 - Pernah menggunakan website atau aplikasi pencarian akomodasi/properti.
 - Terbiasa menggunakan browser pada perangkat mobile.
-- Bersedia mengikuti dua sesi prototipe dalam satu rangkaian pengujian.
+- Bersedia mengikuti tiga sesi prototipe dalam satu rangkaian pengujian.
 - Bersedia memberikan persetujuan penelitian dan, jika digunakan, persetujuan rekaman layar atau audio.
 
 ### 4.2 Kriteria eksklusi
 
 - Terlibat langsung dalam pengembangan prototipe.
-- Sudah mengetahui pemetaan Vue dan Svelte pada Versi A/Versi B.
-- Tidak menyelesaikan kedua kondisi pengujian.
-- Mengalami gangguan teknis besar yang membuat data kedua kondisi tidak dapat dibandingkan.
+- Sudah mengetahui pemetaan Vue, Svelte, dan React pada Prototipe 1/2/3.
+- Tidak menyelesaikan ketiga kondisi pengujian.
+- Mengalami gangguan teknis besar yang membuat data ketiga kondisi tidak dapat dibandingkan.
 
 ### 4.3 Jumlah partisipan
 
 Lakukan uji pilot kepada sekitar 6-10 partisipan untuk menguji kejelasan instruksi, tingkat kesulitan tugas, batas waktu, instrumen, dan pencatatan data. Data pilot tidak digabungkan dengan data utama jika protokol berubah setelah pilot.
 
-Jumlah partisipan utama ditentukan melalui *power analysis* untuk satu outcome utama yang ditetapkan sebelum pengumpulan data, misalnya selisih skor SUS. Sebagai ilustrasi, *paired t-test* dua arah dengan alpha 0,05, power 0,80, dan perkiraan efek sedang `dz = 0,5` memerlukan sekitar 34 partisipan lengkap. Rekrutmen dapat ditambah sekitar 10-15% untuk mengantisipasi data tidak lengkap. Nilai final harus dihitung ulang menggunakan estimasi variasi selisih dari pilot atau *smallest effect size of interest* yang disepakati.
+Jumlah partisipan utama tetap ditentukan melalui *power analysis* untuk outcome utama konfirmatori Vue-Svelte yang ditetapkan sebelum pengumpulan data, misalnya selisih skor SUS. Sebagai ilustrasi, *paired t-test* dua arah dengan alpha 0,05, power 0,80, dan perkiraan efek sedang `dz = 0,5` memerlukan sekitar 34 partisipan lengkap. Rekrutmen dapat ditambah sekitar 10-15% untuk mengantisipasi data tidak lengkap. Nilai final harus dihitung ulang menggunakan estimasi variasi selisih dari pilot atau *smallest effect size of interest* yang disepakati. Analisis React bersifat eksploratif dan tidak boleh disebut memiliki power konfirmatori tanpa perhitungan baru untuk desain tiga kondisi.
 
 ## 5. Instrumen dan Peralatan
 
-- Production build prototipe Vue dan Svelte.
+- Production build prototipe Vue, Svelte, dan React.
 - Perangkat dan browser yang sama untuk seluruh kondisi.
 - Form screening dan demografi singkat.
 - Lembar informed consent.
 - Naskah moderator.
-- Lembar tugas Set A dan Set B.
+- Lembar tugas Set A, Set B, dan Set C.
 - Lembar observasi.
 - Event log aplikasi dan rekaman sesi.
 - Kuesioner SUS 10 butir.
@@ -135,20 +137,41 @@ Nama dan deskripsi berikut digunakan sebagai konten *task* pada Website Test di 
 | B4 | Peneliti telah membuka detail `Villa Pantai Senggigi untuk Grup`; penyiapan ini tidak dihitung dalam waktu tugas. | Temukan nama host dan jumlah kamar tidur. | Partisipan menyebutkan `Raka Wibowo` dan `4 kamar tidur`. |
 | B5 | Peneliti telah membuka detail `Villa Pantai Senggigi untuk Grup` dengan status wishlist awal tidak aktif. | Tambahkan properti ke wishlist, kembali ke daftar, lalu pastikan status wishlist masih aktif. | Wishlist properti aktif pada detail dan daftar selama sesi. |
 
-### 6.3 Aturan independensi dan alternatif end-to-end
+### 6.3 Set Tugas C
+
+Nama dan deskripsi berikut digunakan sebagai konten *task* pada Website Test di Maze.
+
+| ID | Nama tugas | Deskripsi singkat |
+| --- | --- | --- |
+| C1 | Cari akomodasi di Senggigi | Gunakan fitur pencarian untuk menampilkan akomodasi yang berada di Senggigi. |
+| C2 | Temukan Villa sesuai kebutuhan | Cari Villa di Senggigi untuk minimal enam tamu yang memiliki Kitchen. |
+| C3 | Pilih properti dengan harga terendah | Urutkan seluruh properti berdasarkan harga terendah, lalu pilih hasil teratas. |
+| C4 | Temukan informasi properti | Pada halaman detail yang terbuka, temukan nama host dan jumlah kamar tidur. |
+| C5 | Simpan properti ke wishlist | Tambahkan properti ke wishlist, kembali ke daftar, lalu pastikan status wishlist masih aktif. |
+
+| ID | Kondisi awal | Instruksi kepada partisipan | Kondisi sukses |
+| --- | --- | --- | --- |
+| C1 | Daftar awal; search, filter, sorting, pagination, dan wishlist di-reset. | Cari akomodasi yang berada di Senggigi. | Daftar hanya menampilkan hasil yang sesuai dengan Senggigi. |
+| C2 | Daftar awal dalam keadaan reset. | Cari Villa di Senggigi untuk minimal enam tamu yang memiliki Kitchen. | `Villa Pantai Senggigi untuk Grup` menjadi hasil yang dipilih atau ditampilkan sebagai hasil akhir. |
+| C3 | Daftar awal dalam keadaan reset. | Urutkan seluruh properti berdasarkan harga terendah dan pilih hasil teratas. | Urutan `price_asc` aktif dan `Guesthouse Nyaman untuk Remote Work` dipilih. |
+| C4 | Peneliti telah membuka detail `Guesthouse Nyaman untuk Remote Work`; penyiapan ini tidak dihitung dalam waktu tugas. | Temukan nama host dan jumlah kamar tidur. | Partisipan menyebutkan `Made Pratama` dan `1 kamar tidur`. |
+| C5 | Peneliti telah membuka detail `Guesthouse Nyaman untuk Remote Work` dengan status wishlist awal tidak aktif. | Tambahkan properti ke wishlist, kembali ke daftar, lalu pastikan status wishlist masih aktif. | Wishlist properti aktif pada detail dan daftar selama sesi. |
+
+### 6.4 Aturan independensi dan alternatif end-to-end
 
 Sebelum setiap tugas, peneliti mengembalikan aplikasi ke kondisi awal yang tertulis pada tabel. Kegagalan pada satu tugas tidak boleh menentukan halaman awal, data, atau status pada tugas berikutnya. Timer baru dimulai setelah kondisi awal siap dan moderator selesai membacakan instruksi.
 
 Jika tujuan penelitian berubah menjadi pengujian alur *end-to-end*, rangkaian search-filter-sort-detail-wishlist boleh dijadikan satu skenario. Dalam kasus tersebut, rangkaian dinilai menggunakan satu waktu, satu kondisi sukses, dan satu hasil skenario; tahap-tahapnya tidak dianalisis sebagai tugas independen.
 
-### 6.4 Tugas load more opsional
+### 6.5 Tugas load more opsional
 
-Jika perilaku *load more* harus diukur secara eksplisit, tambahkan satu tugas setara pada kedua set dengan kondisi awal daftar yang telah di-reset. Contoh:
+Jika perilaku *load more* harus diukur secara eksplisit, tambahkan satu tugas setara pada ketiga set dengan kondisi awal daftar yang telah di-reset. Contoh:
 
 - Set A: muat hasil berikutnya sampai `Guesthouse Nyaman untuk Remote Work` terlihat.
 - Set B: muat hasil berikutnya sampai `Apartemen Modern Dekat Pantai` terlihat.
+- Set C: muat hasil berikutnya sampai `Rumah Keluarga di Udara Sejuk Lembang` terlihat.
 
-Tugas ini hanya dipakai jika pilot membuktikan kedua target selalu berada setelah halaman awal pada konfigurasi production build yang dibekukan.
+Tugas ini hanya dipakai jika pilot membuktikan ketiga target selalu berada setelah halaman awal pada konfigurasi production build yang dibekukan.
 
 ## 7. Definisi Operasional
 
@@ -164,7 +187,7 @@ Untuk analisis keberhasilan biner, `success` diberi nilai 1, sedangkan `assisted
 
 Waktu dimulai setelah moderator selesai membacakan tugas dan partisipan mulai berinteraksi. Waktu berhenti ketika kondisi sukses tercapai, partisipan menyerah, atau batas waktu terlewati.
 
-Batas waktu awal yang disarankan adalah 2-3 menit per tugas dan harus ditetapkan setelah pilot. Batas yang sama digunakan untuk pasangan tugas A dan B.
+Batas waktu awal yang disarankan adalah 2-3 menit per tugas dan harus ditetapkan setelah pilot. Batas yang sama digunakan untuk tugas ekuivalen pada Set A, Set B, dan Set C.
 
 ### 7.3 Kesalahan
 
@@ -191,7 +214,7 @@ Daftar urutan valid dibekukan sebelum pengumpulan data utama. Nilai negatif mena
 ### 8.1 Sebelum sesi
 
 1. Bekukan commit, production build, dataset, dan konfigurasi eksperimen.
-2. Pastikan kedua frontend lolos validasi kesetaraan fungsi.
+2. Pastikan ketiga frontend lolos validasi kesetaraan fungsi dan visual.
 3. Siapkan urutan kelompok partisipan.
 4. Reset browser, filter, pagination, dan wishlist sesuai kondisi awal.
 5. Periksa event log dan rekaman tanpa membuka data pribadi yang tidak diperlukan.
@@ -208,15 +231,18 @@ Daftar urutan valid dibekukan sebelum pengumpulan data utama. Nilai negatif mena
 | Istirahat singkat dan reset kondisi | 3 menit |
 | Tugas pada versi kedua | 10-15 menit |
 | SUS dan UEQ versi kedua | 7-10 menit |
+| Istirahat singkat dan reset kondisi | 3 menit |
+| Tugas pada versi ketiga | 10-15 menit |
+| SUS dan UEQ versi ketiga | 7-10 menit |
 | Pertanyaan perbandingan dan penutup | 5 menit |
 
-SUS dan UEQ diisi setelah setiap versi, sehingga setiap partisipan menghasilkan satu set nilai Vue dan satu set nilai Svelte.
+SUS dan UEQ diisi setelah setiap versi, sehingga setiap partisipan menghasilkan satu set nilai untuk Vue, Svelte, dan React. Durasi total serta tanda kelelahan diperiksa pada pilot; sesi boleh dibagi menjadi dua kunjungan dengan interval yang dibakukan jika satu rangkaian terlalu membebani partisipan.
 
 Jangan menggunakan *concurrent think-aloud* jika waktu penyelesaian menjadi outcome utama karena aktivitas berbicara dapat mengubah waktu dan strategi. Pertanyaan retrospektif dilakukan setelah satu kondisi selesai.
 
 ### 8.3 Naskah pembuka moderator
 
-> Penelitian ini menguji dua versi prototipe pencarian akomodasi, bukan menguji kemampuan Anda. Tidak ada jawaban yang memengaruhi penilaian pribadi. Silakan selesaikan setiap tugas dengan cara yang menurut Anda paling tepat. Saya tidak dapat langsung memberi petunjuk mengenai letak fitur, tetapi saya dapat mengulang instruksi. Anda dapat berhenti kapan saja.
+> Penelitian ini menguji tiga versi prototipe pencarian akomodasi, bukan menguji kemampuan Anda. Tidak ada jawaban yang memengaruhi penilaian pribadi. Silakan selesaikan setiap tugas dengan cara yang menurut Anda paling tepat. Saya tidak dapat langsung memberi petunjuk mengenai letak fitur, tetapi saya dapat mengulang instruksi. Anda dapat berhenti kapan saja.
 
 ### 8.4 Pertanyaan retrospektif
 
@@ -226,7 +252,7 @@ Setelah setiap versi:
 2. Bagian mana yang paling membingungkan atau lambat menurut Anda?
 3. Apakah ada hasil tindakan yang tidak sesuai dengan perkiraan Anda?
 
-Setelah kedua versi:
+Setelah ketiga versi:
 
 1. Versi mana yang lebih mudah digunakan dan mengapa?
 2. Apakah Anda merasakan perbedaan respons atau kecepatan?
@@ -275,7 +301,7 @@ wishlist_toggled
 task_completed
 ```
 
-Nama event, payload, dan waktu pencatatan harus sama pada Vue dan Svelte. Instrumentasi tidak boleh mengubah perilaku atau memberi beban yang berbeda secara material pada salah satu frontend.
+Nama event, payload, dan waktu pencatatan harus sama pada Vue, Svelte, dan React. Instrumentasi tidak boleh mengubah perilaku atau memberi beban yang berbeda secara material pada salah satu dari ketiga frontend.
 
 ### 9.3 Struktur data kuesioner
 
@@ -297,7 +323,7 @@ ueq_novelty
 
 ### 10.1 Outcome utama perceived usability
 
-Skor SUS menjadi outcome utama evaluasi pengguna. Setiap partisipan menghasilkan satu skor SUS setelah kondisi Vue dan satu skor SUS setelah kondisi Svelte.
+Skor SUS menjadi outcome utama evaluasi pengguna. Setiap partisipan menghasilkan satu skor SUS setelah kondisi Vue, satu setelah kondisi Svelte, dan satu setelah kondisi React. Kontras Vue-Svelte tetap menjadi outcome konfirmatori; skor React dilaporkan sebagai pembanding eksploratif.
 
 ### 10.2 Metrik objektif utama usability
 
@@ -309,7 +335,7 @@ task_completion_rate = successful_tasks / attempted_tasks * 100%
 
 Efisiensi utama diukur dengan waktu penyelesaian tugas. Laporkan tingkat keberhasilan dan distribusi waktu per tugas serta agregat per framework. Kategori `assisted` dilaporkan terpisah agar kebutuhan bantuan tidak hilang dalam agregasi.
 
-Analisis waktu utama menggunakan pasangan tugas yang sukses tanpa bantuan pada kedua kondisi. Analisis sensitivitas dengan penalti batas waktu untuk tugas gagal hanya dilakukan jika aturannya telah ditetapkan sebelum hasil utama dilihat.
+Analisis waktu konfirmatori menggunakan pasangan tugas yang sukses tanpa bantuan pada kondisi Vue dan Svelte. Kondisi React diringkas dengan aturan yang sama dan dibandingkan secara eksploratif. Analisis sensitivitas dengan penalti batas waktu untuk tugas gagal hanya dilakukan jika aturannya telah ditetapkan sebelum hasil utama dilihat.
 
 Kesalahan, bantuan, jumlah interaksi, dan penyimpangan dari urutan interaksi valid dilaporkan sebagai data diagnostik sekunder. Data tersebut digunakan untuk menjelaskan pola hasil, bukan untuk menambah klaim utama baru.
 
@@ -330,9 +356,9 @@ Gunakan kuesioner bahasa Indonesia dan alat analisis resmi UEQ. Jangan mengubah 
 
 ## 11. Rencana Analisis Statistik
 
-Data dianalisis sebagai data berpasangan karena setiap partisipan menggunakan kedua framework. Hierarki outcome dan analisis ditetapkan sebelum data utama diperiksa.
+Data memiliki pengukuran berulang karena setiap partisipan menggunakan ketiga framework. Analisis konfirmatori tetap menggunakan kontras berpasangan Vue-Svelte sesuai proposal; analisis yang melibatkan React dilabeli eksploratif. Hierarki outcome dan analisis ditetapkan sebelum data utama diperiksa.
 
-| Outcome | Kedudukan | Analisis utama | Effect size yang dilaporkan |
+| Outcome | Kedudukan | Analisis utama Vue-Svelte | Effect size yang dilaporkan |
 | --- | --- | --- | --- |
 | Skor SUS | Outcome utama *perceived usability* | *Paired t-test* jika distribusi selisih cukup normal; jika tidak, Wilcoxon signed-rank | Cohen's `dz` atau rank-biserial correlation |
 | Keberhasilan biner | Metrik objektif utama usability | McNemar test | Selisih proporsi berpasangan dan interval kepercayaan |
@@ -340,16 +366,19 @@ Data dianalisis sebagai data berpasangan karena setiap partisipan menggunakan ke
 | Enam skala UEQ | Pengukuran UX pelengkap | *Paired t-test* atau Wilcoxon per skala dengan koreksi Holm | Effect size per skala |
 | Kesalahan, bantuan, interaksi, dan penyimpangan | Data diagnostik | Ringkasan deskriptif; uji inferensial hanya sebagai eksplorasi yang dilabeli jelas | Effect size eksploratif jika dihitung |
 
-Normalitas diperiksa pada distribusi selisih `Vue - Svelte`, bukan pada masing-masing framework secara terpisah. Semua hasil utama dilaporkan dengan interval kepercayaan 95%, effect size, nilai pusat, dan ukuran variasi, bukan hanya *p-value*.
+Normalitas analisis utama diperiksa pada distribusi selisih `Vue - Svelte`, bukan pada masing-masing framework secara terpisah. Semua hasil utama dilaporkan dengan interval kepercayaan 95%, effect size, nilai pusat, dan ukuran variasi, bukan hanya *p-value*.
+
+React dilaporkan secara deskriptif dengan aturan metrik yang sama. Jika perbandingan React-Vue dan React-Svelte diuji, keduanya diperlakukan sebagai perbandingan berpasangan eksploratif dan *p-value* dikoreksi menggunakan Holm dalam satu keluarga outcome. Hasil tersebut tidak mengubah kesimpulan utama Vue-Svelte tanpa amendemen protokol dan power analysis baru.
 
 Pengaruh framework, set tugas, periode, dan urutan framework diperiksa sejak awal sebagai analisis terencana:
 
-1. laporkan outcome menurut kombinasi framework dan Set A/Set B;
-2. laporkan outcome pada periode pertama dan kedua untuk memeriksa efek belajar atau kelelahan;
-3. laporkan outcome menurut kelompok yang memulai dari Vue dan kelompok yang memulai dari Svelte; dan
-4. periksa apakah arah selisih Vue-Svelte konsisten pada empat sequence group.
+1. laporkan outcome menurut kombinasi framework dan Set A/Set B/Set C;
+2. laporkan outcome pada periode pertama, kedua, dan ketiga untuk memeriksa efek belajar atau kelelahan;
+3. laporkan outcome menurut enam sequence group;
+4. periksa apakah arah selisih Vue-Svelte konsisten pada sequence group yang relevan; dan
+5. laporkan hasil React secara eksploratif tanpa mencampurkannya ke estimasi konfirmatori Vue-Svelte.
 
-Analisis berpasangan tetap menjadi analisis utama jika pilot menunjukkan Set A dan Set B ekuivalen. Jika ukuran sampel memadai dan disetujui dalam rencana analisis, lakukan analisis sensitivitas menggunakan model efek campuran yang memasukkan framework, task set, period, dan framework order sebagai efek tetap serta participant sebagai efek acak. Model ini bersifat pelengkap dan tidak wajib untuk kesimpulan tingkat S1.
+Analisis berpasangan Vue-Svelte tetap menjadi analisis utama jika pilot menunjukkan Set A, Set B, dan Set C ekuivalen. Jika ukuran sampel memadai dan disetujui dalam rencana analisis, lakukan analisis sensitivitas eksploratif menggunakan model efek campuran yang memasukkan framework, task set, period, dan framework order sebagai efek tetap serta participant sebagai efek acak. Model ini bersifat pelengkap dan tidak wajib untuk kesimpulan tingkat S1.
 
 Outcome utama, batas kesetaraan pilot, aturan eksklusi, penanganan data gagal, dan metode statistik dibekukan sebelum data utama dianalisis.
 
@@ -367,32 +396,32 @@ Outcome utama, batas kesetaraan pilot, aturan eksklusi, penanganan data gagal, d
 
 Protokol siap digunakan pada penelitian utama jika:
 
-- seluruh tugas dapat diselesaikan pada kedua frontend;
-- kesetaraan pasangan tugas A dan B telah diperiksa menggunakan median waktu penyelesaian, tingkat keberhasilan, jumlah kesalahan, dan kesulitan subjektif skala 1-5;
+- seluruh tugas dapat diselesaikan pada ketiga frontend;
+- kesetaraan Set Tugas A, Set Tugas B, dan Set Tugas C telah diperiksa menggunakan median waktu penyelesaian, tingkat keberhasilan, jumlah kesalahan, dan kesulitan subjektif skala 1-5;
 - batas penerimaan kesetaraan telah ditentukan sebelum pilot. Batas awal yang dapat digunakan adalah selisih tingkat keberhasilan maksimal 15 poin persentase, rasio median waktu 0,80-1,25, selisih median kesalahan maksimal 1, dan selisih median kesulitan maksimal 1 poin;
-- pasangan tugas direvisi dan dipilotkan ulang jika melewati salah satu batas atau menunjukkan perbedaan kualitatif yang jelas;
+- tugas direvisi dan dipilotkan ulang jika salah satu perbandingan set melewati batas atau menunjukkan perbedaan kualitatif yang jelas;
 - tidak ada instruksi yang secara tidak sengaja menyebut lokasi tombol;
 - batas waktu tidak terlalu pendek atau terlalu panjang;
 - event log, rekaman, dan lembar observasi menghasilkan waktu serta hasil yang konsisten;
 - SUS dan UEQ dapat diisi setelah setiap kondisi tanpa kebingungan;
 - reset filter, pagination, cache, dan wishlist bekerja konsisten; dan
-- durasi sesi masih dapat diterima partisipan.
+- durasi tiga kondisi masih dapat diterima partisipan tanpa tanda kelelahan yang mengganggu hasil.
 
 Setiap perubahan setelah pilot dicatat dalam log revisi protokol.
 
 ## 14. Checklist Sebelum Pengumpulan Data Utama
 
-- [ ] Outcome utama telah ditentukan.
-- [ ] Power analysis dan target rekrutmen telah disetujui.
+- [ ] Outcome utama dan status eksploratif React telah ditentukan.
+- [ ] Power analysis dan target rekrutmen untuk kontras utama Vue-Svelte telah disetujui.
 - [ ] Commit dan production build telah dibekukan.
-- [ ] Kesetaraan Vue dan Svelte telah diverifikasi.
-- [ ] Set Tugas A dan B telah lulus pilot.
-- [ ] Empat urutan counterbalancing telah disiapkan.
+- [ ] Kesetaraan fungsi, visual, data, dan instrumentasi Vue, Svelte, dan React telah diverifikasi.
+- [ ] Set Tugas A, Set Tugas B, dan Set Tugas C telah lulus pilot.
+- [ ] Enam urutan counterbalancing telah disiapkan dan alokasi blok telah ditetapkan.
 - [ ] Kondisi sukses, urutan interaksi valid, kesalahan, bantuan, dan batas waktu telah dibakukan.
 - [ ] Batas kesetaraan pilot untuk waktu, keberhasilan, kesalahan, dan kesulitan subjektif telah dibekukan.
 - [ ] Analisis task set, period, framework order, dan sequence group telah direncanakan.
 - [ ] Form consent, SUS, dan UEQ resmi telah disiapkan.
-- [ ] Instrumentasi menghasilkan event yang sama pada kedua frontend.
+- [ ] Instrumentasi menghasilkan event yang sama pada ketiga frontend.
 - [ ] Prosedur reset dan penanganan gangguan teknis telah diuji.
 - [ ] Aturan eksklusi dan rencana analisis telah ditetapkan.
 - [ ] Penyimpanan, anonimisasi, dan penghapusan data telah ditetapkan.

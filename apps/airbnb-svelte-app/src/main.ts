@@ -1,4 +1,5 @@
 import { mount } from "svelte";
+import "@airbnb-skripsi/styles/styles.css";
 import App from "./App.svelte";
 
 const target = document.getElementById("app");

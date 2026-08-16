@@ -16,7 +16,7 @@ importers:
         version: 4.0.0-beta.107(effect@4.0.0-beta.107)(ioredis@5.11.1)
       alchemy:
         specifier: 2.0.0-beta.72
-        version: 2.0.0-beta.72(@effect/platform-bun@4.0.0-beta.107(effect@4.0.0-beta.107))(@effect/platform-node@4.0.0-beta.107(effect@4.0.0-beta.107)(ioredis@5.11.1))(effect@4.0.0-beta.107)(pg@8.22.0)(typescript@5.9.3)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))(vitest@4.1.10(@types/node@26.0.0)(jsdom@30.0.1)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)))(ws@8.21.3)
+        version: 2.0.0-beta.72(@effect/platform-bun@4.0.0-beta.107(effect@4.0.0-beta.107))(@effect/platform-node@4.0.0-beta.107(effect@4.0.0-beta.107)(ioredis@5.11.1))(@types/react@19.2.18)(effect@4.0.0-beta.107)(pg@8.22.0)(typescript@5.9.3)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))(vitest@4.1.10(@types/node@26.0.0)(jsdom@30.0.1)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)))(ws@8.21.3)
       effect:
         specifier: 4.0.0-beta.107
         version: 4.0.0-beta.107
@@ -34,11 +34,51 @@ importers:
         specifier: 7.8.3
         version: 7.8.3
 
+  apps/airbnb-react-app:
+    dependencies:
+      '@airbnb-skripsi/api':
+        specifier: workspace:*
+        version: link:../api
+      '@airbnb-skripsi/styles':
+        specifier: workspace:*
+        version: link:../../packages/styles
+      '@vitejs/plugin-react':
+        specifier: latest
+        version: 6.0.5(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))
+      react:
+        specifier: latest
+        version: 19.2.8
+      react-dom:
+        specifier: latest
+        version: 19.2.8(react@19.2.8)
+      vite:
+        specifier: latest
+        version: 8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)
+    devDependencies:
+      '@types/react':
+        specifier: latest
+        version: 19.2.18
+      '@types/react-dom':
+        specifier: latest
+        version: 19.2.4(@types/react@19.2.18)
+      jsdom:
+        specifier: ^30.0.1
+        version: 30.0.1
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+      vitest:
+        specifier: ^4.1.10
+        version: 4.1.10(@types/node@26.0.0)(jsdom@30.0.1)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))
+
   apps/airbnb-svelte-app:
     dependencies:
       '@airbnb-skripsi/api':
         specifier: workspace:*
         version: link:../api
+      '@airbnb-skripsi/styles':
+        specifier: workspace:*
+        version: link:../../packages/styles
       '@sveltejs/vite-plugin-svelte':
         specifier: latest
         version: 7.3.0(svelte@5.56.8)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))
@@ -76,6 +116,9 @@ importers:
       '@airbnb-skripsi/api':
         specifier: workspace:*
         version: link:../api
+      '@airbnb-skripsi/styles':
+        specifier: workspace:*
+        version: link:../../packages/styles
       '@vitejs/plugin-vue':
         specifier: latest
         version: 6.0.8(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))(vue@3.5.41(typescript@5.9.3))
@@ -124,7 +167,7 @@ importers:
         version: 0.34.52
       alchemy:
         specifier: 2.0.0-beta.72
-        version: 2.0.0-beta.72(@effect/platform-bun@4.0.0-beta.107(effect@4.0.0-beta.107))(@effect/platform-node@4.0.0-beta.107(effect@4.0.0-beta.107)(ioredis@5.11.1))(drizzle-orm@0.45.2(@cloudflare/workers-types@5.20260812.1)(@electric-sql/pglite@0.3.15)(@libsql/client@0.17.4)(@types/pg@8.20.0)(bun-types@1.3.14)(pg@8.22.0))(effect@4.0.0-beta.107)(pg@8.22.0)(typescript@7.0.2)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))(vitest@4.1.10(@types/node@26.0.0)(jsdom@30.0.1)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)))(ws@8.21.3)
+        version: 2.0.0-beta.72(@effect/platform-bun@4.0.0-beta.107(effect@4.0.0-beta.107))(@effect/platform-node@4.0.0-beta.107(effect@4.0.0-beta.107)(ioredis@5.11.1))(@types/react@19.2.18)(drizzle-orm@0.45.2(@cloudflare/workers-types@5.20260812.1)(@electric-sql/pglite@0.3.15)(@libsql/client@0.17.4)(@types/pg@8.20.0)(bun-types@1.3.14)(pg@8.22.0))(effect@4.0.0-beta.107)(pg@8.22.0)(typescript@7.0.2)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))(vitest@4.1.10(@types/node@26.0.0)(jsdom@30.0.1)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)))(ws@8.21.3)
       drizzle-orm:
         specifier: ^0.45.2
         version: 0.45.2(@cloudflare/workers-types@5.20260812.1)(@electric-sql/pglite@0.3.15)(@libsql/client@0.17.4)(@types/pg@8.20.0)(bun-types@1.3.14)(pg@8.22.0)
@@ -173,6 +216,8 @@ importers:
       typescript:
         specifier: latest
         version: 6.0.3
+
+  packages/styles: {}
 
 packages:
 
@@ -1951,6 +1996,14 @@ packages:
   '@types/pg@8.20.0':
     resolution: {integrity: sha512-bEPFOaMAHTEP1EzpvHTbmwR8UsFyHSKsRisLIHVMXnpNefSbGA1bD6CVy+qKjGSqmZqNqBDV2azOBo8TgkcVow==}
 
+  '@types/react-dom@19.2.4':
+    resolution: {integrity: sha512-Bsc+QHgp+P/F02XDzNCY9jnZNCUuLki36KT7VKrTXXLdHf+vHMNZnW1rVu5DNW/rCK+fya3DATySbLM4yhtKUw==}
+    peerDependencies:
+      '@types/react': ^19.2.0
+
+  '@types/react@19.2.18':
+    resolution: {integrity: sha512-AnzbBERsrLKtk2XSfTbYRLjQPdy116Sty4q+T+Bp3IC4l6jNBvreVPAHmpq9qhXQM7CXZPjLVmGMw9sy+hxQ3w==}
+
   '@types/trusted-types@2.0.7':
     resolution: {integrity: sha512-ScaPdn1dQczgbl0QFTeTOmVHFULt394XJgOQNoyVhZ6r2vLnMLJfBPd53SB52T/3G36VI1/g2MZaX0cwDuXsfw==}
 
@@ -2079,6 +2132,19 @@ packages:
     engines: {node: '>=16.20.0'}
     cpu: [x64]
     os: [win32]
+
+  '@vitejs/plugin-react@6.0.5':
+    resolution: {integrity: sha512-BOVzne/NL162sMdResB25mUv+vWMF5NoAjNf09TeGlE7ZpszZWSD3winycicLJw72yeVsoCn/2kOhEuCvEShMA==}
+    engines: {node: ^20.19.0 || >=22.12.0}
+    peerDependencies:
+      '@rolldown/plugin-babel': ^0.1.7 || ^0.2.0
+      babel-plugin-react-compiler: ^1.0.0
+      vite: ^8.0.0
+    peerDependenciesMeta:
+      '@rolldown/plugin-babel':
+        optional: true
+      babel-plugin-react-compiler:
+        optional: true
 
   '@vitejs/plugin-vue@6.0.8':
     resolution: {integrity: sha512-0ZjgOg7oO6farnNGup7yvoM/YXZV84OZxHAwtflItNa/6zzQyVb5LNxyea3FEKEX2XlagIKzrlH7wwxkKgtiew==}
@@ -3952,6 +4018,11 @@ packages:
   raw-body@2.5.3:
     resolution: {integrity: sha512-s4VSOf6yN0rvbRZGxs8Om5CWj6seneMwK3oDb4lWDH0UPhWcxwOWw5+qk24bxq87szX1ydrwylIOp2uG1ojUpA==}
     engines: {node: '>= 0.8'}
+
+  react-dom@19.2.8:
+    resolution: {integrity: sha512-rVprimfGBG3DR+Tq0IQG2DT5PxKth1WIGDmj5yPmlzr4YBe7uyE+Du4oVqTDXZSHGGGXRtTJEGSSePyQCMBglQ==}
+    peerDependencies:
+      react: ^19.2.8
 
   react-is@17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
@@ -6526,6 +6597,14 @@ snapshots:
       pg-types: 2.2.0
     optional: true
 
+  '@types/react-dom@19.2.4(@types/react@19.2.18)':
+    dependencies:
+      '@types/react': 19.2.18
+
+  '@types/react@19.2.18':
+    dependencies:
+      csstype: 3.2.3
+
   '@types/trusted-types@2.0.7': {}
 
   '@types/ws@8.18.1':
@@ -6596,6 +6675,11 @@ snapshots:
 
   '@typescript/typescript-win32-x64@7.0.2':
     optional: true
+
+  '@vitejs/plugin-react@6.0.5(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))':
+    dependencies:
+      '@rolldown/pluginutils': 1.0.1
+      vite: 8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)
 
   '@vitejs/plugin-vue@6.0.8(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))(vue@3.5.41(typescript@5.9.3))':
     dependencies:
@@ -6740,7 +6824,7 @@ snapshots:
 
   agent-base@7.1.4: {}
 
-  alchemy@2.0.0-beta.72(@effect/platform-bun@4.0.0-beta.107(effect@4.0.0-beta.107))(@effect/platform-node@4.0.0-beta.107(effect@4.0.0-beta.107)(ioredis@5.11.1))(drizzle-orm@0.45.2(@cloudflare/workers-types@5.20260812.1)(@electric-sql/pglite@0.3.15)(@libsql/client@0.17.4)(@types/pg@8.20.0)(bun-types@1.3.14)(pg@8.22.0))(effect@4.0.0-beta.107)(pg@8.22.0)(typescript@7.0.2)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))(vitest@4.1.10(@types/node@26.0.0)(jsdom@30.0.1)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)))(ws@8.21.3):
+  alchemy@2.0.0-beta.72(@effect/platform-bun@4.0.0-beta.107(effect@4.0.0-beta.107))(@effect/platform-node@4.0.0-beta.107(effect@4.0.0-beta.107)(ioredis@5.11.1))(@types/react@19.2.18)(drizzle-orm@0.45.2(@cloudflare/workers-types@5.20260812.1)(@electric-sql/pglite@0.3.15)(@libsql/client@0.17.4)(@types/pg@8.20.0)(bun-types@1.3.14)(pg@8.22.0))(effect@4.0.0-beta.107)(pg@8.22.0)(typescript@7.0.2)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))(vitest@4.1.10(@types/node@26.0.0)(jsdom@30.0.1)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)))(ws@8.21.3):
     dependencies:
       '@alchemy.run/cloudflare-runtime': 2.0.0-beta.72(@distilled.cloud/cloudflare@1.0.0-rc.4(effect@4.0.0-beta.107))(@effect/platform-bun@4.0.0-beta.107(effect@4.0.0-beta.107))(@effect/platform-node@4.0.0-beta.107(effect@4.0.0-beta.107)(ioredis@5.11.1))(effect@4.0.0-beta.107)(rolldown@1.1.5)(typescript@7.0.2)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))
       '@alchemy.run/node-utils': 0.0.5
@@ -6768,7 +6852,7 @@ snapshots:
       effect: 4.0.0-beta.107
       fast-glob: 3.3.3
       fast-xml-parser: 5.10.1
-      ink: 6.8.0(react@19.2.8)
+      ink: 6.8.0(@types/react@19.2.18)(react@19.2.8)
       jszip: 3.10.1
       libsodium-wrappers: 0.8.4
       pathe: 2.0.3
@@ -6796,7 +6880,7 @@ snapshots:
       - utf-8-validate
       - vitest
 
-  alchemy@2.0.0-beta.72(@effect/platform-bun@4.0.0-beta.107(effect@4.0.0-beta.107))(@effect/platform-node@4.0.0-beta.107(effect@4.0.0-beta.107)(ioredis@5.11.1))(effect@4.0.0-beta.107)(pg@8.22.0)(typescript@5.9.3)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))(vitest@4.1.10(@types/node@26.0.0)(jsdom@30.0.1)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)))(ws@8.21.3):
+  alchemy@2.0.0-beta.72(@effect/platform-bun@4.0.0-beta.107(effect@4.0.0-beta.107))(@effect/platform-node@4.0.0-beta.107(effect@4.0.0-beta.107)(ioredis@5.11.1))(@types/react@19.2.18)(effect@4.0.0-beta.107)(pg@8.22.0)(typescript@5.9.3)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))(vitest@4.1.10(@types/node@26.0.0)(jsdom@30.0.1)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0)))(ws@8.21.3):
     dependencies:
       '@alchemy.run/cloudflare-runtime': 2.0.0-beta.72(@distilled.cloud/cloudflare@1.0.0-rc.4(effect@4.0.0-beta.107))(@effect/platform-bun@4.0.0-beta.107(effect@4.0.0-beta.107))(@effect/platform-node@4.0.0-beta.107(effect@4.0.0-beta.107)(ioredis@5.11.1))(effect@4.0.0-beta.107)(rolldown@1.1.5)(typescript@5.9.3)(vite@8.2.1(@types/node@26.0.0)(esbuild@0.28.1)(jiti@2.7.0)(terser@5.48.0)(tsx@4.22.4)(yaml@2.9.0))
       '@alchemy.run/node-utils': 0.0.5
@@ -6824,7 +6908,7 @@ snapshots:
       effect: 4.0.0-beta.107
       fast-glob: 3.3.3
       fast-xml-parser: 5.10.1
-      ink: 6.8.0(react@19.2.8)
+      ink: 6.8.0(@types/react@19.2.18)(react@19.2.8)
       jszip: 3.10.1
       libsodium-wrappers: 0.8.4
       pathe: 2.0.3
@@ -7774,7 +7858,7 @@ snapshots:
 
   ini@1.3.8: {}
 
-  ink@6.8.0(react@19.2.8):
+  ink@6.8.0(@types/react@19.2.18)(react@19.2.8):
     dependencies:
       '@alcalzone/ansi-tokenize': 0.2.5
       ansi-escapes: 7.3.0
@@ -7802,6 +7886,8 @@ snapshots:
       wrap-ansi: 9.0.2
       ws: 8.21.3
       yoga-layout: 3.2.1
+    optionalDependencies:
+      '@types/react': 19.2.18
     transitivePeerDependencies:
       - bufferutil
       - utf-8-validate
@@ -8548,6 +8634,11 @@ snapshots:
       http-errors: 2.0.1
       iconv-lite: 0.4.24
       unpipe: 1.0.0
+
+  react-dom@19.2.8(react@19.2.8):
+    dependencies:
+      react: 19.2.8
+      scheduler: 0.27.0
 
   react-is@17.0.2: {}
 
