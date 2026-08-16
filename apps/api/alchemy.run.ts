@@ -17,6 +17,8 @@ export default Stack(
 
     const api = yield* Worker("Api", {
       main: "./src/worker.ts",
+      domain: "airbnb-skripsi-api.alfanso.xyz",
+      workersDev: false,
       compatibility: {
         date: "2026-08-12",
       },
@@ -26,6 +28,8 @@ export default Stack(
     });
     const prototypeA = yield* Website.Vite("PrototypeA", {
       rootDir: "../airbnb-vue-app",
+      domain: "airbnb-skripsi-a.alfanso.xyz",
+      workersDev: false,
       env: {
         VITE_API_URL: api.url.as<string>(),
       },
@@ -37,6 +41,8 @@ export default Stack(
 
     const prototypeB = yield* Website.Vite("PrototypeB", {
       rootDir: "../airbnb-svelte-app",
+      domain: "airbnb-skripsi-b.alfanso.xyz",
+      workersDev: false,
       env: {
         VITE_API_URL: api.url.as<string>(),
       },
