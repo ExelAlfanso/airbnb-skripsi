@@ -10,10 +10,12 @@
     type CatalogOptions,
     createCatalogSearchParams,
     createDefaultFilters,
+    createPropertyPath,
     fetchCatalogOptions,
     fetchPropertyDetail,
     fetchPropertyPage,
     parseCatalogFilters,
+    parsePropertySlug,
   } from "../catalog";
   import PropertyDetail from "./PropertyDetail.vue";
   import PropertyGrid from "./PropertyGrid.vue";
@@ -31,7 +33,7 @@
   const properties = shallowRef<PropertyListItem[]>([]);
   const pagination = shallowRef<PaginationMeta | null>(null);
   const detail = shallowRef<PropertyDetailType | null>(null);
-  const selectedId = shallowRef<string | null>(null);
+  const selectedSlug = shallowRef<string | null>(null);
   const wishlistStates = shallowRef<Map<string, boolean>>(new Map());
   const loadingOptions = shallowRef(false);
   const loadingList = shallowRef(false);
@@ -49,9 +51,15 @@
   });
 
   onMounted(() => {
-    restoreFiltersFromUrl();
     window.addEventListener("popstate", handlePopState);
-    initialize();
+    const slug = parsePropertySlug(window.location.pathname);
+
+    if (slug) {
+      openProperty(slug, false);
+    } else {
+      restoreFiltersFromUrl();
+      initialize();
+    }
   });
 
   onUnmounted(() => {
@@ -107,8 +115,7 @@
   function handleSearch(nextFilters: CatalogFilters): void {
     filters.value = nextFilters;
     updateCatalogUrl(nextFilters);
-    selectedId.value = null;
-    detail.value = null;
+    clearDetail();
     loadProperties(true);
   }
 
@@ -117,12 +124,15 @@
   }
 
   function handlePopState(): void {
+    const slug = parsePropertySlug(window.location.pathname);
+
+    if (slug) {
+      openProperty(slug, false);
+      return;
+    }
+
     restoreFiltersFromUrl();
-    detailRequestId += 1;
-    selectedId.value = null;
-    detail.value = null;
-    detailError.value = null;
-    loadingDetail.value = false;
+    clearDetail();
     loadProperties(true);
   }
 
@@ -147,16 +157,22 @@
     }
   }
 
-  async function openProperty(id: string): Promise<void> {
+  async function openProperty(slug: string, updateUrl = true): Promise<void> {
     const requestId = ++detailRequestId;
-    selectedId.value = id;
+    selectedSlug.value = slug;
     detail.value = null;
     detailError.value = null;
     loadingDetail.value = true;
+
+    if (updateUrl) {
+      const catalogUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+      window.history.pushState({ catalogUrl }, "", createPropertyPath(slug));
+    }
+
     window.scrollTo({ behavior: "smooth", top: 0 });
 
     try {
-      const response = await fetchPropertyDetail(id);
+      const response = await fetchPropertyDetail(slug);
 
       if (requestId !== detailRequestId) {
         return;
@@ -176,12 +192,24 @@
   }
 
   function closeDetail(): void {
+    if (typeof window.history.state?.catalogUrl === "string") {
+      window.history.back();
+      return;
+    }
+
+    window.history.pushState(null, "", "/");
+    restoreFiltersFromUrl();
+    clearDetail();
+    initialize();
+    window.scrollTo({ behavior: "smooth", top: 0 });
+  }
+
+  function clearDetail(): void {
     detailRequestId += 1;
-    selectedId.value = null;
+    selectedSlug.value = null;
     detail.value = null;
     detailError.value = null;
     loadingDetail.value = false;
-    window.scrollTo({ behavior: "smooth", top: 0 });
   }
 
   function toggleWishlist(id: string): void {
@@ -227,7 +255,7 @@
     </header>
 
     <main id="main-content" class="container">
-      <template v-if="selectedId">
+      <template v-if="selectedSlug">
         <div
           v-if="loadingDetail"
           class="status-panel"

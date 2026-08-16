@@ -97,6 +97,19 @@ describe("property catalog routes", () => {
     ).toContain("amenity_pool");
   });
 
+  test("GET /properties/:id accepts a property slug", async () => {
+    const response = await app.handle(
+      new Request("http://localhost/properties/villa-tropis-kolam-renang")
+    );
+    const body = await response.json();
+
+    expect(response.status).toBe(200);
+    expect(body).toMatchObject({
+      id: "prop_001",
+      slug: "villa-tropis-kolam-renang",
+    });
+  });
+
   test("GET /properties/:id returns not found error", async () => {
     const response = await app.handle(
       new Request("http://localhost/properties/prop_missing")

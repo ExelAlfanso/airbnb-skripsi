@@ -2,9 +2,11 @@ import { describe, expect, it } from "vitest";
 import {
   createCatalogSearchParams,
   createDefaultFilters,
+  createPropertyPath,
   formatPrice,
   optimizeImage,
   parseCatalogFilters,
+  parsePropertySlug,
 } from "./catalog";
 
 const RUPIAH_PRICE = /Rp\s*1\.250\.000/;
@@ -42,6 +44,19 @@ describe("catalog utilities", () => {
     expect(optimizeImage("https://example.com/image.jpg?crop=faces")).toContain(
       "&auto=format&fit=crop&w=900&q=78"
     );
+  });
+
+  it("creates and parses property slug paths", () => {
+    expect(createPropertyPath("villa-bandung")).toBe(
+      "/properties/villa-bandung"
+    );
+    expect(parsePropertySlug("/properties/villa-bandung")).toBe(
+      "villa-bandung"
+    );
+    expect(parsePropertySlug("/properties/villa-bandung/")).toBe(
+      "villa-bandung"
+    );
+    expect(parsePropertySlug("/")).toBeNull();
   });
 
   it("parses catalog filters from query parameters", () => {

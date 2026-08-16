@@ -9,7 +9,7 @@
   }
 
   interface Emits {
-    open: [id: string];
+    open: [slug: string];
     toggleWishlist: [id: string];
   }
 
@@ -22,7 +22,7 @@
     <button
       class="property-card__image-button"
       type="button"
-      @click="emit('open', property.id)"
+      @click="emit('open', property.slug)"
     >
       <img
         v-if="property.coverImage"
@@ -64,7 +64,7 @@
       <button
         class="property-card__title"
         type="button"
-        @click="emit('open', property.id)"
+        @click="emit('open', property.slug)"
       >
         {{ property.title }}
       </button>

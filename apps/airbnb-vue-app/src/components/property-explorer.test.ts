@@ -70,12 +70,38 @@ describe("PropertyExplorer integration", () => {
       await flushPromises();
 
       expect(catalogMocks.fetchPropertyDetail).toHaveBeenCalledWith(
-        property.id
+        property.slug
       );
+      expect(window.location.pathname).toBe(`/properties/${property.slug}`);
       expect(wrapper.text()).toContain(propertyDetail.description);
       expect(wrapper.find(".detail-wishlist").attributes("aria-pressed")).toBe(
         "true"
       );
+    } finally {
+      wrapper.unmount();
+    }
+  });
+
+  it("loads a property detail page directly from its slug", async () => {
+    window.history.replaceState(null, "", `/properties/${property.slug}`);
+    const wrapper = mount(PropertyExplorer, {
+      attachTo: document.body,
+    });
+
+    try {
+      await flushPromises();
+
+      expect(catalogMocks.fetchPropertyDetail).toHaveBeenCalledWith(
+        property.slug
+      );
+      expect(catalogMocks.fetchPropertyPage).not.toHaveBeenCalled();
+      expect(wrapper.text()).toContain(propertyDetail.description);
+
+      await wrapper.find(".back-button").trigger("click");
+      await flushPromises();
+
+      expect(window.location.pathname).toBe("/");
+      expect(catalogMocks.fetchPropertyPage).toHaveBeenCalled();
     } finally {
       wrapper.unmount();
     }

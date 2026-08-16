@@ -55,6 +55,7 @@ const FILTER_QUERY_KEYS = [
   "amenities",
   "sort",
 ] as const;
+const PROPERTY_PATH_PATTERN = /^\/properties\/([^/]+)\/?$/;
 
 const rupiah = new Intl.NumberFormat("id-ID", {
   currency: "IDR",
@@ -76,6 +77,24 @@ export function createDefaultFilters(): CatalogFilters {
     sort: "recommended",
     type: "",
   };
+}
+
+export function createPropertyPath(slug: string): string {
+  return `/properties/${encodeURIComponent(slug)}`;
+}
+
+export function parsePropertySlug(pathname: string): string | null {
+  const match = PROPERTY_PATH_PATTERN.exec(pathname);
+
+  if (!match) {
+    return null;
+  }
+
+  try {
+    return decodeURIComponent(match[1]).trim() || null;
+  } catch {
+    return null;
+  }
 }
 
 export function parseCatalogFilters(

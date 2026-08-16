@@ -73,12 +73,35 @@ describe("PropertyExplorer integration", () => {
     );
 
     await screen.findByText(propertyDetail.description);
-    expect(catalogMocks.fetchPropertyDetail).toHaveBeenCalledWith(property.id);
+    expect(catalogMocks.fetchPropertyDetail).toHaveBeenCalledWith(
+      property.slug
+    );
+    expect(window.location.pathname).toBe(`/properties/${property.slug}`);
     expect(
       screen
         .getByRole("button", { name: "Tersimpan" })
         .getAttribute("aria-pressed")
     ).toBe("true");
+  });
+
+  it("loads a property detail page directly from its slug", async () => {
+    const user = userEvent.setup();
+    window.history.replaceState(null, "", `/properties/${property.slug}`);
+    render(PropertyExplorer);
+
+    await screen.findByText(propertyDetail.description);
+    expect(catalogMocks.fetchPropertyDetail).toHaveBeenCalledWith(
+      property.slug
+    );
+    expect(catalogMocks.fetchPropertyPage).not.toHaveBeenCalled();
+
+    await user.click(
+      screen.getByRole("button", { name: "← Kembali ke hasil" })
+    );
+
+    await screen.findByText(property.title);
+    expect(window.location.pathname).toBe("/");
+    expect(catalogMocks.fetchPropertyPage).toHaveBeenCalled();
   });
 
   it("hydrates filters from the URL and restores them on popstate", async () => {

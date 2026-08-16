@@ -84,10 +84,12 @@ export async function listProperties(
 
 export async function getPropertyDetail(
   repository: PropertyCatalogRepository,
-  id: string
+  identifier: string
 ): Promise<PropertyDetailResult> {
   const snapshot = await repository.getSnapshot();
-  const property = snapshot.properties.find((item) => item.id === id);
+  const property = snapshot.properties.find(
+    (item) => item.id === identifier || item.slug === identifier
+  );
 
   if (!property) {
     return {

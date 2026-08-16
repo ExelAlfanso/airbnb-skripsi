@@ -3,7 +3,7 @@
   import PropertyCard from "./PropertyCard.svelte";
 
   interface Props {
-    openProperty: (id: string) => void;
+    openProperty: (slug: string) => void;
     properties: PropertyListItem[];
     toggleWishlist: (id: string) => void;
     wishlistStates: Readonly<Record<string, boolean>>;

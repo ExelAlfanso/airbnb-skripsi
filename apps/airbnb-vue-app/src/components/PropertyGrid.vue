@@ -8,7 +8,7 @@
   }
 
   interface Emits {
-    open: [id: string];
+    open: [slug: string];
     toggleWishlist: [id: string];
   }
 

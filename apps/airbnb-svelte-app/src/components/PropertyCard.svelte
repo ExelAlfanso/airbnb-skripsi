@@ -3,7 +3,7 @@
   import { formatPrice, optimizeImage } from "../catalog";
 
   interface Props {
-    openProperty: (id: string) => void;
+    openProperty: (slug: string) => void;
     priority: boolean;
     property: PropertyListItem;
     toggleWishlist: (id: string) => void;
@@ -18,7 +18,7 @@
   <button
     class="property-card__image-button"
     type="button"
-    onclick={() => openProperty(property.id)}
+    onclick={() => openProperty(property.slug)}
   >
     {#if property.coverImage}
       <img
@@ -59,7 +59,7 @@
     <button
       class="property-card__title"
       type="button"
-      onclick={() => openProperty(property.id)}
+      onclick={() => openProperty(property.slug)}
     >
       {property.title}
     </button>

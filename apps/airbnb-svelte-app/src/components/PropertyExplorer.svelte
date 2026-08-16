@@ -10,10 +10,12 @@
     type CatalogOptions,
     createCatalogSearchParams,
     createDefaultFilters,
+    createPropertyPath,
     fetchCatalogOptions,
     fetchPropertyDetail,
     fetchPropertyPage,
     parseCatalogFilters,
+    parsePropertySlug,
   } from "../catalog";
   import PropertyDetailView from "./PropertyDetail.svelte";
   import PropertyGrid from "./PropertyGrid.svelte";
@@ -32,7 +34,7 @@
   let properties: PropertyListItem[] = $state.raw([]);
   let pagination = $state.raw<PaginationMeta | null>(null);
   let detail = $state.raw<PropertyDetail | null>(null);
-  let selectedId: string | null = $state(null);
+  let selectedSlug: string | null = $state(null);
   let wishlistStates: Record<string, boolean> = $state.raw({});
   let loadingOptions = $state(false);
   let loadingList = $state(false);
@@ -47,13 +49,14 @@
   let resultLabel = $derived(`${pagination?.total ?? 0} properti ditemukan`);
 
   onMount(() => {
-    restoreFiltersFromUrl();
-    window.addEventListener("popstate", handlePopState);
-    initialize();
+    const slug = parsePropertySlug(window.location.pathname);
 
-    return () => {
-      window.removeEventListener("popstate", handlePopState);
-    };
+    if (slug) {
+      openProperty(slug, false);
+    } else {
+      restoreFiltersFromUrl();
+      initialize();
+    }
   });
 
   async function initialize(): Promise<void> {
@@ -103,8 +106,7 @@
   function handleSearch(nextFilters: CatalogFilters): void {
     filters = nextFilters;
     updateCatalogUrl(nextFilters);
-    selectedId = null;
-    detail = null;
+    clearDetail();
     loadProperties(true);
   }
 
@@ -113,12 +115,15 @@
   }
 
   function handlePopState(): void {
+    const slug = parsePropertySlug(window.location.pathname);
+
+    if (slug) {
+      openProperty(slug, false);
+      return;
+    }
+
     restoreFiltersFromUrl();
-    detailRequestId += 1;
-    selectedId = null;
-    detail = null;
-    detailError = null;
-    loadingDetail = false;
+    clearDetail();
     loadProperties(true);
   }
 
@@ -141,16 +146,22 @@
     }
   }
 
-  async function openProperty(id: string): Promise<void> {
+  async function openProperty(slug: string, updateUrl = true): Promise<void> {
     const requestId = ++detailRequestId;
-    selectedId = id;
+    selectedSlug = slug;
     detail = null;
     detailError = null;
     loadingDetail = true;
+
+    if (updateUrl) {
+      const catalogUrl = `${window.location.pathname}${window.location.search}${window.location.hash}`;
+      window.history.pushState({ catalogUrl }, "", createPropertyPath(slug));
+    }
+
     window.scrollTo({ behavior: "smooth", top: 0 });
 
     try {
-      const response = await fetchPropertyDetail(id);
+      const response = await fetchPropertyDetail(slug);
 
       if (requestId !== detailRequestId) {
         return;
@@ -170,12 +181,24 @@
   }
 
   function closeDetail(): void {
+    if (typeof window.history.state?.catalogUrl === "string") {
+      window.history.back();
+      return;
+    }
+
+    window.history.pushState(null, "", "/");
+    restoreFiltersFromUrl();
+    clearDetail();
+    initialize();
+    window.scrollTo({ behavior: "smooth", top: 0 });
+  }
+
+  function clearDetail(): void {
     detailRequestId += 1;
-    selectedId = null;
+    selectedSlug = null;
     detail = null;
     detailError = null;
     loadingDetail = false;
-    window.scrollTo({ behavior: "smooth", top: 0 });
   }
 
   function toggleWishlist(id: string): void {
@@ -206,6 +229,8 @@
   }
 </script>
 
+<svelte:window onpopstate={handlePopState} />
+
 <div class="app">
   <a class="skip-link" href="#main-content">Langsung ke konten utama</a>
   <header class="site-header">
@@ -221,7 +246,7 @@
   </header>
 
   <main id="main-content" class="container">
-    {#if selectedId}
+    {#if selectedSlug}
       {#if loadingDetail}
         <div class="status-panel" aria-live="polite" role="status">
           Memuat detail properti&hellip;
