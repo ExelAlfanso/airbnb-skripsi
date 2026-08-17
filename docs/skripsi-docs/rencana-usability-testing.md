@@ -87,6 +87,7 @@ Jumlah partisipan utama tetap ditentukan melalui *power analysis* untuk outcome 
 - Lembar tugas Set A, Set B, dan Set C.
 - Lembar observasi.
 - Event log aplikasi dan rekaman sesi.
+- Playwright dan Chrome untuk pengukuran INP sesi terkontrol.
 - Kuesioner SUS 10 butir.
 - Kuesioner UEQ versi bahasa Indonesia resmi.
 - Maze atau platform sejenis untuk instruksi, survei, dan rekaman jika diperlukan.
@@ -354,6 +355,22 @@ Skor SUS berada pada rentang 0-100, tetapi bukan persentase keberhasilan. Gunaka
 
 Gunakan kuesioner bahasa Indonesia dan alat analisis resmi UEQ. Jangan mengubah urutan butir, polaritas pasangan kata, transformasi nilai, atau komposisi enam skala tanpa justifikasi metodologis.
 
+### 10.5 Pengukuran INP sesi terkontrol dengan Playwright
+
+Pengukuran otomatis Playwright melengkapi, tetapi tidak menggantikan, waktu penyelesaian tugas partisipan. Pengukuran ini hanya membandingkan dua kondisi eksperimen utama, yaitu production build Vue dan Svelte; React tetap berada di luar kesimpulan performa konfirmatori Vue-Svelte.
+
+Tiga skenario interaksi dijalankan pada kedua frontend:
+
+1. mengirim pencarian `Canggu`;
+2. memilih amenitas Kitchen pada filter Villa di Senggigi untuk minimal enam tamu, lalu memverifikasi hasil filter; dan
+3. mengaktifkan wishlist pada `Villa Tropis dengan Kolam Renang`.
+
+Setiap skenario dijalankan tiga kali per framework. Setiap observasi menggunakan context browser baru dengan viewport `390 x 844`, Chrome yang sama, throttling CPU `4x`, API dan dataset deterministik yang sama, serta cache browser dingin. Urutan framework diselang-seling `Vue-Svelte`, `Svelte-Vue`, lalu `Vue-Svelte`; karena jumlah pengulangan ganjil, framework yang muncul pertama tidak dapat seimbang sempurna. Urutan skenario dirotasi pada setiap pengulangan agar setiap skenario menempati posisi pertama, kedua, dan ketiga satu kali.
+
+Sebelum interaksi target, Playwright memasang `PerformanceObserver` untuk entri Event Timing bertipe `event`. Durasi event dikelompokkan berdasarkan `interactionId`, kemudian nilai terlama pada interaksi target dicatat sebagai INP sesi terkontrol. Ambang pelaporan Event Timing ditetapkan `16 ms`; jika browser tidak menghasilkan entri, hasil disimpan sebagai `<16 ms` dan nilai batas atas konservatif `16 ms` digunakan pada ringkasan numerik. Untuk setiap kombinasi framework-skenario, laporkan ketiga nilai mentah, median, kuartil pertama, kuartil ketiga, dan rentang antarkuartil.
+
+Hasil ini merupakan pengukuran interaksi terskrip pada kondisi laboratorium, bukan INP lapangan populasi. Nilainya tidak digabungkan dengan durasi tugas partisipan dan tidak boleh disebut data CrUX atau RUM. Berkas hasil mentah disimpan dari `artifacts/inp/results.json` bersama commit, versi browser, dan konfigurasi eksperimen yang digunakan.
+
 ## 11. Rencana Analisis Statistik
 
 Data memiliki pengukuran berulang karena setiap partisipan menggunakan ketiga framework. Analisis konfirmatori tetap menggunakan kontras berpasangan Vue-Svelte sesuai proposal; analisis yang melibatkan React dilabeli eksploratif. Hierarki outcome dan analisis ditetapkan sebelum data utama diperiksa.
@@ -422,6 +439,7 @@ Setiap perubahan setelah pilot dicatat dalam log revisi protokol.
 - [ ] Analisis task set, period, framework order, dan sequence group telah direncanakan.
 - [ ] Form consent, SUS, dan UEQ resmi telah disiapkan.
 - [ ] Instrumentasi menghasilkan event yang sama pada ketiga frontend.
+- [ ] Otomasi INP Playwright telah dijalankan tiga kali untuk setiap skenario Vue dan Svelte, serta hasil mentah dan ringkasannya telah diarsipkan.
 - [ ] Prosedur reset dan penanganan gangguan teknis telah diuji.
 - [ ] Aturan eksklusi dan rencana analisis telah ditetapkan.
 - [ ] Penyimpanan, anonimisasi, dan penghapusan data telah ditetapkan.
@@ -429,6 +447,6 @@ Setiap perubahan setelah pilot dicatat dalam log revisi protokol.
 ## 15. Referensi Instrumen
 
 - Brooke, J. (1996). [SUS: A Quick and Dirty Usability Scale](https://hci-studies.org/methods-and-measures/downloads/SUS_Brooke1996.pdf).
-- International Organization for Standardization. [ISO 9241-11:2018: Usability—Definitions and Concepts](https://www.iso.org/standard/63500.html).
+- International Organization for Standardization. [ISO 9241-11:2018: Usability???Definitions and Concepts](https://www.iso.org/standard/63500.html).
 - Schrepp, M. (2023). [User Experience Questionnaire Handbook](https://ueq-online.org/Material/Handbook.pdf).
 - [UEQ questionnaire and official data-analysis tools](https://www.ueq-online.org/?page_id=110).

@@ -2,6 +2,7 @@
   "devDependencies": {
     "@biomejs/biome": "2.4.16",
     "@lhci/cli": "^0.15.1",
+    "@playwright/test": "^1.62.1",
     "lefthook": "^2.1.9",
     "ultracite": "7.8.3"
   },
@@ -18,6 +19,8 @@
     "test:frontends": "pnpm --parallel --filter @airbnb-skripsi/vue-app --filter @airbnb-skripsi/svelte-app --filter @airbnb-skripsi/react-app test",
     "perf:lighthouse:vue": "pnpm --filter @airbnb-skripsi/vue-app build && node tests/performance/run-lighthouse.cjs tests/performance/lighthouse/vue.lighthouserc.cjs",
     "perf:lighthouse:svelte": "pnpm --filter @airbnb-skripsi/svelte-app build && node tests/performance/run-lighthouse.cjs tests/performance/lighthouse/svelte.lighthouserc.cjs",
+    "perf:lighthouse:react": "pnpm --filter @airbnb-skripsi/react-app build && node tests/performance/run-lighthouse.cjs tests/performance/lighthouse/react.lighthouserc.cjs",
+    "perf:inp": "node tests/performance/inp/run-inp.cjs",
     "prepare": "lefthook install"
   },
   "version": "1.0.0",
