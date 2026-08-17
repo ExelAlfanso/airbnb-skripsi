@@ -1,0 +1,880 @@
+\documentclass[12pt,a4paper]{report}
+
+% -------------------------------------------------
+% Packages
+% -------------------------------------------------
+\usepackage{fontspec}                                                       
+\setmainfont{Calibri} 
+\usepackage[a4paper,left=3cm,right=3cm,top=2.5cm,bottom=2.5cm]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{setspace}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage{titlesec}
+\usepackage{hyperref}
+\usepackage{xurl}
+\usepackage{tikz}
+\usepackage{tocloft}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{indentfirst}
+\usetikzlibrary{arrows.meta,positioning,shapes.geometric,calc}
+
+\lstdefinelanguage{TypeScript}{
+  keywords={abstract, any, as, async, await, boolean, break, case, catch, class, console, const, continue, debugger, declare, default, delete, do, else, enum, export, extends, false, finally, for, from, function, get, if, implements, import, in, instanceof, interface, is, keyof, let, module, namespace, never, new, null, number, object, package, private, protected, public, readonly, require, return, set, static, string, super, switch, symbol, this, throw, true, try, type, typeof, undefined, var, void, while, with, yield},
+  morecomment=[l]{//},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+  morestring=[b]`
+}
+
+\lstset{
+  language=TypeScript,
+  basicstyle=\ttfamily\scriptsize,
+  breaklines=true,
+  breakatwhitespace=true,
+  frame=single,
+  numbers=left,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\bfseries\color{blue!80!black},
+  commentstyle=\color{green!50!black},
+  stringstyle=\color{red!70!black},
+  showstringspaces=false,
+  tabsize=2,
+  captionpos=t
+}
+
+% -------------------------------------------------
+% Document formatting
+% -------------------------------------------------
+\singlespacing
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{0pt}
+\setlist[enumerate]{leftmargin=*,itemsep=0.35em,topsep=0.35em}
+\setlist[itemize]{leftmargin=*,itemsep=0.2em,topsep=0.2em}
+
+\renewcommand{\cftdotsep}{1.5}
+\renewcommand{\contentsname}{DAFTAR ISI}
+\renewcommand{\listfigurename}{DAFTAR GAMBAR}
+\renewcommand{\listtablename}{DAFTAR TABEL}
+\renewcommand{\figurename}{Gambar}
+\renewcommand{\tablename}{Tabel}
+\renewcommand{\bibname}{DAFTAR REFERENSI}
+
+% Center front-matter titles managed by tocloft.
+\renewcommand{\cfttoctitlefont}{\hfill\normalfont\bfseries\Large}
+\renewcommand{\cftaftertoctitle}{\hfill\mbox{}}
+\renewcommand{\cftloftitlefont}{\hfill\normalfont\bfseries\Large}
+\renewcommand{\cftafterloftitle}{\hfill\mbox{}}
+\renewcommand{\cftlottitlefont}{\hfill\normalfont\bfseries\Large}
+\renewcommand{\cftafterlottitle}{\hfill\mbox{}}
+
+\titleformat{\chapter}[display]
+  {\normalfont\bfseries\Large\centering}
+  {BAB \thechapter}
+  {0.6em}
+  {}
+\titlespacing*{\chapter}{0pt}{-10pt}{18pt}
+
+\titleformat{name=\chapter,numberless}
+  {\normalfont\bfseries\Large\centering}
+  {}
+  {0pt}
+  {}
+\titlespacing*{name=\chapter,numberless}{0pt}{-10pt}{18pt}
+
+\titleformat{\section}
+  {\normalfont\bfseries\large}
+  {\thesection}
+  {0.6em}
+  {}
+\titleformat{\subsection}
+  {\normalfont\bfseries\normalsize}
+  {\thesubsection}
+  {0.6em}
+  {}
+
+\captionsetup{font=normalsize,labelfont=bf,textfont=bf,justification=centering,labelsep=space}
+\captionsetup[table]{position=top,skip=6pt}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  urlcolor=black,
+  citecolor=black,
+  pdftitle={Laporan Proposal Skripsi - Exel Boy Alfanso},
+  pdfauthor={Exel Boy Alfanso}
+}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}p{#1}}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\begin{document}
+
+% =================================================
+% COVER
+% =================================================
+\pagenumbering{arabic}
+\setcounter{page}{1}
+\begin{titlepage}
+\thispagestyle{plain}
+\begin{center}
+    \textbf{\Large LAPORAN PROPOSAL SKRIPSI}
+
+    \vspace{1.8cm}
+
+    \textbf{\Large Analisis Perbandingan Performa Framework Frontend VueJS dan Svelte pada Prototipe Website 
+    Listing Properti Berbasis Studi Kasus Airbnb 
+    Berdasarkan Segi Komputasional dan Pengalaman Pengguna
+    }
+
+    \vfill
+
+    \includegraphics[width=5.5cm]{Logo_Universitas_Brawijaya.png}
+
+    \vfill
+
+    \textbf{Disusun oleh:}\\[0.5cm]
+    \textbf{Exel Boy Alfanso}\\
+    \textbf{NIM: 235150201111019}
+
+    \vfill
+
+    \textbf{PROGRAM STUDI TEKNIK INFORMATIKA}\\
+    \textbf{DEPARTEMEN TEKNIK INFORMATIKA}\\
+    \textbf{FAKULTAS ILMU KOMPUTER}\\
+    \textbf{UNIVERSITAS BRAWIJAYA}\\
+    \textbf{MALANG}\\
+    \textbf{2026}
+\end{center}
+\end{titlepage}
+
+% =================================================
+% FRONT MATTER
+% =================================================
+\tableofcontents
+\clearpage
+\listoffigures
+\clearpage
+\listoftables
+\clearpage
+
+% Reset page numbering at Chapter 1, following the source document.
+\setcounter{page}{1}
+
+% =================================================
+% BAB 1
+% =================================================
+\chapter{PENDAHULUAN}
+
+\section{Identitas Mahasiswa}
+\begin{itemize}[label={--}]
+    \item Nama: Exel Boy Alfanso
+    \item NIM: 235150201111019
+    \item Program Studi: Teknik Informatika
+    \item Departemen: Teknik Informatika
+\end{itemize}
+
+\section{Keminatan dan Bidang Penelitian}
+Pada skripsi ini, keminatan saya adalah MGM (Multimedia, Game, dan Mobile) dan spesifik Bidang penelitian yang diambil khususnya pada kajian pengembangan aplikasi web, performa antarmuka web responsif, serta evaluasi framework frontend modern pada perangkat bergerak.
+
+\section{Jenis Penelitian}
+Jenis penelitian ini adalah penelitian implementatif dengan pendekatan pengembangan. Penelitian ini menghasilkan artefak berupa prototipe mobile web listing properti yang dikembangkan dalam dua versi frontend, yaitu VueJS dan Svelte. Kedua frontend menggunakan service backend yang sama berbasis ElysiaJS dengan Eden Treaty sebagai type-safe API client. Setelah prototipe dikembangkan, dilakukan pengujian dan analisis perbandingan performa menggunakan Core Web Vitals dan metrik efisiensi sumber daya.
+
+\section{Judul / Topik Skripsi}
+Judul/topik yang akan saya bawa pada skripsi ini adalah Analisis Perbandingan Performa Framework Frontend VueJS dan Svelte Menggunakan Core Web Vitals dan Efisiensi Sumber Daya pada Prototipe Mobile Web Listing Properti Berbasis Studi Kasus Airbnb dengan Service Backend ElysiaJS dan Eden Treaty.
+
+\section{Latar Belakang}
+Perkembangan aplikasi web modern menuntut website untuk memiliki performa yang cepat, responsif, dan efisien dalam penggunaan sumber daya. Kebutuhan tersebut menjadi semakin penting pada website berbasis listing yang menampilkan banyak konten visual dan elemen antarmuka secara bersamaan. Pada website listing properti, misalnya, halaman dapat memuat gambar properti, informasi lokasi, harga, rating, serta berbagai komponen interaktif seperti pencarian, penyaringan, pengurutan, dan pemuatan data tambahan. Karakteristik tersebut menyebabkan sisi frontend memiliki peran penting terhadap waktu pemuatan halaman, respons terhadap interaksi pengguna, stabilitas tampilan, serta jumlah sumber daya yang perlu diproses oleh browser.
+
+VueJS dan Svelte merupakan framework frontend berbasis komponen yang dapat digunakan untuk membangun antarmuka web interaktif. Meskipun memiliki tujuan yang serupa, keduanya menggunakan pendekatan berbeda dalam proses pembaruan antarmuka. VueJS menggunakan sistem reaktivitas yang bekerja bersama mekanisme Virtual DOM pada saat aplikasi berjalan, sedangkan Svelte menggunakan pendekatan berbasis compiler dengan mengompilasi komponen menjadi kode JavaScript pada proses build. Perbedaan pendekatan tersebut berpotensi menghasilkan karakteristik performa yang berbeda, baik dari sisi proses rendering, jumlah JavaScript yang dikirimkan ke browser, penggunaan sumber daya, maupun respons aplikasi ketika terjadi perubahan data.
+
+Penelitian sebelumnya telah menunjukkan bahwa perbedaan strategi rendering pada framework frontend dapat menghasilkan karakteristik performa yang berbeda. (Ollila, M\"akitalo and Mikkonen, 2022) membandingkan strategi rendering Angular, React, Vue, Svelte, dan Blazor menggunakan sejumlah benchmark untuk mengukur perubahan biaya rendering seiring meningkatnya kompleksitas aplikasi. Penelitian tersebut menunjukkan adanya perbedaan pola performa berdasarkan strategi rendering yang digunakan oleh masing-masing framework. Selain itu, (Putra et al., 2025) membandingkan Svelte, React, dan Vue menggunakan aplikasi web sederhana yang dibuat secara identik dengan pengukuran berupa rendering time, bundle size, penggunaan memori saat idle, dan efisiensi operasi DOM. Penelitian tersebut menunjukkan bahwa perbedaan arsitektur framework dapat memengaruhi performa teknis aplikasi.
+
+Meskipun demikian, penelitian terdahulu tersebut masih berfokus pada benchmark rendering atau implementasi aplikasi yang relatif sederhana. Kondisi tersebut belum sepenuhnya menggambarkan karakteristik aplikasi web yang memiliki banyak konten visual serta melibatkan beberapa bentuk interaksi dan perubahan data dalam satu aplikasi. Oleh karena itu, masih diperlukan kajian mengenai bagaimana perbedaan pendekatan VueJS dan Svelte menghasilkan karakteristik performa ketika diterapkan pada prototipe aplikasi yang memiliki workload lebih representatif, seperti website listing properti yang mencakup pemuatan sejumlah gambar dan komponen berulang, pencarian, penyaringan, pengurutan, pemuatan data tambahan, dan navigasi menuju detail properti. Selain itu, evaluasi yang menggabungkan metrik performa yang berorientasi pada pengalaman pengguna melalui Core Web Vitals dengan efisiensi sumber daya dan respons interaksi dapat memberikan gambaran yang lebih menyeluruh mengenai perbedaan performa kedua framework.
+
+Berdasarkan kesenjangan tersebut, penelitian ini mengembangkan dua prototipe website listing properti menggunakan VueJS dan Svelte dengan fitur dan perilaku yang dibuat setara. Kedua implementasi menggunakan desain, dataset, aset, struktur konten, dan service backend yang sama. ElysiaJS digunakan sebagai service backend untuk menyediakan data melalui API, sedangkan Eden Treaty digunakan untuk mendukung komunikasi API yang type-safe antara frontend dan backend. Kesetaraan tersebut diterapkan agar perbedaan hasil pengujian dapat lebih difokuskan pada karakteristik implementasi frontend masing-masing framework, bukan akibat perbedaan data, desain, fitur, atau layanan backend.
+
+Prototipe yang dikembangkan mengacu pada karakteristik umum website listing properti modern, khususnya pola penyajian daftar properti yang kaya konten visual serta mendukung fitur seperti pencarian, penyaringan, pengurutan, halaman detail, dan pemuatan data secara bertahap. Airbnb dapat digunakan sebagai salah satu referensi karakteristik antarmuka dan pola interaksi pada domain tersebut. Namun, penelitian ini tidak bertujuan untuk mereplikasi Airbnb secara penuh maupun mengevaluasi teknologi yang digunakan oleh Airbnb, melainkan menggunakan karakteristik website listing properti sebagai konteks untuk melakukan perbandingan performa VueJS dan Svelte.
+
+\section{Rumusan Masalah}
+\begin{enumerate}
+    \item Bagaimana perbedaan performa komputasional antara VueJS dan Svelte pada prototipe website listing properti berdasarkan Core Web Vitals, efisiensi sumber daya, dan respons interaksi pengguna?
+    \item Bagaimana perbandingan User Experience pada prototipe website listing properti yang dikembangkan menggunakan VueJS dan Svelte berdasarkan hasil User Experience Questionnaire (UEQ)?
+    \item Bagaimana perbandingan usability pada prototipe website listing properti yang dikembangkan menggunakan VueJS dan Svelte berdasarkan hasil System Usability Scale (SUS)?
+    \item Bagaimana hasil perbandingan performa komputasional, User Experience, dan usability antara VueJS dan Svelte dapat menjadi pertimbangan dalam pemilihan framework frontend untuk pengembangan website listing yang kaya konten visual dan memiliki fitur interaktif?
+\end{enumerate}
+
+\section{Tujuan}
+\begin{enumerate}
+    \item Menganalisis perbedaan performa komputasional antara VueJS dan Svelte pada prototipe website listing properti berdasarkan Core Web Vitals, efisiensi sumber daya, dan respons interaksi pengguna.
+    \item Menganalisis perbandingan User Experience pada prototipe website listing properti yang dikembangkan menggunakan VueJS dan Svelte berdasarkan hasil User Experience Questionnaire (UEQ).
+    \item Menganalisis perbandingan usability pada prototipe website listing properti yang dikembangkan menggunakan VueJS dan Svelte berdasarkan hasil System Usability Scale (SUS).
+    \item Menganalisis hasil perbandingan performa komputasional, User Experience, dan usability antara VueJS dan Svelte sebagai pertimbangan dalam pemilihan framework frontend untuk pengembangan website listing yang kaya konten visual dan memiliki fitur interaktif.
+\end{enumerate}
+
+\section{Batasan Masalah}
+\begin{enumerate}
+    \item Penelitian hanya membandingkan implementasi frontend menggunakan VueJS dan Svelte. ElysiaJS digunakan sebagai service backend yang sama pada kedua prototipe dan tidak menjadi objek utama perbandingan.
+    \item Prototipe yang dikembangkan dibatasi pada fitur utama website listing properti, yaitu halaman daftar properti, halaman detail properti, pencarian, penyaringan (filter), pengurutan (sorting), pagination atau load more, serta wishlist sederhana.
+    \item Airbnb digunakan sebagai referensi karakteristik antarmuka dan pola interaksi website listing properti, bukan sebagai objek yang direplikasi secara penuh maupun sebagai objek evaluasi teknologi yang digunakan oleh Airbnb.
+    \item Data properti, lokasi, tipe properti, fasilitas, rating, host, dan gambar yang digunakan pada kedua prototipe merupakan data dummy atau aset bebas lisensi yang dibuat sama untuk kedua implementasi.
+    \item Penelitian tidak mencakup fitur authentication, authorization, pembayaran, transaksi pemesanan sebenarnya, chat, host dashboard, admin dashboard, sistem kalender real-time, dan integrasi peta sebenarnya.
+    \item Pengujian performa komputasional dilakukan pada production build dengan kondisi perangkat, browser, viewport, dataset, aset, fitur, dan skenario pengujian yang dibuat sama untuk implementasi VueJS dan Svelte.
+    \item Pengukuran performa komputasional dibatasi pada Core Web Vitals yang terdiri atas Largest Contentful Paint (LCP), Interaction to Next Paint (INP), dan Cumulative Layout Shift (CLS), serta metrik efisiensi sumber daya dan respons interaksi yang meliputi ukuran JavaScript, total transferred size, request count, dan waktu respons pada skenario interaksi yang telah ditentukan.
+    \item Evaluasi User Experience dan usability dilakukan terhadap kedua prototipe menggunakan skenario penggunaan yang sama. User Experience diukur menggunakan User Experience Questionnaire (UEQ), sedangkan usability diukur menggunakan System Usability Scale (SUS).
+    \item Penelitian berfokus pada perbandingan VueJS dan Svelte dalam konteks prototipe website listing properti yang dikembangkan. Hasil penelitian tidak ditujukan untuk menentukan framework terbaik secara umum maupun digeneralisasikan terhadap seluruh jenis aplikasi web.
+\end{enumerate}
+
+% =================================================
+% BAB 2
+% =================================================
+\chapter{LANDASAN KEPUSTAKAAN}
+
+\section{Website Responsif}
+Website responsif merupakan website yang dirancang agar tampilan dan tata letaknya dapat menyesuaikan berbagai ukuran layar, termasuk desktop, tablet, dan mobile. Pada tampilan mobile, website responsif perlu memperhatikan penyusunan konten, ukuran elemen interaktif, keterbacaan teks, navigasi, serta efisiensi resource agar tetap nyaman digunakan. Dalam penelitian ini, responsivitas mobile menjadi konteks pengujian karena prototipe listing properti akan diuji pada viewport mobile.
+
+\section{Framework Frontend}
+Framework frontend merupakan kerangka kerja yang digunakan untuk membangun antarmuka pengguna pada aplikasi web. Framework frontend membantu pengembang dalam menyusun komponen, mengelola struktur aplikasi, mengatur interaksi pengguna, dan membangun tampilan web modern. (Ferreira, Borges and Valente, 2022) menjelaskan bahwa framework frontend JavaScript seperti Vue, React, Angular, Ember, dan Backbone digunakan untuk membangun antarmuka web modern berbasis komponen. Selain itu, (Sofi'ie and Qoiriah, 2023) menyatakan bahwa framework frontend menjadi komponen penting dalam pengembangan website karena dapat membantu proses pengembangan, manajemen kode, performa, dan konsistensi aplikasi.
+
+\section{Vue JS}
+Vue.js adalah framework frontend JavaScript yang digunakan untuk membangun antarmuka web berbasis komponen. (Ferreira, Borges and Valente, 2022) menjelaskan bahwa Vue merupakan progressive framework yang menggunakan pola Model-View-View\\
+Model (MVVM) dan mendukung mekanisme one-way maupun two-way data binding. Dalam penelitian lain, (Sofi'ie and Qoiriah, 2023) menyebutkan bahwa Vue memiliki karakteristik struktur aplikasi yang sederhana dan kemampuan pengelolaan data yang mudah. Pada penelitian ini, Vue.js digunakan sebagai salah satu framework frontend yang dibandingkan dalam pengembangan prototipe website responsif listing properti.
+
+\section{Svelte}
+Svelte adalah framework frontend berbasis komponen yang menggunakan pendekatan compiler-based. Berbeda dengan framework yang membawa runtime besar ke browser, Svelte mengkompilasi komponen menjadi JavaScript pada saat proses build. Dengan pendekatan ini, Svelte dapat menghasilkan kode yang lebih spesifik terhadap kebutuhan komponen dan berpotensi mengurangi beban runtime pada browser. Karakteristik ini relevan untuk website responsif yang memiliki banyak komponen berulang dan membutuhkan antarmuka yang tetap responsif pada tampilan mobile.
+
+\section{Core Web Vitals}
+Core Web Vitals merupakan kumpulan metrik yang digunakan untuk mengukur kualitas pengalaman pengguna pada website. Metrik ini mencakup Largest Contentful Paint, Interaction to Next Paint, dan Cumulative Layout Shift. LCP digunakan untuk mengukur waktu munculnya konten utama, INP digunakan untuk mengukur respons interaksi, dan CLS digunakan untuk mengukur stabilitas visual halaman. Dalam penelitian ini, Core Web Vitals digunakan sebagai metrik utama untuk membandingkan performa prototipe VueJS dan Svelte. (Andriyanai et al., 2025)
+
+\subsection{Largest Contentful Paint}
+Largest Contentful Paint (LCP) merupakan metrik yang mengukur waktu yang dibutuhkan hingga elemen konten terbesar pada area tampilan (viewport) berhasil ditampilkan kepada pengguna. Elemen yang diperhitungkan dapat berupa gambar, elemen gambar yang terdapat di dalam SVG, gambar latar tertentu, video, maupun blok teks yang berukuran besar. Dengan demikian, LCP digunakan sebagai indikator untuk mengetahui seberapa cepat konten utama suatu halaman dapat dilihat oleh pengguna.
+
+\subsection{Interaction to Next Paint}
+Interaction to Next Paint (INP) merupakan metrik Core Web Vitals yang digunakan untuk mengukur tingkat responsivitas suatu halaman terhadap interaksi pengguna. INP mengamati latensi interaksi seperti klik, sentuhan, dan input menggunakan papan ketik selama pengguna mengakses halaman. Nilai INP merepresentasikan waktu antara terjadinya interaksi pengguna hingga browser dapat menampilkan pembaruan visual berikutnya sebagai respons terhadap interaksi tersebut.
+
+Berbeda dengan metrik yang hanya mengukur interaksi pertama, INP mempertimbangkan berbagai interaksi yang terjadi sepanjang penggunaan halaman dan menggunakan interaksi dengan latensi yang paling tinggi dengan mekanisme tertentu untuk mengabaikan outlier. Nilai INP yang rendah menunjukkan bahwa halaman mampu memberikan umpan balik visual secara konsisten dalam waktu yang singkat. Google menetapkan INP sebesar 200 milidetik atau kurang sebagai kategori baik, sedangkan nilai lebih dari 500 milidetik dikategorikan buruk.
+
+\subsection{Cumulative Layout Shift}
+Cumulative Layout Shift (CLS) merupakan metrik yang mengukur stabilitas visual halaman berdasarkan perubahan posisi elemen yang terjadi secara tidak terduga selama halaman digunakan. Perubahan tata letak dapat terjadi ketika suatu elemen berpindah setelah elemen lain selesai dimuat, misalnya gambar yang tidak memiliki dimensi yang ditentukan sebelumnya atau konten yang dimasukkan secara dinamis. CLS menghitung kelompok perubahan tata letak tidak terduga yang paling signifikan selama siklus hidup halaman.
+
+Berbeda dengan LCP dan INP yang menggunakan satuan waktu, CLS merupakan nilai tanpa satuan. Nilai yang semakin mendekati nol menunjukkan bahwa tampilan halaman semakin stabil. Google menetapkan nilai CLS sebesar 0,1 atau kurang sebagai kategori baik. Stabilitas visual penting karena perubahan posisi elemen secara tiba-tiba dapat mengganggu pengguna ketika membaca konten atau berinteraksi dengan suatu elemen antarmuka.
+
+\begin{table}[H]
+\centering
+\caption{Threshold Core Web Vitals}
+\small
+\begin{tabularx}{\textwidth}{|L{3.4cm}|Y|C{1.7cm}|C{2.5cm}|C{1.7cm}|}
+\hline
+\textbf{Metrik} & \textbf{Aspek yang Diukur} & \textbf{Good} & \textbf{Needs Improvement} & \textbf{Poor} \\
+\hline
+\textit{Largest Contentful Paint} (LCP) & Kecepatan pemuatan konten utama & $\leq$ 2,5 detik & $>$ 2,5--4 detik & $>$ 4 detik \\
+\hline
+\textit{Interaction to Next Paint} (INP) & Responsivitas terhadap interaksi pengguna & $\leq$ 200 ms & $>$ 200--500 ms & $>$ 500 ms \\
+\hline
+\textit{Cumulative Layout Shift} (CLS) & Stabilitas visual halaman & $\leq$ 0,1 & $>$ 0,1--0,25 & $>$ 0,25 \\
+\hline
+\end{tabularx}
+\end{table}
+
+\section{Efisiensi Sumber Daya}
+Efisiensi sumber daya berkaitan dengan seberapa besar resource yang dibutuhkan oleh aplikasi web untuk dimuat dan dijalankan di browser. Aspek ini dapat dianalisis melalui JavaScript bundle size, total transferred size, dan request count. Metrik tersebut penting karena ukuran resource yang besar dapat memengaruhi waktu muat halaman, terutama pada tampilan mobile dan kondisi jaringan terbatas.
+
+\section{ElysiaJS dan Eden Treaty}
+ElysiaJS merupakan framework backend berbasis Bun dan TypeScript yang digunakan untuk membangun service API. Dalam penelitian ini, ElysiaJS digunakan sebagai backend yang sama untuk kedua frontend agar dataset, endpoint, dan response shape tetap konsisten. Eden Treaty digunakan sebagai type-safe API client agar komunikasi antara frontend dan backend memiliki kontrak tipe yang lebih aman dan konsisten.
+
+\section{Website Listing Properti}
+Website listing properti adalah website yang menampilkan daftar properti dalam bentuk katalog atau grid. Website jenis ini umumnya memiliki fitur pencarian, filter, sorting, pagination, dan halaman detail. Karakteristik tersebut cocok digunakan sebagai studi kasus untuk menguji performa frontend karena melibatkan pemuatan data visual, pengelolaan daftar data, serta interaksi pengguna.
+
+\subsection{Unit Testing}
+Unit testing adalah pengujian perangkat lunak yang dilakukan pada bagian kecil dari sistem, seperti fungsi, modul, atau komponen tertentu, secara terpisah dari keseluruhan aplikasi. Pengujian ini bertujuan untuk memastikan bahwa setiap bagian logic menghasilkan keluaran yang sesuai dengan input yang diberikan. Dalam penelitian ini, unit testing digunakan untuk memvalidasi kesetaraan logic pada implementasi VueJS dan Svelte, seperti pencarian, filter, sorting, pagination, dan formatting data properti.
+
+\subsection{Integration Testing}
+Integration testing adalah pengujian perangkat lunak yang dilakukan untuk memastikan bahwa beberapa modul atau komponen yang saling terhubung dapat bekerja bersama sesuai dengan kebutuhan sistem. Berbeda dengan unit testing yang berfokus pada bagian kecil secara terpisah, integration testing menguji hubungan antarbagian, seperti interaksi antara frontend dengan backend, pemrosesan data dari API, serta kesesuaian data yang ditampilkan pada antarmuka. Dalam penelitian ini, integration testing digunakan untuk memvalidasi bahwa prototipe VueJS dan Svelte dapat mengambil, mengolah, dan menampilkan data dari service backend ElysiaJS dengan hasil yang setara sebelum dilakukan pengujian performa.
+
+\subsection{End-to-End Testing}
+End-to-end testing adalah pengujian perangkat lunak yang dilakukan dengan mensimulasikan alur penggunaan aplikasi dari sisi pengguna secara menyeluruh. (Azizullah, Rahayudi and Priyambadha, 2026) menjelaskan bahwa end-to-end testing mensimulasikan skenario pengguna asli yang berinteraksi dengan aplikasi dari awal hingga akhir untuk memastikan komponen dan subsistem berjalan bersama sesuai harapan. Dalam penelitian ini, end-to-end testing digunakan untuk memvalidasi alur penggunaan pada kedua prototipe, seperti membuka halaman listing, melakukan pencarian, menerapkan filter, membuka halaman detail, dan menggunakan wishlist dummy.
+
+\subsection{Web Performance Testing}
+Web performance testing merupakan proses pengukuran terhadap performa aplikasi web untuk mengetahui bagaimana halaman dimuat, ditampilkan, dan merespons aktivitas pengguna. Pengukuran performa web dapat mencakup aspek seperti waktu pemuatan, proses rendering, responsivitas, penggunaan jaringan, serta penggunaan sumber daya komputasi pada browser. W3C melalui Web Performance Working Group mengembangkan berbagai mekanisme dan API yang memungkinkan pengukuran performa jaringan, rendering, responsivitas, interaktivitas, penggunaan memori, dan penggunaan CPU pada aplikasi web.
+
+Pengujian performa web secara umum dapat dibedakan menjadi pengukuran lab dan field. Lab testing dilakukan pada lingkungan yang dikontrol dengan kondisi perangkat dan jaringan tertentu sehingga pengujian dapat dilakukan secara berulang dan konsisten. Sementara itu, field testing menggunakan data dari pengguna nyata dengan variasi perangkat, jaringan, dan kondisi penggunaan yang terjadi sebenarnya. Kedua pendekatan memiliki tujuan yang berbeda, dengan pengujian lab lebih sesuai untuk pengembangan, eksperimen, dan identifikasi regresi performa, sedangkan data field digunakan untuk mengetahui performa yang benar-benar dialami pengguna.
+
+Salah satu alat yang dapat digunakan untuk melakukan pengujian performa pada lingkungan lab adalah Google Lighthouse. Lighthouse merupakan alat audit otomatis dan open-source yang dapat mengevaluasi sejumlah aspek kualitas halaman web, termasuk performa, aksesibilitas, dan SEO. Pada aspek performa, hasil Lighthouse dapat digunakan untuk memperoleh sejumlah metrik dan diagnosis terkait proses pemuatan serta rendering halaman.
+
+\subsection{User Experience}
+User Experience (UX) merupakan pengalaman yang muncul dari interaksi pengguna dengan suatu sistem, produk, atau layanan. Berdasarkan ISO 9241-210, pengalaman pengguna mencakup berbagai persepsi dan respons pengguna, seperti emosi, keyakinan, preferensi, persepsi, respons fisik dan psikologis, perilaku, serta pencapaian yang terjadi sebelum, selama, maupun setelah penggunaan suatu sistem. Dengan demikian, UX memiliki cakupan yang lebih luas daripada sekadar kemampuan pengguna dalam menyelesaikan suatu tugas.
+
+Pengalaman pengguna pada aplikasi web dapat dipengaruhi oleh berbagai aspek antarmuka dan kualitas sistem. Selain desain visual dan kemudahan penggunaan, performa teknis juga dapat menjadi bagian yang mendukung pengalaman pengguna karena menentukan seberapa cepat konten dapat ditampilkan, seberapa responsif sistem terhadap tindakan pengguna, serta seberapa stabil tampilan ketika digunakan. Core Web Vitals sendiri dikembangkan untuk merepresentasikan aspek pengalaman pengguna pada web yang berkaitan dengan pemuatan, responsivitas, dan kestabilan visual.
+
+\subsection{Usability Testing}
+Usability berkaitan dengan kemampuan suatu sistem, produk, atau layanan untuk digunakan oleh pengguna dalam mencapai tujuan tertentu dalam konteks penggunaan yang ditentukan. ISO 9241-11 memberikan kerangka untuk memahami dan menerapkan konsep usability pada sistem interaktif. Aspek usability pada umumnya berkaitan dengan sejauh mana pengguna mampu menyelesaikan tujuan secara efektif, efisien, dan memperoleh tingkat kepuasan tertentu ketika menggunakan suatu sistem.
+
+Usability testing merupakan metode evaluasi yang melibatkan pengguna untuk berinteraksi secara langsung dengan suatu antarmuka melalui serangkaian tugas yang merepresentasikan aktivitas penggunaan sebenarnya. Dalam pelaksanaannya, peserta diminta menjalankan tugas tertentu sementara peneliti mengamati perilaku, keberhasilan penyelesaian tugas, kesulitan yang muncul, serta umpan balik yang diberikan peserta. Tugas yang diberikan sebaiknya merepresentasikan tujuan pengguna sebenarnya agar temuan pengujian relevan terhadap kondisi penggunaan aplikasi.
+
+\subsection{System Usability Scale (SUS)}
+System Usability Scale (SUS) merupakan kuesioner terstandar yang dikembangkan oleh Brooke (1996) untuk mengukur tingkat kebolehgunaan (\textit{usability}) suatu sistem atau produk secara cepat, andal, dan efisien. SUS terdiri atas 10 item pertanyaan menggunakan skala Likert 5 poin, mulai dari angka 1 (\textit{Sangat Tidak Setuju}) hingga 5 (\textit{Sangat Setuju}). Item pertanyaan pada SUS disusun secara selang-seling antara pernyataan bernada positif pada item bernomor ganjil (1, 3, 5, 7, 9) dan pernyataan bernada negatif pada item bernomor genap (2, 4, 6, 8, 10).
+
+Skor SUS dihitung dengan mengonversi nilai dari setiap item pertanyaan terlebih dahulu. Untuk item bernomor ganjil, kontribusi skor diperoleh dari nilai jawaban dikurangi 1. Sementara untuk item bernomor genap, kontribusi skor diperoleh dari 5 dikurangi nilai jawaban. Jumlah dari keseluruhan kontribusi skor 10 item tersebut kemudian dikalikan dengan 2,5 untuk menghasilkan total skor SUS dalam rentang 0 hingga 100.
+
+Secara matematis, formula perhitungan skor SUS untuk satu responden dirumuskan sebagai berikut:
+
+\begin{equation}
+\text{Skor SUS} = 2{,}5 \times \left[ \sum_{i \in \{1, 3, 5, 7, 9\}} (R_i - 1) + \sum_{i \in \{2, 4, 6, 8, 10\}} (5 - R_i) \right]
+\end{equation}
+
+\noindent Keterangan:
+\begin{itemize}[label={--}]
+    \item $R_i$ = Nilai jawaban responden pada item pertanyaan ke-$i$ (rentang 1--5).
+    \item $(R_i - 1)$ = Kontribusi skor untuk item bernomor ganjil (pernyataan positif).
+    \item $(5 - R_i)$ = Kontribusi skor untuk item bernomor genap (pernyataan negatif).
+    \item $2{,}5$ = Pengali konversi agar total skor berada pada rentang 0--100.
+\end{itemize}
+
+Hasil skor rata-rata SUS dari seluruh responden kemudian diinterpretasikan untuk menentukan tingkat keberterimaan (\textit{acceptability}), tingkatan (\textit{grade scale}), dan predikat (\textit{adjective rating}) dari sistem yang dievaluasi (Bangor, Kortum and Miller, 2008). Skor SUS di atas 68 umumnya dikategorikan di atas rata-rata (\textit{above average}) atau berada pada kategori dapat diterima (\textit{acceptable}).
+
+\subsection{Vitest}
+Vitest adalah testing framework yang digunakan untuk menjalankan pengujian unit pada aplikasi berbasis JavaScript atau TypeScript. Vitest dipilih karena dapat digunakan pada ekosistem frontend modern dan mendukung proses pengujian logic secara cepat. Dalam penelitian ini, Vitest digunakan untuk menguji fungsi-fungsi pengolahan data pada prototipe VueJS dan Svelte agar logic yang digunakan pada kedua implementasi menghasilkan keluaran yang setara.
+
+\subsection{Playwright}
+Playwright adalah alat pengujian end-to-end yang digunakan untuk menjalankan skenario penggunaan aplikasi melalui browser secara otomatis. (Azizullah, Rahayudi and Priyambadha, 2026) menjelaskan bahwa Playwright mendukung otomasi pengujian end-to-end pada aplikasi web dan dapat berjalan pada beberapa browser utama seperti Chromium, Firefox, dan WebKit. Dengan kemampuan tersebut, Playwright digunakan dalam penelitian ini untuk memastikan fitur dan alur interaksi pada prototipe Vue.js and Svelte berjalan setara pada viewport mobile serta bertindak sebagai \textit{interaction driver} pada pengujian performa responsivitas interaksi (INP).
+
+\subsection{Google Lighthouse}
+Google Lighthouse merupakan alat audit otomatis dan open-source yang digunakan untuk mengevaluasi kualitas halaman web. Lighthouse dapat dijalankan melalui Chrome DevTools, command line, maupun sebagai modul Node.js. Proses audit dilakukan dengan menjalankan serangkaian pengujian terhadap suatu halaman web kemudian menghasilkan laporan yang mencakup beberapa aspek, salah satunya performa halaman.
+
+Pada aspek performa, Lighthouse memberikan sejumlah metrik, diagnostics, dan insights yang dapat digunakan untuk menganalisis proses pemuatan dan rendering halaman. Nilai Performance Score Lighthouse diperoleh dari kombinasi berbobot beberapa metrik performa. Namun, hasil pengukuran dapat mengalami variasi akibat kondisi lingkungan pengujian sehingga pengujian berulang diperlukan untuk memperoleh hasil yang lebih representatif.
+
+\subsection{Chrome DevTools}
+Chrome DevTools merupakan sekumpulan alat pengembangan yang terintegrasi pada browser Google Chrome dan digunakan untuk melakukan inspeksi, debugging, serta analisis terhadap aplikasi web. Chrome DevTools menyediakan berbagai panel, seperti Elements, Network, Performance, dan Memory, yang dapat digunakan untuk mengamati struktur halaman, aktivitas jaringan, proses eksekusi aplikasi, serta penggunaan sumber daya pada browser.
+
+Dalam analisis performa web, Network Panel dapat digunakan untuk merekam aktivitas permintaan jaringan ketika halaman dimuat. Informasi yang tersedia pada panel ini mencakup sumber daya yang diminta oleh halaman, ukuran data yang ditransfer, jumlah permintaan, waktu pemuatan, serta jenis sumber daya yang digunakan. Data tersebut dapat digunakan untuk mengetahui seberapa besar sumber daya yang diperlukan oleh suatu aplikasi ketika dijalankan pada browser.
+
+Selain itu, Performance Panel dapat digunakan untuk merekam dan menganalisis aktivitas aplikasi selama proses pemuatan halaman maupun ketika pengguna melakukan interaksi. Panel ini menyediakan informasi mengenai aktivitas main thread, eksekusi JavaScript, proses scripting, rendering, dan layout. Informasi tersebut dapat digunakan untuk mengidentifikasi aktivitas komputasi yang berpotensi menjadi bottleneck pada aplikasi web.
+
+% =================================================
+% BAB 3
+% =================================================
+\chapter{METODOLOGI PENELITIAN}
+
+\section{Rancangan Penelitian}
+\label{sec:rancangan-penelitian}
+Penelitian ini merupakan penelitian implementatif dengan pendekatan eksperimen komparatif. Dua prototipe website listing properti dikembangkan secara paralel menggunakan framework frontend VueJS dan Svelte dengan fitur, desain, dataset, aset, dan service backend yang dibuat setara. Setelah kesetaraan divalidasi, pengujian performa komputasional dan evaluasi pengalaman pengguna dilakukan terhadap kedua prototipe pada kondisi yang sama.
+
+Alur umum penelitian terdiri atas delapan tahap berikut:
+\begin{enumerate}
+    \item Pengembangan dua prototipe frontend (VueJS dan Svelte) beserta service backend ElysiaJS.
+    \item Validasi kesetaraan fitur dan perilaku kedua prototipe.
+    \item Pembuatan \textit{production build} pada kedua prototipe.
+    \item Pengujian performa komputasional (Core Web Vitals, efisiensi sumber daya, dan respons interaksi).
+    \item Evaluasi \textit{User Experience} menggunakan UEQ dan \textit{usability} menggunakan SUS.
+    \item Analisis data hasil pengujian dan evaluasi.
+    \item Analisis komparatif hasil pengujian.
+    \item Penarikan kesimpulan.
+\end{enumerate}
+
+Flowchart tahapan penelitian ditunjukkan pada Gambar~\ref{fig:flowchart-penelitian}.
+
+% Flowchart recreated as editable TikZ based on the diagram in the source PDF.
+\begin{figure}[H]
+\centering
+\resizebox{0.78\textwidth}{!}{%
+\begin{tikzpicture}[
+    node distance=8mm and 15mm,
+    >={Latex[length=3mm]},
+    flow/.style={rectangle,draw,align=center,minimum width=55mm,minimum height=11mm,text width=48mm},
+    decision/.style={diamond,draw,align=center,aspect=2,text width=23mm,inner sep=1.2mm},
+    term/.style={ellipse,draw,align=center,minimum width=25mm,minimum height=8mm},
+    arrow/.style={->,thick}
+]
+\node[term] (start) {Mulai};
+\node[flow,below=of start] (prep) {Pengembangan Prototipe VueJS, Svelte, dan Backend ElysiaJS};
+\node[flow,below=of prep] (validate) {Validasi Kesetaraan Fitur};
+\node[decision,below=10mm of validate] (equal) {Fitur Setara?};
+\node[flow,left=23mm of equal] (adjust) {Penyesuaian Implementasi};
+\node[flow,below=11mm of equal] (build) {Production Build};
+\node[flow,below=of build] (env) {Menyiapkan Lingkungan Pengujian yang Sama};
+\node[flow,below left=12mm and 11mm of env] (testsvelte) {Pengujian Performa Svelte};
+\node[flow,below right=12mm and 11mm of env] (testvue) {Pengujian Performa VueJS};
+\node[flow,below=of testsvelte] (resultsvelte) {Hasil Pengujian Svelte};
+\node[flow,below=of testvue] (resultvue) {Hasil Pengujian VueJS};
+\node[flow,below=18mm of env] (ux) at ($(resultsvelte)!0.5!(resultvue)+(0,-13mm)$) {Evaluasi User Experience dan Usability};
+\node[flow,below=of ux] (compare) {Analisis Komparatif Hasil Pengujian};
+\node[flow,below=of compare] (conclusion) {Penarikan Kesimpulan};
+\node[term,below=of conclusion] (finish) {Selesai};
+
+\draw[arrow] (start) -- (prep);
+\draw[arrow] (prep) -- (validate);
+\draw[arrow] (validate) -- (equal);
+\draw[arrow] (equal) -- node[right]{Ya} (build);
+\draw[arrow] (equal) -- node[above]{Tidak} (adjust);
+\draw[arrow] (adjust.north) |- (validate.west);
+\draw[arrow] (build) -- (env);
+\draw[arrow] (env) -- (testsvelte);
+\draw[arrow] (env) -- (testvue);
+\draw[arrow] (testsvelte) -- (resultsvelte);
+\draw[arrow] (testvue) -- (resultvue);
+\draw[arrow] (resultsvelte) |- (ux.west);
+\draw[arrow] (resultvue) |- (ux.east);
+\draw[arrow] (ux) -- (compare);
+\draw[arrow] (compare) -- (conclusion);
+\draw[arrow] (conclusion) -- (finish);
+\end{tikzpicture}%
+}
+\caption{Flowchart Tahapan Penelitian}
+\label{fig:flowchart-penelitian}
+\end{figure}
+
+% -------------------------------------------------
+% 3.2
+% -------------------------------------------------
+\section{Persiapan dan Pengembangan Prototipe}
+\label{sec:pengembangan-prototipe}
+Tahap persiapan dan pengembangan dilakukan dengan menyiapkan tiga bagian utama, yaitu frontend VueJS, frontend Svelte, dan service backend ElysiaJS. Kedua frontend dikembangkan sebagai prototipe website responsif listing properti dengan fitur yang sama, yaitu halaman daftar properti, halaman detail properti, pencarian, \textit{advanced filter}, sorting, pagination atau \textit{load more}, dan wishlist sederhana. Backend ElysiaJS digunakan sebagai sumber data yang sama agar kedua frontend mengakses endpoint, dataset, dan struktur response yang setara. Eden Treaty digunakan sebagai \textit{type-safe API client} agar kontrak tipe antara frontend dan backend terjaga secara konsisten.
+
+Pada tahap ini, tampilan kedua frontend disesuaikan agar memiliki layout, stylesheet, konten, aset, dan alur penggunaan yang sebanding, terutama pada viewport mobile. Prinsip yang diterapkan adalah \textit{functional equivalence, bukan implementation equivalence}: kode VueJS dan Svelte tidak harus identik, tetapi perilaku yang terlihat oleh pengguna harus setara.
+
+Variabel kontrol yang diterapkan pada kedua prototipe ditunjukkan pada Tabel~\ref{tab:variabel-kontrol}.
+
+\begin{table}[H]
+\centering
+\caption{Variabel Kontrol Penelitian}
+\label{tab:variabel-kontrol}
+\begin{tabularx}{0.92\textwidth}{|L{3.5cm}|Y|}
+\hline
+\textbf{Variabel Kontrol} & \textbf{Ketentuan} \\
+\hline
+Backend & Service backend ElysiaJS yang sama \\
+\hline
+Dataset & Dataset properti yang sama \\
+\hline
+Aset & File gambar dan sumber daya yang sama \\
+\hline
+Desain & Layout dan stylesheet yang sama \\
+\hline
+Fitur & Fungsionalitas yang setara \\
+\hline
+Browser & Browser dan versi yang sama \\
+\hline
+Viewport & Ukuran viewport yang sama \\
+\hline
+Skenario & Interaksi pengujian yang sama \\
+\hline
+\end{tabularx}
+\end{table}
+
+Dengan persiapan tersebut, perbandingan yang dilakukan dapat difokuskan pada perbedaan karakteristik VueJS dan Svelte sebagai framework frontend, bukan pada perbedaan data, fitur, desain, atau backend yang digunakan.
+
+% -------------------------------------------------
+% 3.3
+% -------------------------------------------------
+\section{Validasi Kesetaraan Fitur}
+\label{sec:validasi-kesetaraan}
+Validasi kesetaraan fitur dilakukan sebelum pengujian performa untuk memastikan bahwa implementasi VueJS dan Svelte memiliki fungsi, perilaku antarmuka, dan logika bisnis yang ekuivalen secara observabel. Validasi dibagi menjadi tiga tingkatan pengujian.
+
+\subsection{Unit Testing}
+\label{sec:unit-testing}
+Vitest digunakan untuk menguji logika pengolahan data secara terpisah pada masing-masing prototipe. Logika yang diuji meliputi pencarian, penyaringan, pengurutan, pagination, dan formatting data properti.
+
+Untuk menjamin kesetaraan logika bisnis antar-framework, algoritme inti seperti pencarian dan penyaringan properti dibuat ekuivalen pada kedua implementasi. Algoritme penyaringan properti dirumuskan dalam bentuk pseudocode pada Kode~\ref{code:filter-pseudocode}.
+
+\begin{lstlisting}[language=TypeScript, caption={Pseudocode Algoritme Penyaringan Properti Ekuivalen}, label={code:filter-pseudocode}]
+function filterProperties(properties, query, filters):
+    hasil = properties
+
+    if query tidak kosong:
+        hasil = filter berdasarkan nama atau lokasi
+
+    if priceRange tersedia:
+        hasil = filter berdasarkan rentang harga
+
+    if propertyType tersedia:
+        hasil = filter berdasarkan tipe properti
+
+    if amenities tersedia:
+        hasil = filter berdasarkan fasilitas (AND)
+
+    if guests tersedia:
+        hasil = filter berdasarkan kapasitas minimum
+
+    return hasil
+\end{lstlisting}
+
+Penerapan algoritme ekuivalen ini memastikan bahwa logika pemrosesan data bisnis yang dipakai pada VueJS dan Svelte dibuat identik, sedangkan perbedaan hanya berada pada mekanisme implementasi internal framework.
+
+\subsection{Integration Testing}
+\label{sec:integration-testing}
+Validasi integrasi dilakukan untuk memastikan bahwa kedua prototipe frontend berinteraksi dengan service backend ElysiaJS secara setara. Aspek yang divalidasi meliputi:
+\begin{itemize}
+    \item \textit{Request} API ke endpoint yang benar;
+    \item \textit{Response} data yang diterima sesuai kontrak;
+    \item Pemrosesan data dari API;
+    \item Hasil data yang ditampilkan pada antarmuka.
+\end{itemize}
+
+\subsection{End-to-End Testing}
+\label{sec:e2e-testing}
+Playwright digunakan untuk memastikan alur penggunaan (\textit{user flow}) pada prototipe VueJS dan Svelte berjalan setara pada viewport mobile. Skenario pengujian kesetaraan fitur ditunjukkan pada Tabel~\ref{tab:skenario-kesetaraan}.
+
+\begin{table}[H]
+\centering
+\caption{Skenario Pengujian Kesetaraan Fitur}
+\label{tab:skenario-kesetaraan}
+\begin{tabularx}{0.92\textwidth}{|C{1cm}|L{3.2cm}|Y|}
+\hline
+\textbf{ID} & \textbf{Skenario} & \textbf{Hasil yang Diharapkan} \\
+\hline
+F01 & Search properti & Kedua prototipe menghasilkan data yang setara \\
+\hline
+F02 & Advanced filter & Hasil filter setara \\
+\hline
+F03 & Sorting & Urutan data setara \\
+\hline
+F04 & Wishlist & Perubahan status wishlist berjalan setara \\
+\hline
+F05 & Detail properti & Informasi properti yang ditampilkan setara \\
+\hline
+F06 & Load more & Pemuatan batch data tambahan berjalan setara \\
+\hline
+\end{tabularx}
+\end{table}
+
+Apabila ditemukan perbedaan hasil atau perilaku, implementasi disesuaikan terlebih dahulu hingga kedua frontend memenuhi seluruh kriteria penerimaan.
+
+% -------------------------------------------------
+% 3.4
+% -------------------------------------------------
+\section{Pengujian Performa Komputasional}
+\label{sec:pengujian-performa}
+Pengujian performa komputasional dilakukan setelah implementasi VueJS dan Svelte dinyatakan memiliki fitur dan perilaku yang setara. Kedua aplikasi terlebih dahulu dijalankan dalam mode \textit{production build} agar pengukuran dilakukan terhadap versi aplikasi yang telah melalui proses optimasi build.
+
+\subsection{Lingkungan Pengujian}
+\label{sec:lingkungan-pengujian}
+Seluruh pengujian performa komputasional dilakukan pada lingkungan yang dikontrol agar hasil pengukuran dapat dibandingkan secara adil. Konfigurasi lingkungan pengujian ditunjukkan pada Tabel~\ref{tab:lingkungan-pengujian}.
+
+\begin{table}[H]
+\centering
+\caption{Konfigurasi Lingkungan Pengujian}
+\label{tab:lingkungan-pengujian}
+\begin{tabularx}{0.95\textwidth}{|L{4.5cm}|Y|}
+\hline
+\textbf{Parameter} & \textbf{Konfigurasi} \\
+\hline
+Perangkat keras & AMD Ryzen 7 4800H (8 Cores, 16 Threads @ 2.9 GHz, up to 4.2 GHz), RAM 16 GB DDR4, NVIDIA GeForce RTX 3050 Laptop GPU \\
+\hline
+Sistem operasi & Windows 11 64-bit \\
+\hline
+Browser & Google Chrome 151.0.7922.138 \\
+\hline
+Infrastruktur backend & Cloudflare Workers (ElysiaJS REST API) \\
+\hline
+Infrastruktur database & Cloudflare D1 (Serverless SQLite dengan Drizzle ORM dan dataset deterministik) \\
+\hline
+API client contract & Eden Treaty (Type-safe client) \\
+\hline
+Viewport & $390 \times 844$ piksel \\
+\hline
+CPU throttling & $4\times$ slowdown \\
+\hline
+Network throttling & \textit{Controlled network} / Fresh context \\
+\hline
+Cache policy & \textit{Fresh browser context} pada setiap observasi \\
+\hline
+Build mode & Production build \\
+\hline
+Jumlah pengulangan & $n$ kali per skenario per framework \\
+\hline
+Versi Lighthouse & Lighthouse CI 0.15.1 \\
+\hline
+Versi Playwright & Playwright 1.62.1 \\
+\hline
+\end{tabularx}
+\end{table}
+
+Pengujian dilakukan pada kondisi perangkat, browser, viewport, dataset, aset, serta skenario penggunaan yang sama sehingga perbedaan hasil pengukuran dapat lebih difokuskan pada karakteristik implementasi masing-masing framework. Penempatan backend pada Cloudflare Workers dan basis data pada Cloudflare D1 memastikan bahwa pemrosesan query dan data yang dikirimkan ke frontend berada pada kondisi lingkungan komputasi edge yang identik serta terisolasi dari beban komputasi mesin pengujian.
+
+\subsection{Pengujian LCP dan CLS}
+\label{sec:pengujian-lcp-cls}
+Google Lighthouse digunakan untuk mengukur performa pemuatan dan stabilitas tampilan kedua prototipe pada viewport perangkat bergerak dalam mode \textit{production build}. Metrik utama yang digunakan dalam konteks Core Web Vitals adalah Largest Contentful Paint (LCP) dan Cumulative Layout Shift (CLS). Selain itu, beberapa metrik diagnostik Lighthouse seperti First Contentful Paint (FCP), Total Blocking Time (TBT), Speed Index, dan Performance Score digunakan sebagai data pendukung dalam proses analisis. Metrik diagnostik tersebut bukan merupakan bagian dari Core Web Vitals.
+
+Prosedur pengujian dilakukan dengan alur berikut:
+\begin{enumerate}
+    \item Membangun \textit{production build} pada kedua prototipe.
+    \item Menjalankan aplikasi pada lingkungan pengujian yang telah dikonfigurasi.
+    \item Menyiapkan kondisi pengujian yang sama (browser, viewport, cache policy).
+    \item Menjalankan Google Lighthouse pada masing-masing prototipe.
+    \item Menyimpan hasil metrik dari setiap pengujian.
+    \item Mengulangi pengujian sebanyak $n$ kali.
+    \item Menghitung nilai representatif (median) dari seluruh pengulangan.
+\end{enumerate}
+
+\subsection{Pengujian Interaction to Next Paint}
+\label{sec:pengujian-inp}
+Pengukuran Interaction to Next Paint (INP) pada penelitian ini dilakukan melalui metode pengujian laboratorium otomatis (\textit{automated scripted testing}) menggunakan Playwright sebagai \textit{interaction driver} dan \textit{Event Timing API} browser Google Chrome sebagai perekam latensi interaksi secara langsung. Metode pengujian otomatis berbasis skrip ini dipilih agar seluruh interaksi dapat dijalankan secara presisi dan deterministik pada kondisi lingkungan yang identik, sehingga variasi latensi yang dihasilkan murni mencerminkan efisiensi penanganan interaksi oleh masing-masing framework. Prosedur otomasi dan perekaman durasi interaksi dirumuskan dalam bentuk pseudocode pada Kode~\ref{code:inp-pseudocode}.
+
+\begin{lstlisting}[language=TypeScript, caption={Pseudocode Algoritme Pengukuran INP}, label={code:inp-pseudocode}]
+FOR setiap framework
+    FOR setiap skenario
+        FOR setiap run
+            Buat browser context baru
+            Atur viewport 390 x 844
+            Terapkan CPU throttling 4x
+            Pasang PerformanceObserver (Event Timing)
+            Buka production build
+            Jalankan interaksi menggunakan Playwright
+            Rekam interaction timing
+            Simpan nilai INP
+        END FOR
+
+        Hitung median
+        Hitung IQR
+    END FOR
+END FOR
+\end{lstlisting}
+
+Pengukuran dilakukan dengan menyuntikkan \textit{PerformanceObserver} ke dalam konteks halaman browser. Potongan kode setup perekaman \textit{Event Timing API} ditunjukkan pada Kode~\ref{code:perf-observer}.
+
+\begin{lstlisting}[language=TypeScript, caption={Setup PerformanceObserver untuk Merekam Event Timing API Browser}, label={code:perf-observer}]
+const observer = new PerformanceObserver((list) => {
+  for (const entry of list.getEntries()) {
+    if (entry.interactionId > 0) {
+      interactions.push({
+        interactionId: entry.interactionId,
+        duration: entry.duration
+      });
+    }
+  }
+});
+
+observer.observe({
+  type: "event",
+  buffered: true,
+  durationThreshold: 16
+});
+\end{lstlisting}
+
+Pengujian dijalankan terhadap tiga skenario interaksi utama. Salah satu contoh potongan skenario otomatisasi Playwright pada fitur \textit{advanced filter} ditunjukkan pada Kode~\ref{code:playwright-example}.
+
+\begin{lstlisting}[language=TypeScript, caption={Potongan Skenario Otomatisasi Playwright pada Advanced Filter}, label={code:playwright-example}]
+await page.getByLabel("Lokasi").selectOption({ label: "Senggigi, Lombok" });
+await page.getByLabel("Tipe").selectOption({ label: "Villa" });
+await page.getByText("Filter lanjutan", { exact: true }).click();
+await page.getByLabel("Tamu minimum").fill("6");
+await startMeasurement(page);
+await page.getByLabel("Kitchen").check();
+const measurement = await finishMeasurement(page);
+\end{lstlisting}
+
+Skenario otomatisasi yang sama dijalankan secara ekuivalen terhadap prototipe VueJS dan Svelte. Ringkasan seluruh skenario interaksi yang diuji ditunjukkan pada Tabel~\ref{tab:skenario-inp}.
+
+\begin{table}[H]
+\centering
+\caption{Skenario Interaksi Pengukuran INP}
+\label{tab:skenario-inp}
+\begin{tabularx}{0.92\textwidth}{|L{3.5cm}|Y|}
+\hline
+\textbf{Skenario} & \textbf{Interaksi Pengguna} \\
+\hline
+Search & Membuka pencarian dan menerapkan kata kunci lokasi atau nama properti \\
+\hline
+Advanced Filter & Membuka filter lanjutan, memilih parameter tipe, tamu, dan fasilitas, lalu menerapkannya \\
+\hline
+Wishlist & Mengubah status wishlist properti (toggle simpan atau hapus) \\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Pengujian Efisiensi Sumber Daya}
+\label{sec:pengujian-efisiensi}
+Pengujian efisiensi sumber daya dilakukan menggunakan hasil \textit{production build} dan Chrome DevTools, khususnya melalui Network Panel. Metrik yang diamati meliputi:
+\begin{itemize}
+    \item \textbf{JavaScript bundle size}: ukuran kode JavaScript yang perlu dikirim dan diproses oleh browser.
+    \item \textbf{Total transferred size}: keseluruhan data yang ditransfer melalui jaringan ketika halaman dimuat.
+    \item \textbf{Request count}: jumlah permintaan sumber daya yang dilakukan oleh browser.
+\end{itemize}
+
+Seluruh pengukuran dilakukan pada halaman, dataset, aset, browser, dan kondisi jaringan yang sama. Dengan demikian, perbandingan efisiensi sumber daya dapat digunakan sebagai data pendukung untuk menjelaskan perbedaan karakteristik performa komputasional antara VueJS dan Svelte.
+
+% -------------------------------------------------
+% 3.5
+% -------------------------------------------------
+\section{Evaluasi User Experience dan Usability}
+\label{sec:evaluasi-ux-usability}
+
+\subsection{Partisipan Penelitian}
+\label{sec:partisipan}
+% TODO: lengkapi jumlah dan karakteristik responden setelah ditentukan.
+Evaluasi \textit{User Experience} dan \textit{usability} melibatkan responden yang mewakili target pengguna prototipe website listing properti. Kriteria inklusi meliputi pengguna yang memiliki pengalaman mengakses website melalui perangkat bergerak. Metode pengambilan sampel dan jumlah responden akan ditentukan sebelum pelaksanaan evaluasi.
+
+\subsection{Skenario Pengujian}
+\label{sec:skenario-ux}
+Responden diminta menjalankan rangkaian tugas yang sama pada prototipe VueJS dan Svelte. Tugas yang diberikan meliputi:
+\begin{enumerate}
+    \item Mencari properti berdasarkan kata kunci.
+    \item Menggunakan \textit{advanced filter} untuk menyaring properti.
+    \item Mengurutkan daftar properti.
+    \item Membuka halaman detail properti.
+    \item Menambahkan properti ke wishlist.
+\end{enumerate}
+
+\subsection{Prosedur Pengujian}
+\label{sec:prosedur-ux}
+Pengujian menggunakan desain \textit{within-subject}: setiap responden mencoba kedua prototipe. Untuk mengurangi \textit{order effect}, diterapkan \textit{counterbalancing} sebagai berikut:
+\begin{itemize}
+    \item \textbf{Kelompok A}: VueJS terlebih dahulu, kemudian Svelte.
+    \item \textbf{Kelompok B}: Svelte terlebih dahulu, kemudian VueJS.
+\end{itemize}
+
+Setelah menggunakan masing-masing prototipe, responden mengisi kuesioner User Experience Questionnaire (UEQ) dan System Usability Scale (SUS). Skenario, data, tampilan, dan kondisi penggunaan dibuat setara pada kedua prototipe.
+
+\subsection{User Experience Questionnaire}
+\label{sec:ueq-metode}
+User Experience Questionnaire (UEQ) diberikan kepada responden setelah menyelesaikan rangkaian tugas pada masing-masing prototipe. Hasil UEQ dihitung pada enam skala, yaitu \textit{Attractiveness}, \textit{Perspicuity}, \textit{Efficiency}, \textit{Dependability}, \textit{Stimulation}, dan \textit{Novelty}. Nilai UEQ pada prototipe VueJS dan Svelte kemudian dibandingkan.
+
+\subsection{System Usability Scale}
+\label{sec:sus-metode}
+System Usability Scale (SUS) diberikan setelah responden menggunakan masing-masing prototipe. SUS terdiri atas 10 item dengan skala Likert 5 poin. Skor akhir berada pada rentang 0--100. Perhitungan skor SUS menggunakan formula yang telah dijelaskan pada Bab~2. Skor SUS pada prototipe VueJS dan Svelte kemudian dibandingkan.
+
+% -------------------------------------------------
+% 3.6
+% -------------------------------------------------
+\section{Teknik Analisis Data}
+\label{sec:teknik-analisis}
+
+\subsection{Analisis Performa Komputasional}
+\label{sec:analisis-performa}
+Hasil pengujian berulang dianalisis menggunakan statistik deskriptif. Nilai representatif yang digunakan meliputi median, minimum, maksimum, dan \textit{interquartile range} (IQR).
+
+\begin{equation}
+\label{eq:iqr}
+\text{IQR} = Q_3 - Q_1
+\end{equation}
+
+Median digunakan karena hasil pengujian performa pada browser dapat mengalami variasi antar-run dan median lebih tahan terhadap nilai ekstrem dibandingkan satu hasil pengukuran tunggal.
+
+Hasil pengukuran LCP, INP, dan CLS juga dibandingkan terhadap \textit{threshold} Core Web Vitals yang ditunjukkan pada Tabel~\ref{tab:threshold-cwv-bab3}.
+
+\begin{table}[H]
+\centering
+\caption{Threshold Core Web Vitals}
+\label{tab:threshold-cwv-bab3}
+\begin{tabularx}{0.92\textwidth}{|L{2.5cm}|C{2.5cm}|C{3cm}|C{2.5cm}|}
+\hline
+\textbf{Metrik} & \textbf{Good} & \textbf{Needs Improvement} & \textbf{Poor} \\
+\hline
+LCP & $\leq$ 2,5 detik & $>$ 2,5--4 detik & $>$ 4 detik \\
+\hline
+INP & $\leq$ 200 ms & $>$ 200--500 ms & $>$ 500 ms \\
+\hline
+CLS & $\leq$ 0,1 & $>$ 0,1--0,25 & $>$ 0,25 \\
+\hline
+\end{tabularx}
+\end{table}
+
+Ringkasan aspek, metrik, dan instrumen pengukuran yang digunakan pada penelitian ini ditunjukkan pada Tabel~\ref{tab:instrumen-pengukuran}.
+
+\begin{table}[H]
+\centering
+\caption{Instrumen dan Alat Pengukuran}
+\label{tab:instrumen-pengukuran}
+\begin{tabularx}{0.92\textwidth}{|L{4cm}|Y|}
+\hline
+\textbf{Aspek} & \textbf{Alat / Metode} \\
+\hline
+LCP dan CLS & Google Lighthouse \\
+\hline
+INP & Playwright (otomasi interaksi) dan Event Timing API browser (pengukuran INP) \\
+\hline
+JavaScript bundle size & Hasil production build dan Chrome DevTools \\
+\hline
+Total transferred size & Chrome DevTools Network \\
+\hline
+Request count & Chrome DevTools Network \\
+\hline
+User Experience & User Experience Questionnaire (UEQ) \\
+\hline
+Usability & System Usability Scale (SUS) \\
+\hline
+Kesetaraan fungsi & Vitest dan Playwright \\
+\hline
+\end{tabularx}
+\end{table}
+
+\subsection{Analisis UEQ}
+\label{sec:analisis-ueq}
+Hasil UEQ dihitung pada enam skala, yaitu \textit{Attractiveness}, \textit{Perspicuity}, \textit{Efficiency}, \textit{Dependability}, \textit{Stimulation}, dan \textit{Novelty}. Nilai pada masing-masing skala untuk prototipe VueJS dan Svelte kemudian dibandingkan untuk mengidentifikasi perbedaan pengalaman pengguna.
+
+\subsection{Analisis SUS}
+\label{sec:analisis-sus}
+Skor SUS setiap responden dihitung menggunakan aturan:
+\begin{itemize}
+    \item Item ganjil: nilai jawaban $- 1$.
+    \item Item genap: $5 -$ nilai jawaban.
+    \item Jumlah kontribusi seluruh item $\times\;2{,}5$.
+\end{itemize}
+Skor SUS pada prototipe VueJS dan Svelte kemudian dibandingkan. Interpretasi skor mengacu pada kategori \textit{acceptability}, \textit{grade scale}, dan \textit{adjective rating} sebagaimana dijelaskan pada Bab~2.
+
+% -------------------------------------------------
+% 3.7
+% -------------------------------------------------
+\section{Analisis Komparatif Hasil Pengujian}
+\label{sec:analisis-komparatif}
+Tahap analisis komparatif dilakukan untuk membandingkan hasil dari seluruh aspek pengujian secara keseluruhan guna menjawab rumusan masalah penelitian. Aspek yang dibandingkan meliputi:
+\begin{itemize}
+    \item Core Web Vitals (LCP, INP, CLS);
+    \item efisiensi sumber daya (JavaScript bundle size, total transferred size, request count);
+    \item responsivitas interaksi (hasil INP pada skenario search, advanced filter, dan wishlist);
+    \item \textit{User Experience} (hasil UEQ pada enam skala);
+    \item \textit{usability} (skor SUS).
+\end{itemize}
+
+Hasil perbandingan tersebut digunakan untuk menganalisis bagaimana perbedaan performa komputasional, pengalaman pengguna, dan \textit{usability} antara VueJS dan Svelte dapat menjadi pertimbangan dalam pemilihan framework frontend untuk pengembangan website listing yang kaya konten visual dan memiliki fitur interaktif.
+
+% =================================================
+% REFERENCES
+% =================================================
+\clearpage
+\chapter*{\centering DAFTAR REFERENSI}
+\addcontentsline{toc}{chapter}{DAFTAR REFERENSI}
+
+\noindent Andriyanai, F., Putra, R.R.P., Adnandi, M.A. and Maulana, I., 2025. OPTIMALISASI SEO BERBASIS CORE WEB VITALS PADA WEBSITE SMKN 1 KABUPATEN TANGERANG. \textit{Journal Of Information Technology and Computer Science}, 2(2).
+
+\vspace{0.6em}
+\noindent Azizullah, A., Rahayudi, B. and Priyambadha, B., 2026. Rancang Bangun Sistem Otomatisasi Pengujian Berbasis REST API Terintegrasi Dengan Playwright Pada PT XYZ.
+
+\vspace{0.6em}
+\noindent Bangor, A., Kortum, P.T. and Miller, J.T., 2008. An empirical evaluation of the System Usability Scale. \textit{International Journal of Human-Computer Interaction}, 24(6), pp.574--594. \url{https://doi.org/10.1080/10447310802205776}.
+
+\vspace{0.6em}
+\noindent Brooke, J., 1996. SUS-A quick and dirty usability scale. \textit{Usability evaluation in industry}, 189(194), pp.4--7.
+
+\vspace{0.6em}
+\noindent Ferreira, F., Borges, H.S. and Valente, M.T., 2022. On the (un-)adoption of JavaScript front-end frameworks. \textit{Software: Practice and Experience}, 52(4), pp.947--966. \url{https://doi.org/10.1002/spe.3044}.
+
+\vspace{0.6em}
+\noindent Ollila, R., M\"akitalo, N. and Mikkonen, T., 2022. Modern Web Frameworks: A Comparison of Rendering Performance. \textit{Journal of Web Engineering}. [online] \url{https://doi.org/10.13052/jwe1540-9589.21311}.
+
+\vspace{0.6em}
+\noindent Putra, F.P.E., Hasbullah, H., Muslim, F. and Paradina, R., 2025. Technical Performance Comparison of Modern Frontend Frameworks Study on Svelte, React, and Vue. \textit{Brilliance: Research of Artificial Intelligence}, 5(1), pp.355--364. \url{https://doi.org/10.47709/brilliance.v5i1.6133}.
+
+\vspace{0.6em}
+\noindent Sofi'ie, F.A.F. and Qoiriah, A., 2023. Analisis Perbandingan Framework Front-End Javascript React dan Vue Pada Pengembangan Website. \textit{Journal of Informatics and Computer Science (JINACS)}, 5(02), pp.157--164. \url{https://doi.org/10.26740/jinacs.v5n02.p157-164}.
+
+\vspace{0.6em}
+\noindent \url{https://elysiajs.com/eden/treaty/overview.html#eden-treaty}
+
+\vspace{0.6em}
+\noindent \url{https://vitest.dev/guide/}
+
+\vspace{0.6em}
+\noindent \url{https://playwright.dev/docs/intro}
+
+\end{document}
