@@ -84,6 +84,38 @@ describe("PropertyExplorer integration", () => {
     ).toBe("true");
   });
 
+  it("applies advanced filters together and reloads from page one", async () => {
+    const user = userEvent.setup();
+    render(PropertyExplorer);
+
+    await screen.findByText(property.title);
+
+    await user.type(screen.getByLabelText("Harga minimum"), "500000");
+    await user.type(screen.getByLabelText("Harga maksimum"), "1500000");
+    await user.type(screen.getByLabelText("Tamu minimum"), "4");
+    await user.type(screen.getByLabelText("Kamar tidur"), "2");
+    await user.type(screen.getByLabelText("Tempat tidur"), "2");
+    await user.type(screen.getByLabelText("Kamar mandi"), "2");
+    await user.click(screen.getByLabelText("Wi-Fi"));
+    await user.click(screen.getByRole("button", { name: "Cari properti" }));
+
+    await waitFor(() => {
+      expect(catalogMocks.fetchPropertyPage).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          amenities: ["amenity_wifi"],
+          bathrooms: "2",
+          bedrooms: "2",
+          beds: "2",
+          guests: "4",
+          maxPrice: "1500000",
+          minPrice: "500000",
+        }),
+        1
+      );
+    });
+    expect(window.location.search).toContain("amenities=amenity_wifi");
+  });
+
   it("loads a property detail page directly from its slug", async () => {
     const user = userEvent.setup();
     window.history.replaceState(null, "", `/properties/${property.slug}`);

@@ -20,13 +20,27 @@
 
   const props = defineProps<Props>();
   const emit = defineEmits<Emits>();
+  const numericFilterKeys = [
+    "minPrice",
+    "maxPrice",
+    "guests",
+    "bedrooms",
+    "beds",
+    "bathrooms",
+  ] as const;
   const draft = reactive<CatalogFilters>(copyFilters(props.initialFilters));
 
   function copyFilters(filters: CatalogFilters): CatalogFilters {
-    return {
+    const copy = {
       ...filters,
       amenities: [...filters.amenities],
     };
+
+    for (const key of numericFilterKeys) {
+      copy[key] = String(copy[key] ?? "").trim();
+    }
+
+    return copy;
   }
 
   function copyDraft(): CatalogFilters {

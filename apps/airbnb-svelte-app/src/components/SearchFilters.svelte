@@ -16,15 +16,29 @@
   }
 
   let { disabled, initialFilters, options, reset, search }: Props = $props();
+  const numericFilterKeys = [
+    "minPrice",
+    "maxPrice",
+    "guests",
+    "bedrooms",
+    "beds",
+    "bathrooms",
+  ] as const;
   let draft: CatalogFilters = $state(
     untrack(() => copyFilters(initialFilters))
   );
 
   function copyFilters(filters: CatalogFilters): CatalogFilters {
-    return {
+    const copy = {
       ...filters,
       amenities: [...filters.amenities],
     };
+
+    for (const key of numericFilterKeys) {
+      copy[key] = String(copy[key] ?? "").trim();
+    }
+
+    return copy;
   }
 
   function copyDraft(): CatalogFilters {

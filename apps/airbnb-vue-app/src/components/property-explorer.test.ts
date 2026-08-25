@@ -82,6 +82,42 @@ describe("PropertyExplorer integration", () => {
     }
   });
 
+  it("applies advanced filters together and reloads from page one", async () => {
+    const wrapper = mount(PropertyExplorer, {
+      attachTo: document.body,
+    });
+
+    try {
+      await flushPromises();
+
+      await wrapper.find('input[name="minPrice"]').setValue("500000");
+      await wrapper.find('input[name="maxPrice"]').setValue("1500000");
+      await wrapper.find('input[name="guests"]').setValue("4");
+      await wrapper.find('input[name="bedrooms"]').setValue("2");
+      await wrapper.find('input[name="beds"]').setValue("2");
+      await wrapper.find('input[name="bathrooms"]').setValue("2");
+      await wrapper.find('input[value="amenity_wifi"]').setValue(true);
+      await wrapper.find("form").trigger("submit");
+      await flushPromises();
+
+      expect(catalogMocks.fetchPropertyPage).toHaveBeenLastCalledWith(
+        expect.objectContaining({
+          amenities: ["amenity_wifi"],
+          bathrooms: "2",
+          bedrooms: "2",
+          beds: "2",
+          guests: "4",
+          maxPrice: "1500000",
+          minPrice: "500000",
+        }),
+        1
+      );
+      expect(window.location.search).toContain("amenities=amenity_wifi");
+    } finally {
+      wrapper.unmount();
+    }
+  });
+
   it("loads a property detail page directly from its slug", async () => {
     window.history.replaceState(null, "", `/properties/${property.slug}`);
     const wrapper = mount(PropertyExplorer, {
