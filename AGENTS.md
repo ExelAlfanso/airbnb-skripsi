@@ -6,7 +6,7 @@ Repository-wide instructions for agents working in `behance-skripsi`.
 
 Before planning, reviewing, or changing anything in this repository:
 
-1. Inventory and read every file under `docs/skripsi-docs/` completely. These thesis documents define the research question, scope, variables, and experimental method.
+1. Inventory and read every authored source file under `apps/skripsi-exel/` completely. At minimum, read its `README.md`, `skripsi.tex`, chapter `.tex` files, bibliography, document class, and style files. These thesis sources define the research question, scope, variables, and experimental method. LaTeX build artifacts such as `.aux`, `.lof`, `.log`, `.lot`, `.out`, `.pdf`, `.synctex.gz`, and `.toc` are generated outputs rather than mandatory context; inspect the rendered PDF when the task concerns thesis content or layout.
 2. Read every other documentation artifact under `docs/` except the entire `docs/frontend-reference/` subtree. Also read `DESIGN.md` and `.agents/qa-project-context.md`.
 3. Never open, inspect, list individually, process, or use files under `docs/frontend-reference/` unless the user explicitly asks for those references in the current task.
 4. Read the task-relevant source, tests, configuration, package README, and nearest nested `AGENTS.md`. More-specific `AGENTS.md` files override this file within their directories.
@@ -41,10 +41,10 @@ Preserve these invariants:
 | `apps/airbnb-svelte-app`              | Svelte 5 + TypeScript + Vite frontend, served locally on port 5173.                                             |
 | `apps/airbnb-react-app`               | React + TypeScript + Vite parity/reference frontend, served locally on port 3002.                               |
 | `apps/api`                            | ElysiaJS API; Bun locally on port 3001 and Cloudflare Worker when deployed.                                     |
+| `apps/skripsi-exel`                   | XeLaTeX source for the thesis proposal; `skripsi.tex` is the active document entrypoint.                        |
 | `packages/db`                         | Drizzle schema, migrations, and deterministic catalog seed for SQLite-compatible Cloudflare D1.                 |
 | `packages/r2`                         | R2/S3-compatible client utilities; not currently part of the deployed catalog because images use external URLs. |
 | `tests/performance/lighthouse`        | Lighthouse CI configuration and common performance budgets.                                                     |
-| `docs/skripsi-docs`                   | Thesis proposal and research methodology; mandatory reading.                                                    |
 | `docs/00-*.md` through `docs/06-*.md` | Early backend domain, contract, and architecture blueprint.                                                     |
 | `DESIGN.md`                           | Allowed text design-system artifact and visual implementation source.                                           |
 
@@ -52,7 +52,7 @@ This is a pnpm 10 workspace. Root scripts orchestrate workspace packages; the AP
 
 ## Source-of-truth rules
 
-- The thesis proposal and accepted research constraints govern experiment design and parity.
+- The thesis proposal under `apps/skripsi-exel` and accepted research constraints govern experiment design and parity. Treat `skripsi.tex` and the chapter files it includes as the active manuscript; template files and README guidance do not override the compiled document.
 - Executable source, tests, package manifests, current READMEs, migrations, and seed files govern the implemented system.
 - The documents in `docs/00-*.md` through `docs/06-*.md` are an early blueprint. They still define the intended domain and API behavior, but their PostgreSQL statements are stale: the current implementation targets Cloudflare D1/SQLite through Drizzle, with an in-memory SQLite database for local API development.
 - When documentation and implementation disagree, do not silently choose one. Preserve current behavior unless the task asks for a migration, and update or flag stale documentation as appropriate.
@@ -84,6 +84,7 @@ For property queries, preserve:
 - For Svelte work, follow `apps/airbnb-svelte-app/AGENTS.md` and the required Svelte skills/tools.
 - For React work, use the repository React best-practices skill and idiomatic function components with TypeScript. The React app uses plain CSS: do not add Tailwind, a component library, a routing library, or a state-management library unless the user explicitly changes that constraint.
 - For API work, follow `apps/api/AGENTS.md`, keep `src/app.ts` exporting `app` and `App`, keep runtime startup in `src/index.ts`, and keep Worker composition compatible with `src/worker.ts`.
+- For thesis work, edit authored sources under `apps/skripsi-exel`, keep `skripsi.tex` as the build entrypoint, and use XeLaTeX through `latexmk`. Do not hand-edit or commit LaTeX build artifacts ignored by `apps/skripsi-exel/.gitignore`; render the PDF and inspect affected pages when content or layout changes.
 - Keep HTTP concerns in Elysia modules, domain behavior in services, and persistence behind the repository contract.
 - Schema changes require a reviewed migration and deterministic seed compatibility. Do not hand-edit Drizzle metadata or generated snapshots unless the migration workflow requires it.
 - Do not provision, deploy, destroy, or load-test Cloudflare resources without explicit user authorization. Never target production implicitly; performance scripts must receive an explicit environment URL.
@@ -114,6 +115,7 @@ pnpm --filter @airbnb-skripsi/api check
 pnpm --filter @airbnb-skripsi/api test
 pnpm --filter @airbnb-skripsi/db check
 pnpm --filter @airbnb-skripsi/r2 check
+cd apps/skripsi-exel && latexmk -xelatex skripsi.tex
 ```
 
 Use the Lighthouse commands documented in `tests/performance/README.md` only when frontend performance measurement is in scope. Run both study frontend configurations under identical conditions for comparative results. Treat any React measurement as separate reference data unless the thesis method is formally expanded.
