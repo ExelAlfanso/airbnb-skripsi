@@ -240,13 +240,6 @@ export default function PropertyExplorer() {
           </span>
           <span translate="no">Airbnb</span>
         </a>
-        <p>
-          Prototipe listing
-          <span aria-hidden="true" className="site-header__separator">
-            /
-          </span>
-          Studi kasus Airbnb
-        </p>
       </header>
 
       <main className="container" id="main-content">
@@ -266,35 +259,12 @@ export default function PropertyExplorer() {
             <section aria-labelledby="hero-title" className="hero">
               <div className="hero__intro">
                 <div className="hero__copy-block">
-                  <p className="hero__eyebrow">Eksperimen frontend skripsi</p>
-                  <h1 id="hero-title">
-                    Temukan tempat singgah.
-                    <span className="hero__accent">Bandingkan tanpa bias.</span>
-                  </h1>
+                  <h1 id="hero-title">Temukan tempat singgah.</h1>
                   <p className="hero__copy">
-                    Jelajahi prototipe listing akomodasi dengan pencarian,
-                    filter, dan detail yang setara pada implementasi Vue dan
-                    Svelte.
+                    Cari akomodasi dengan pencarian dan filter, lalu lihat
+                    informasi lengkap setiap properti.
                   </p>
                 </div>
-
-                <aside
-                  aria-label="Konteks penelitian"
-                  className="research-rail"
-                >
-                  <div>
-                    <span>Dataset</span>
-                    <strong>Dummy deterministik</strong>
-                  </div>
-                  <div>
-                    <span>API</span>
-                    <strong>Respons yang sama</strong>
-                  </div>
-                  <div>
-                    <span>Frontend</span>
-                    <strong>Vue + Svelte</strong>
-                  </div>
-                </aside>
               </div>
 
               <SearchFilters
@@ -322,16 +292,6 @@ export default function PropertyExplorer() {
           </>
         )}
       </main>
-
-      <footer className="site-footer">
-        <p>
-          <strong>Prototipe akademik</strong>
-        </p>
-        <p>
-          Data dummy deterministik <span aria-hidden="true">{"\u00b7"}</span>{" "}
-          Tanpa pemesanan atau transaksi
-        </p>
-      </footer>
     </div>
   );
 }

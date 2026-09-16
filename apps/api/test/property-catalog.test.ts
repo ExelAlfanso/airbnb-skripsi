@@ -9,7 +9,7 @@ describe("property catalog routes", () => {
     const body = await response.json();
 
     expect(response.status).toBe(200);
-    expect(body.data).toHaveLength(6);
+    expect(body.data).toHaveLength(12);
     expect(body.data[0]).toMatchObject({
       id: "prop_004",
       title: "Kabin Kayu Tenang di Kaliurang",
@@ -23,9 +23,9 @@ describe("property catalog routes", () => {
     expect(body.meta).toEqual({
       page: 1,
       limit: 12,
-      total: 6,
-      totalPages: 1,
-      hasMore: false,
+      total: 36,
+      totalPages: 3,
+      hasMore: true,
     });
   });
 

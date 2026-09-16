@@ -10,6 +10,7 @@
   "scripts": {
     "dev": "pnpm -r --parallel dev",
     "dev:api": "pnpm --filter @airbnb-skripsi/api dev",
+    "dev:lighthouse-dashboard": "pnpm --filter @airbnb-skripsi/lighthouse-dashboard dev",
     "dev:react": "pnpm --filter @airbnb-skripsi/react-app dev",
     "dev:vue": "pnpm --filter @airbnb-skripsi/vue-app dev",
     "dev:svelte": "pnpm --filter @airbnb-skripsi/svelte-app dev",

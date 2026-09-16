@@ -238,11 +238,6 @@
       <span class="brand__mark" aria-hidden="true">A</span>
       <span translate="no">Airbnb</span>
     </a>
-    <p>
-      Prototipe listing
-      <span class="site-header__separator" aria-hidden="true">/</span>
-      Studi kasus Airbnb
-    </p>
   </header>
 
   <main id="main-content" class="container">
@@ -268,22 +263,12 @@
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero__intro">
           <div class="hero__copy-block">
-            <p class="hero__eyebrow">Eksperimen frontend skripsi</p>
-            <h1 id="hero-title">
-              Temukan tempat singgah.
-              <span>Bandingkan tanpa bias.</span>
-            </h1>
+            <h1 id="hero-title">Temukan tempat singgah.</h1>
             <p class="hero__copy">
-              Jelajahi prototipe listing akomodasi dengan pencarian, filter, dan
-              detail yang setara pada implementasi Vue dan Svelte.
+              Cari akomodasi dengan pencarian dan filter, lalu lihat informasi
+              lengkap setiap properti.
             </p>
           </div>
-
-          <aside class="research-rail" aria-label="Konteks penelitian">
-            <div><span>Dataset</span><strong>Dummy deterministik</strong></div>
-            <div><span>API</span><strong>Respons yang sama</strong></div>
-            <div><span>Frontend</span><strong>Vue + Svelte</strong></div>
-          </aside>
         </div>
 
         {#key filterFormKey}
@@ -355,12 +340,4 @@
       </section>
     {/if}
   </main>
-
-  <footer class="site-footer">
-    <p><strong>Prototipe akademik</strong></p>
-    <p>
-      Data dummy deterministik <span aria-hidden="true">&middot;</span>
-      Tanpa pemesanan atau transaksi
-    </p>
-  </footer>
 </div>

@@ -91,8 +91,7 @@ select:disabled {
 }
 
 .container,
-.site-header,
-.site-footer {
+.site-header {
   width: min(100% - 2rem, 80rem);
   margin-inline: auto;
 }
@@ -142,10 +141,6 @@ select:disabled {
   text-decoration: none;
 }
 
-.site-header__separator {
-  margin-inline: 0.35rem;
-}
-
 .brand__mark {
   display: grid;
   place-items: center;
@@ -161,14 +156,9 @@ select:disabled {
 }
 
 .hero__intro {
-  display: grid;
-  grid-template-columns: minmax(0, 1.65fr) minmax(16rem, 0.65fr);
-  gap: clamp(2rem, 6vw, 6rem);
-  align-items: end;
   margin-bottom: 2.25rem;
 }
 
-.hero__eyebrow,
 .results__eyebrow {
   margin: 0 0 0.65rem;
   font-size: 0.76rem;
@@ -188,44 +178,12 @@ select:disabled {
   text-wrap: balance;
 }
 
-.hero__accent {
-  display: block;
-  color: var(--brand);
-}
-
 .hero__copy {
   max-width: 42rem;
   margin: 1.5rem 0 0;
   font-size: clamp(1rem, 2vw, 1.18rem);
   line-height: 1.65;
   color: var(--muted);
-}
-
-.research-rail {
-  border-block: 1px solid var(--ink);
-}
-
-.research-rail div {
-  display: grid;
-  gap: 0.2rem;
-  padding: 0.85rem 0;
-}
-
-.research-rail div + div {
-  border-top: 1px solid var(--border);
-}
-
-.research-rail span {
-  font-family: ui-monospace, "Cascadia Code", "SFMono-Regular", monospace;
-  font-size: 0.7rem;
-  font-weight: 700;
-  color: var(--muted);
-  text-transform: uppercase;
-  letter-spacing: 0.09em;
-}
-
-.research-rail strong {
-  font-size: 0.95rem;
 }
 
 .search-panel {
@@ -844,25 +802,6 @@ select:disabled {
   font-weight: 700;
 }
 
-.price-card__note {
-  margin: 1rem 0 0;
-  font-size: 0.82rem;
-  line-height: 1.5;
-  color: var(--muted);
-}
-
-.site-footer {
-  padding: 1.5rem 0 2.5rem;
-  font-size: 0.82rem;
-  color: var(--muted);
-  border-top: 1px solid var(--border);
-}
-
-.site-footer p {
-  margin: 0.2rem 0;
-  text-align: center;
-}
-
 @keyframes shimmer {
   to {
     background-position-x: -200%;
@@ -870,13 +809,8 @@ select:disabled {
 }
 
 @media (max-width: 900px) {
-  .hero__intro,
   .detail__layout {
     grid-template-columns: 1fr;
-  }
-
-  .hero__intro {
-    gap: 2rem;
   }
 
   .search-panel__primary,
@@ -905,10 +839,6 @@ select:disabled {
     align-items: flex-start;
     justify-content: center;
     padding-block: 1rem;
-  }
-
-  .site-header > p {
-    text-align: left;
   }
 
   .hero h1 {

@@ -185,7 +185,7 @@ export async function fetchCatalogOptions(): Promise<CatalogOptions> {
 export async function fetchPropertyPage(
   filters: CatalogFilters,
   page: number,
-  limit = 4
+  limit = 6
 ): Promise<PaginatedResponse<PropertyListItem>> {
   const response = await api.properties.get({
     $query: buildQuery(filters, page, limit),

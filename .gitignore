@@ -13,3 +13,4 @@ build
 .alchemy/
 artifacts/
 .lighthouseci/
+tmp/

@@ -141,10 +141,6 @@ export default function PropertyDetail({
               <dd>{property.rating.toFixed(1)} / 5</dd>
             </div>
           </dl>
-          <p className="price-card__note">
-            Tampilan eksperimen saja. Pemesanan dan pembayaran tidak termasuk
-            ruang lingkup penelitian.
-          </p>
         </aside>
       </div>
     </article>

@@ -1,0 +1,14 @@
+[project]
+name = "pengujian-python"
+version = "0.1.0"
+description = "Notebook analisis statistik pengujian VueJS dan Svelte."
+requires-python = ">=3.12"
+dependencies = [
+    "ipykernel>=7.0.0",
+    "jupyterlab>=4.0.0",
+    "matplotlib>=3.10.0",
+    "pandas>=2.3.0",
+    "scipy>=1.16.0",
+    "statsmodels>=0.14.0",
+]
+
