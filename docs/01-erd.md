@@ -4,7 +4,7 @@
 
 Entity Relationship Diagram dirancang untuk memodelkan domain listing properti Airbnb-like. Model ini mendukung kebutuhan listing page, detail page, search, filter, sorting, pagination, dan interaksi wishlist simulasi pada frontend.
 
-ERD ini menjadi dasar schema PostgreSQL yang didefinisikan dengan Drizzle ORM pada package `packages/db`. Nama entity pada dokumen ini merepresentasikan tabel utama yang akan di-query oleh backend Elysia melalui repository layer.
+ERD ini menggambarkan schema SQLite yang dipakai Cloudflare D1 dan didefinisikan dengan Drizzle ORM di `packages/db/schemas/index.ts`. Nama entity pada diagram mengikuti nama tabel aktual di database.
 
 ## Entity
 
@@ -115,7 +115,7 @@ Field minimal:
 - propertyId
 - isWishlisted
 
-Untuk prototipe, state yang diubah pengguna dikelola secara lokal pada frontend. Data `WishlistState` atau tabel `wishlistStates` dapat digunakan untuk menyediakan nilai awal yang konsisten, tetapi tidak menjadi sumber penyimpanan permanen dan tidak memerlukan endpoint mutasi wishlist.
+Untuk prototipe, state yang diubah pengguna dikelola secara lokal pada frontend. Tabel `wishlist_states` hanya menyediakan nilai awal yang konsisten dari seed, bukan penyimpanan perubahan pengguna, dan tidak memerlukan endpoint mutasi wishlist.
 
 Aturan wishlist dummy:
 
@@ -157,81 +157,83 @@ Relasi antar entity adalah sebagai berikut:
 
 ```mermaid
 erDiagram
-  PROPERTY {
-    string id
-    string title
-    string slug
-    string description
-    string locationId
-    string propertyTypeId
-    string hostId
-    number pricePerNight
-    number rating
-    number reviewCount
-    number maxGuests
-    number bedrooms
-    number beds
-    number bathrooms
-    boolean isGuestFavorite
-    string createdAt
-    string updatedAt
+  locations {
+    TEXT id PK
+    TEXT city
+    TEXT province
+    TEXT country
+    TEXT display_name
   }
 
-  LOCATION {
-    string id
-    string city
-    string province
-    string country
-    string displayName
+  property_types {
+    TEXT id PK
+    TEXT name
+    TEXT slug UK
   }
 
-  PROPERTY_TYPE {
-    string id
-    string name
-    string slug
+  hosts {
+    TEXT id PK
+    TEXT name
+    TEXT avatar_url
+    INTEGER joined_year
+    INTEGER is_superhost "boolean, default false"
   }
 
-  HOST {
-    string id
-    string name
-    string avatarUrl
-    number joinedYear
-    boolean isSuperhost
+  amenities {
+    TEXT id PK
+    TEXT name UK
+    TEXT icon_name
   }
 
-  AMENITY {
-    string id
-    string name
-    string iconName
+  properties {
+    TEXT id PK
+    TEXT title
+    TEXT slug UK
+    TEXT description
+    TEXT location_id FK
+    TEXT property_type_id FK
+    TEXT host_id FK
+    INTEGER price_per_night
+    REAL rating
+    INTEGER review_count "default 0"
+    INTEGER max_guests
+    INTEGER bedrooms
+    INTEGER beds
+    INTEGER bathrooms
+    INTEGER is_guest_favorite "boolean, default false"
+    TEXT created_at
+    TEXT updated_at
   }
 
-  PROPERTY_AMENITY {
-    string propertyId
-    string amenityId
+  property_images {
+    TEXT id PK
+    TEXT property_id FK
+    TEXT image_url
+    TEXT alt_text
+    INTEGER sort_order "default 0"
+    INTEGER is_cover "boolean, default false"
   }
 
-  PROPERTY_IMAGE {
-    string id
-    string propertyId
-    string imageUrl
-    string altText
-    number sortOrder
-    boolean isCover
+  property_amenities {
+    TEXT property_id PK
+    TEXT amenity_id PK
   }
 
-  WISHLIST_STATE {
-    string propertyId
-    boolean isWishlisted
+  wishlist_states {
+    TEXT property_id PK
+    INTEGER is_wishlisted "boolean, default false"
   }
 
-  PROPERTY ||--o{ PROPERTY_IMAGE : has
-  LOCATION ||--o{ PROPERTY : contains
-  PROPERTY_TYPE ||--o{ PROPERTY : categorizes
-  HOST ||--o{ PROPERTY : owns
-  PROPERTY ||--o{ PROPERTY_AMENITY : has
-  AMENITY ||--o{ PROPERTY_AMENITY : belongs_to
-  PROPERTY ||--o| WISHLIST_STATE : simulates
+  locations ||--o{ properties : contains
+  property_types ||--o{ properties : categorizes
+  hosts ||--o{ properties : hosts
+  properties ||--o{ property_images : has
+  properties ||--o{ property_amenities : has
+  amenities ||--o{ property_amenities : includes
+  properties ||--o| wishlist_states : seeds
 ```
+
+`PK` = primary key, `FK` = foreign key, dan `UK` = unique. Semua kolom `NOT NULL`; boolean disimpan sebagai `INTEGER` (0/1). `property_amenities` memakai primary key gabungan (`property_id`, `amenity_id`), dan kedua kolomnya juga foreign key. `wishlist_states.property_id` juga sekaligus foreign key.
 
 ## Alasan Desain ERD
 

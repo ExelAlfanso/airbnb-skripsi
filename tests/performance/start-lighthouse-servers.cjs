@@ -1,13 +1,15 @@
 "use strict";
 
 const { spawn } = require("node:child_process");
+const { createServer } = require("node:net");
 const { setTimeout: delay } = require("node:timers/promises");
 
 const API_PACKAGE = "@airbnb-skripsi/api";
 const API_URL = "http://localhost:3001/health";
 const READY_RETRY_COUNT = 60;
 const READY_RETRY_DELAY_MS = 500;
-const [frontendPackage, frontendUrl] = process.argv.slice(2);
+const [frontendPackage, frontendUrl, secondPackage, secondUrl] =
+  process.argv.slice(2);
 
 if (!(frontendPackage && frontendUrl)) {
   throw new Error("Expected a frontend package and URL");
@@ -20,13 +22,11 @@ const spawnOptions = {
   stdio: "inherit",
   windowsHide: true,
 };
-const servers = [API_PACKAGE, frontendPackage].map((packageName) => {
-  const args = isWindows
-    ? ["/d", "/s", "/c", "pnpm", "--filter", packageName, "start"]
-    : ["--filter", packageName, "start"];
-
-  return spawn(executable, args, spawnOptions);
-});
+const frontends =
+  secondPackage && secondUrl
+    ? [frontendPackage, secondPackage]
+    : [frontendPackage];
+let servers = [];
 
 function stopServers() {
   for (const server of servers) {
@@ -51,26 +51,45 @@ async function waitUntilReady(url) {
   throw new Error(`Server did not become ready: ${url}`);
 }
 
-const exitedEarly = Promise.race(
-  servers.map(
-    (server) =>
-      new Promise((_, reject) => {
-        server.once("error", reject);
-        server.once("exit", (code) =>
-          reject(new Error(`Server exited before readiness with code ${code}`))
-        );
-      })
-  )
-);
+function assertPortFree(url) {
+  const port = Number(new URL(url).port);
+  return new Promise((resolve, reject) => {
+    const probe = createServer();
+    probe.once("error", () =>
+      reject(new Error(`Port ${port} sudah digunakan`))
+    );
+    probe.listen(port, "127.0.0.1", () => probe.close(resolve));
+  });
+}
 
-Promise.race([
-  Promise.all([waitUntilReady(API_URL), waitUntilReady(frontendUrl)]),
-  exitedEarly,
-]).then(
-  () => process.stdout.write("LHCI_READY\n"),
-  (error) => {
-    process.stderr.write(`${error.message}\n`);
-    stopServers();
-    process.exitCode = 1;
-  }
-);
+async function main() {
+  const urls = [API_URL, frontendUrl, ...(secondUrl ? [secondUrl] : [])];
+  await Promise.all(urls.map(assertPortFree));
+  servers = [API_PACKAGE, ...frontends].map((packageName) => {
+    const args = isWindows
+      ? ["/d", "/s", "/c", "pnpm", "--filter", packageName, "start"]
+      : ["--filter", packageName, "start"];
+    return spawn(executable, args, spawnOptions);
+  });
+  const exitedEarly = Promise.race(
+    servers.map(
+      (server) =>
+        new Promise((_, reject) => {
+          server.once("error", reject);
+          server.once("exit", (code) =>
+            reject(
+              new Error(`Server exited before readiness with code ${code}`)
+            )
+          );
+        })
+    )
+  );
+  await Promise.race([Promise.all(urls.map(waitUntilReady)), exitedEarly]);
+  process.stdout.write("LHCI_READY\n");
+}
+
+main().catch((error) => {
+  process.stderr.write(`${error.message}\n`);
+  stopServers();
+  process.exitCode = 1;
+});

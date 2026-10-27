@@ -15,6 +15,10 @@ function createLighthouseConfig({ artifactName, frontendPackage, url }) {
             "error",
             { aggregationMethod: AGGREGATION_METHOD, maxNumericValue: 0.1 },
           ],
+          "first-contentful-paint": [
+            "error",
+            { aggregationMethod: AGGREGATION_METHOD, maxNumericValue: 1800 },
+          ],
           interactive: [
             "error",
             { aggregationMethod: AGGREGATION_METHOD, maxNumericValue: 5000 },
@@ -30,6 +34,10 @@ function createLighthouseConfig({ artifactName, frontendPackage, url }) {
               maxNumericValue: 150_000,
             },
           ],
+          "speed-index": [
+            "error",
+            { aggregationMethod: AGGREGATION_METHOD, maxNumericValue: 3400 },
+          ],
           "total-blocking-time": [
             "error",
             { aggregationMethod: AGGREGATION_METHOD, maxNumericValue: 200 },
@@ -37,7 +45,7 @@ function createLighthouseConfig({ artifactName, frontendPackage, url }) {
         },
       },
       collect: {
-        numberOfRuns: 3,
+        numberOfRuns: 20,
         settings: {
           preset: "desktop",
           ...(process.env.LIGHTHOUSE_CHROME_PORT

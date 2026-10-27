@@ -13,9 +13,12 @@ Both frontend suites cover the same journey: initial list, search, local wishlis
 
 ## 2. Run Lighthouse CI
 
-Each command builds the target app, starts the local API plus production preview, performs three desktop runs, enforces the same budgets against the median, and writes ignored artifacts under `artifacts/lighthouse`.
+Each command builds the target app, starts the local API plus production preview, performs twenty desktop runs, enforces the same budgets against the median, and writes ignored artifacts under `artifacts/lighthouse`.
+
+For the thesis paired analysis, run `pnpm perf:lighthouse:paired`. It builds both study frontends, checks the five UX task flows (location and guests, combined filters, cheapest price, search to wishlist and back, and load more) once per framework, then collects 20 blocks with one Vue and one Svelte Lighthouse report per block. Framework order alternates between blocks. The flow checks are recorded in `artifacts/lighthouse/paired/journey-checks.json`; they only verify that the tasks work and are not Lighthouse measurements or participant UX results. The paired Lighthouse reports and their `pair_id` values are saved in the same directory; the older separate batches are not paired data.
 
 ```sh
+pnpm perf:lighthouse:paired
 pnpm perf:lighthouse:vue
 pnpm perf:lighthouse:svelte
 pnpm perf:lighthouse:react
@@ -26,7 +29,9 @@ Budgets:
 | Metric                   |                 Gate |
 | ------------------------ | -------------------: |
 | Performance score        |        at least 0.90 |
+| FCP                      |      at most 1800 ms |
 | LCP                      |      at most 2500 ms |
+| Speed Index              |      at most 3400 ms |
 | CLS                      |         at most 0.10 |
 | TBT                      |       at most 200 ms |
 | Time to Interactive      |      at most 5000 ms |

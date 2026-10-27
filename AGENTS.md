@@ -33,6 +33,12 @@ Preserve these invariants:
 - Evaluate production builds under controlled, repeated conditions. Alternate framework run order and report a central value plus variability; do not infer conclusions from one run.
 - Lighthouse TBT is a laboratory responsiveness proxy, not field INP. Scripted/session INP is not population field data. External image delivery is a shared source of variance.
 
+## Journal reference recency
+
+- Search for journal articles published within the five calendar years up to the manuscript year (for the 2026 thesis: 2021–2026) when adding or replacing research references.
+- Audit the publication year of every journal article cited in the active thesis and study documentation. Replace older journal articles with relevant recent articles before relying on them; verify the author, title, year, DOI or publisher page, and the specific claim supported. Do not invent a substitute citation or transfer a claim to a source that does not support it.
+- Apply the five-year limit to journal articles. Identify standards, official instrument handbooks, and software documentation by their own source type instead of presenting them as recent journal research.
+
 ## Current repository map
 
 | Path                                  | Purpose                                                                                                         |

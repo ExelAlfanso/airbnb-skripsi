@@ -20,6 +20,7 @@
     "test:frontends": "pnpm --parallel --filter @airbnb-skripsi/vue-app --filter @airbnb-skripsi/svelte-app --filter @airbnb-skripsi/react-app test",
     "perf:lighthouse:vue": "pnpm --filter @airbnb-skripsi/vue-app build && node tests/performance/run-lighthouse.cjs tests/performance/lighthouse/vue.lighthouserc.cjs",
     "perf:lighthouse:svelte": "pnpm --filter @airbnb-skripsi/svelte-app build && node tests/performance/run-lighthouse.cjs tests/performance/lighthouse/svelte.lighthouserc.cjs",
+    "perf:lighthouse:paired": "pnpm --filter @airbnb-skripsi/vue-app build && pnpm --filter @airbnb-skripsi/svelte-app build && node tests/performance/run-paired-lighthouse.cjs",
     "perf:lighthouse:react": "pnpm --filter @airbnb-skripsi/react-app build && node tests/performance/run-lighthouse.cjs tests/performance/lighthouse/react.lighthouserc.cjs",
     "perf:inp": "node tests/performance/inp/run-inp.cjs",
     "prepare": "lefthook install"
